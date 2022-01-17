@@ -1,9 +1,10 @@
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@500&display=swap');
+
 html,
 body {
   padding: 0;
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
-    Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
+  font-family: 'Open Sans', sans-serif !important;
 }
 
 a {
@@ -13,4 +14,106 @@ a {
 
 * {
   box-sizing: border-box;
+}
+
+#__next {
+  height: 100%;
+}
+
+.center {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+}
+
+.ant-typography {
+  font-size: 14px !important;
+}
+
+.antDateType {
+  font-size: 14px !important;
+}
+
+
+.ant-popover {
+  width: 300px;
+
+}
+
+.ant-popover-inner-content {
+  background-color: #f5f3f3;
+}
+
+
+.space-badge-user {
+  gap: 0px !important;
+}
+
+.button-card-ressrource {
+  font-size: 17px !important;
+}
+
+.ant-divider-horizontal {
+  margin: '10px 0'
+}
+
+.site-layout-content {
+  min-height: 280px;
+  padding: 24px;
+  background: #fff;
+}
+
+#components-layout-demo-top .logo {
+  float: left;
+  width: 120px;
+  height: 31px;
+  margin: 16px 24px 16px 0;
+  background: rgba(255, 255, 255, 0.3);
+}
+
+.ant-row-rtl #components-layout-demo-top .logo {
+  float: right;
+  margin: 16px 0 16px 24px;
+}
+
+.site-layout-background {
+  background: #fff !important;
+}
+
+.progressMedium {
+  width: 400px !important;
+  margin-bottom: 10px !important;
+
+}
+
+.progressMedium.ant-progress-text {
+  color: orange !important;
+}
+
+.progressStrong {
+  width: 420px !important;
+  margin-bottom: 10px !important;
+}
+
+.progressFalse {
+  margin-bottom: 10px !important;
+  width: 380px !important;
+}
+
+.progressMedium.ant-progress-text {
+  color: red !important;
+}
+.formItemPassword {
+  margin-bottom: 0px!important;
+}
+.formItemPassword .ant-form-item-explain{
+  min-height: 0px!important;
+}
+.defaultMarginPassword{
+  margin-bottom: 20px!important;
+}
+
+.modalUpdateUser .ant-modal-title{
+  text-align: center;
 }
