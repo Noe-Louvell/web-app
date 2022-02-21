@@ -1,41 +1,30 @@
 import * as React from 'react';
 import { Layout as LayoutAntd } from 'antd';
 import Menu from '../Menu/Menu';
+import { MenuSider } from '../MenuSider/MenuSider';
+import { HeaderLayout } from '../HeaderLayout/HeaderLayout';
+import { ContactSider } from '../ContactSider/ContactSider';
 
 const { Header, Footer, Sider, Content } = LayoutAntd;
 
 
 interface IModalFormSite {
-    siderContent? : React.ReactNode
+    siderContent?: React.ReactNode
 }
 
 const Layout: React.FunctionComponent<IModalFormSite> = ({ children, siderContent }) => {
 
     return (
-        <LayoutAntd className="layout">
-            <Header>
-                <Menu/>
-            </Header>
-            <LayoutAntd>
-                <Content style={{ padding: '50px' }}>
-                    <div className="site-layout-content">
-                        <div className='center'>
-                            {children}
-                        </div>
-                    </div>
-                </Content>
-                {siderContent && (
-                    <Sider
-                        className="site-layout-background"
-                        width={250}
-                    >
-                        <div className='center'>
-                            {siderContent}
-                        </div>
-                    </Sider>
-                )}
+        <LayoutAntd hasSider style={{height:'100%'}}>
+
+
+            <MenuSider />
+            <LayoutAntd >
+                <HeaderLayout/>
+                <Content>Content</Content>
+                <Footer style={{ textAlign: 'center' }}>Ant Design ©2018 Created by Ant UED</Footer>
             </LayoutAntd>
-            <Footer style={{ textAlign: 'center' }}>Oui oui les cred ©2022</Footer>
+            <ContactSider />
         </LayoutAntd >
     );
 };

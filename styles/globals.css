@@ -104,16 +104,98 @@ a {
 .progressMedium.ant-progress-text {
   color: red !important;
 }
+
 .formItemPassword {
-  margin-bottom: 0px!important;
-}
-.formItemPassword .ant-form-item-explain{
-  min-height: 0px!important;
-}
-.defaultMarginPassword{
-  margin-bottom: 20px!important;
+  margin-bottom: 0px !important;
 }
 
-.modalUpdateUser .ant-modal-title{
+.formItemPassword .ant-form-item-explain {
+  min-height: 0px !important;
+}
+
+.defaultMarginPassword {
+  margin-bottom: 20px !important;
+}
+
+.modalUpdateUser .ant-modal-title {
   text-align: center;
+}
+
+.ant-menu-item-selected {
+  color: #000091 !important;
+  background-color: #f7f4f4 !important;
+}
+
+.ant-menu-item:hover {
+  color: #000091 !important;
+  background-color: #f7f4f4 !important;
+}
+
+.ant-menu-inline .ant-menu-item::after {
+  border-color: #e1000f !important;
+}
+
+.ant-menu-submenu-selected {
+  color: #000091 !important;
+  background-color: #f7f4f4 !important;
+}
+
+.ant-menu-submenu-open {
+  color: #000091 !important;
+  background-color: #f7f4f4 !important;
+}
+
+.ant-menu-light .ant-menu-submenu-active {
+  color: #000091 !important;
+  background-color: #f7f4f4 !important;
+}
+
+.ant-menu-item:hover {
+  color: #000091 !important;
+  background-color: #f7f4f4 !important;
+}
+
+.ant-menu.ant-menu-inline-collapsed {
+  width: 100px !important;
+}
+
+.ant-btn:hover, .ant-btn:focus {
+  color: grey !important;
+  border-color: grey !important;
+}
+
+.logoMarianne {
+  width: 100% !important;
+  justify-content: center !important;
+  padding: 5px;
+}
+.ant-menu{
+  border-right: 0px!important;
+}
+
+.siderMenu {
+  
+  width: 256px!important;
+  background-color: white!important;
+}
+
+.header-layout{
+  height: 46px!important;
+  background-color: white!important;
+  padding: 0px 20px!important;
+}
+
+.header-col{
+  height: 100%!important;
+  background-color: white!important;
+  display: inline-flex!important;
+  justify-content: center;
+  align-items: center;
+}
+.header-col-user{
+  height: 100%!important;
+  background-color: white!important;
+  display: inline-flex!important;
+  justify-content:right;
+  align-items: center;
 }
