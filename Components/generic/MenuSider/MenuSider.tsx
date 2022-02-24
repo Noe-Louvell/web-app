@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { FunctionComponent, useState } from 'react';
-import { Menu, Button, Space, Layout } from 'antd';
+import { Menu, Button, Layout } from 'antd';
 import {
     MenuUnfoldOutlined,
     MenuFoldOutlined,
@@ -20,8 +20,16 @@ export const MenuSider: FunctionComponent = () => {
                 className='siderMenu'
                 collapsed={collapsed}
                 collapsedWidth={100}
+                style={{
+                    height: '100vh',
+                    zIndex: 1,
+                    position: 'sticky',
+                    left: 0,
+                    top: 0,
+                    bottom: 0,
+                }}
             >
-                    <MarianneIcon className='logoMarianne'/>
+                <MarianneIcon className='logoMarianne' />
                 <Menu
                     defaultSelectedKeys={['1']}
                     mode="inline"
@@ -35,8 +43,8 @@ export const MenuSider: FunctionComponent = () => {
                     </Menu.Item>
                     <Menu.Item key="3" icon={<DesktopOutlined />}>
                         Carte Région
-                    </Menu.Item>
-                    <Button onClick={() => setCollapsed(!collapsed)} style={{ justifyContent: 'center', width: '100%', borderWidth: 0 }}>
+                    </Menu.Item >
+                    <Button key="action" onClick={() => setCollapsed(!collapsed)} style={{ justifyContent: 'center', width: '100%', borderWidth: 0 }}>
                         {React.createElement(collapsed ? MenuUnfoldOutlined : MenuFoldOutlined)}
                     </Button>
                     {/* <SubMenu key="4" icon={<MailOutlined />} title="Mon profile">
