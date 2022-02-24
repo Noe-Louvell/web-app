@@ -38,9 +38,9 @@ const CardRessourceIndex: FunctionComponent<IPropsCardRessource> = ({ ressource 
     const onClick = () => isShowComment ? setIsShowComment(false) : setIsShowComment(true);
     return (
         
-        <Row gutter={16}>
-            <Col xs={{ span: 24 }} lg={{ span: 5 }}></Col>
-            <Col xs={{ span: 24 }} lg={{ span: 14 }}>
+        <Row gutter={16} style={{marginTop:'10px'}}>
+            <Col xs={{ span: 24 }} lg={{ span: 2 }}></Col>
+            <Col xs={{ span: 24 }} lg={{ span: 20 }}>
                 <Card
                     style={{ backgroundColor: '#fbfbfb', marginBottom: '5%', maxWidth:'1250px' }}
                 >
@@ -130,7 +130,7 @@ const CardRessourceIndex: FunctionComponent<IPropsCardRessource> = ({ ressource 
                     )}
                 </Card>
             </Col>
-            <Col xs={{ span: 24 }} lg={{ span: 5 }}></Col>
+            <Col xs={{ span: 24 }} lg={{ span: 2 }}></Col>
         </Row>
     );
 };
