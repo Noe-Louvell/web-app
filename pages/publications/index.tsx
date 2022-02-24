@@ -8,8 +8,9 @@ export default function Publications() {
     return (
         <Page
             title='Publications'
-            content={<ListRessources ressources={RessourceList} />}
-        />
+        >
+            <ListRessources ressources={RessourceList} />
+        </Page>
     );
 }
 

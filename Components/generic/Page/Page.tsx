@@ -9,13 +9,11 @@ import Head from 'next/head'
 
 interface IPropsPage {
     title: string;
-    content?: React.ReactNode
     siderContent?: React.ReactNode
 }
 
 
-const Page: FunctionComponent<IPropsPage> = ({ title, content, siderContent }) => {
-    console.log(content);
+const Page: FunctionComponent<IPropsPage> = ({ title, children, siderContent }) => {
     return (
 
         <>
@@ -23,9 +21,7 @@ const Page: FunctionComponent<IPropsPage> = ({ title, content, siderContent }) =
                 <title>{title}</title>
             </Head>
             <Layout siderContent={siderContent}>
-                {content && (
-                    content
-                )}
+                {children}
             </Layout>
         </>
     );

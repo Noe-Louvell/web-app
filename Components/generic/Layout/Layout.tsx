@@ -15,13 +15,15 @@ interface IModalFormSite {
 const Layout: React.FunctionComponent<IModalFormSite> = ({ children, siderContent }) => {
 
     return (
-        <LayoutAntd hasSider style={{height:'100%'}}>
+        <LayoutAntd hasSider style={{minHeight:'100%'}}>
 
 
-            <MenuSider />
+            <MenuSider  />
             <LayoutAntd >
                 <HeaderLayout/>
-                <Content>Content</Content>
+                <div>
+                    {children}
+                </div>
                 <Footer style={{ textAlign: 'center' }}>Ant Design ©2018 Created by Ant UED</Footer>
             </LayoutAntd>
             <ContactSider />
