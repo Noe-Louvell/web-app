@@ -6,9 +6,17 @@ import {
     MenuFoldOutlined,
     PieChartOutlined,
     DesktopOutlined,
+    MailOutlined,
+    UserOutlined,
+    CommentOutlined,
+    IdcardOutlined,
+    ReadOutlined,
+    TeamOutlined,
+    ToolOutlined,
 } from '@ant-design/icons';
 const { Sider } = Layout;
 import { MarianneIcon } from '../CustomIcon/CutomIcons';
+import SubMenu from 'antd/lib/menu/SubMenu';
 
 export const MenuSider: FunctionComponent = () => {
     const [collapsed, setCollapsed] = useState(false);
@@ -35,25 +43,22 @@ export const MenuSider: FunctionComponent = () => {
                     mode="inline"
                     inlineCollapsed={collapsed}
                 >
-                    <Menu.Item key="1" icon={<PieChartOutlined />}>
+                    <Menu.Item key="acceuil" icon={<PieChartOutlined />}>
                         Accueil
                     </Menu.Item>
-                    <Menu.Item key="2" icon={<PieChartOutlined />}>
-                        Publications
-                    </Menu.Item>
-                    <Menu.Item key="3" icon={<DesktopOutlined />}>
-                        Carte Région
-                    </Menu.Item >
+                    <SubMenu key="compte" icon={<IdcardOutlined />} title="Mon compte">
+                        <Menu.Item icon={<UserOutlined />} key="1">Profile</Menu.Item>
+                        <Menu.Item icon={<ReadOutlined />} key="2">Mes publications</Menu.Item>
+                        <Menu.Item icon={<TeamOutlined />} key="3">Mes amis</Menu.Item>
+                    </SubMenu>
+                    <SubMenu key="administration" icon={<ToolOutlined />} title="Administration">
+                        <Menu.Item icon={<TeamOutlined />} key="5">Utilisateurs</Menu.Item>
+                        <Menu.Item icon={<ReadOutlined />} key="6">Publications</Menu.Item>
+                        <Menu.Item icon={<CommentOutlined />} key="7">Commentaires</Menu.Item>
+                    </SubMenu>
                     <Button key="action" onClick={() => setCollapsed(!collapsed)} style={{ justifyContent: 'center', width: '100%', borderWidth: 0 }}>
                         {React.createElement(collapsed ? MenuUnfoldOutlined : MenuFoldOutlined)}
                     </Button>
-                    {/* <SubMenu key="4" icon={<MailOutlined />} title="Mon profile">
-                        <Menu.Item key="5">Moi</Menu.Item>
-                        <Menu.Item key="6">Mes publications</Menu.Item>
-                        <Menu.Item key="7">Mes amis</Menu.Item>
-                        <Menu.Item key="8">Options</Menu.Item>
-                    </SubMenu> */}
-
                 </Menu>
             </Sider>
         </>

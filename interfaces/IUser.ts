@@ -1,15 +1,16 @@
 export interface IUser {
-    mail_uti: string,
-    mot_de_passe_uti: string,
-    nom_uti: string,
-    prenom_uti: string,
+    mail : string,
+    mot_de_passe : string,
+    nom : string,
+    prenom : string,
     description?: string,
     avatar?: string,
     abonement?: number,
     abonnés?: number,
     publication?: number,
-    compte_actif_uti?: boolean,
-    pseudo_uti: string
+    compte_actif?: boolean,
+    pseudo?: string,
+    date_creation? : Date
 }
 
 export interface IAuteur {

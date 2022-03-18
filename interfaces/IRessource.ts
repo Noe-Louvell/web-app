@@ -7,6 +7,7 @@ export interface IRessource {
     auteur: IUser,
     commentaires?: ICommentaire[];
     date_creation: string,
+    audio: string,
     image?: string,
     like: number,
     partage?: number,

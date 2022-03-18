@@ -44,11 +44,11 @@ const LoginCreate: React.FunctionComponent = () => {
     const onFinish = async (values: IValueForm) => {
         setIsLoading(true);
         const newUtilisateur: IUser = {
-            nom_uti: values.nom,
-            prenom_uti: values.prenom,
-            pseudo_uti: values.nom,
-            mail_uti: values.email,
-            mot_de_passe_uti: values.password
+            nom: values.nom,
+            prenom: values.prenom,
+            pseudo: values.nom,
+            mail: values.email,
+            mot_de_passe: values.password
         }
         await createUtilisateur(newUtilisateur);
         form.resetFields();
