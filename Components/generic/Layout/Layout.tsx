@@ -4,6 +4,7 @@ import Menu from '../Menu/Menu';
 import { MenuSider } from '../MenuSider/MenuSider';
 import { HeaderLayout } from '../HeaderLayout/HeaderLayout';
 import { ContactSider } from '../ContactSider/ContactSider';
+import { SiderRight } from './LayoutSiderRight/SiderRight';
 
 const { Header, Footer, Sider, Content } = LayoutAntd;
 
@@ -15,20 +16,26 @@ interface IModalFormSite {
 const Layout: React.FunctionComponent<IModalFormSite> = ({ children, siderContent }) => {
 
     return (
-        <LayoutAntd hasSider style={{minHeight:'100%'}}>
-
-
-            <MenuSider  />
+        <LayoutAntd style={{ minHeight: '100%' }}>
+            <HeaderLayout />
             <LayoutAntd >
-                <HeaderLayout/>
-                <div>
+            <MenuSider />
+
+                <div style={{width:'100%'}}>
                     {children}
                 </div>
-                <Footer style={{ textAlign: 'center' }}>Ant Design ©2018 Created by Ant UED</Footer>
+                
+                {siderContent != false ? <SiderRight/> : <></>}
+
+
             </LayoutAntd>
-            <ContactSider />
+            <Footer style={{ textAlign: 'center' }}>Ant Design ©2018 Created by Ant UED</Footer>
+
         </LayoutAntd >
     );
 };
 
 export default Layout;
+{/* <Sider  className='siderRight'>
+                <ContactSider />
+            </Sider> */}

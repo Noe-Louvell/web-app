@@ -8,8 +8,9 @@ export default function Publication({publicationData}) {
     return (
         <Page
             title='Publication'
-            content={<CardRessourceIndex ressource={publicationData} />}
-        />
+        >
+            <CardRessourceIndex ressource={publicationData} />
+        </Page>
     );
 }
 

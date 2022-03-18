@@ -1,20 +1,33 @@
+import Title from 'antd/lib/typography/Title';
 import * as React from 'react';
-import Login from '../Components/generic/Login/Login';
-import { getAllUtilisateurs } from '../services/utilisateur.service';
+import Page from '../Components/generic/Page/Page';
+import ListRessources from '../Components/Ressource/ListRessources/ListRessources';
+import { RessourceList } from '../mocks/ressource.mock';
 
-export default function Home({utilisateurData}) {
-    console.log(utilisateurData)
+export default function Publications() {
     return (
-        <Login />
+        <Page
+            title='Publications'
+        >
+            <ListRessources ressources={RessourceList} />
+        </Page>
     );
 }
 
-export async function getStaticProps({ params }) {
-    const res = await  getAllUtilisateurs();
-    const utilisateurData = await res.data; 
-    return {
-        props: {
-            utilisateurData
+
+
+export function getAllRessourcesIds() {
+
+    return RessourceList.map(ressource => {
+        return {
+            params: {
+                id: ressource.id
+            }
         }
-    }
+    })
 }
+
+export function getRessourceData(id) {
+    return RessourceList.find(ressource => ressource.id === id);
+}
+
