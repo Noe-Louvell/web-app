@@ -7,6 +7,7 @@ export const Ressource1: IRessource = {
     description: " Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
     auteur: User1,
     date_creation: '17/50/2000',
+    texte: "Augmentation du prix carbu",
     image: 'https://picsum.photos/1200/1200',
     like:5478,
     partage: 200,
@@ -17,6 +18,7 @@ export const Ressource2: IRessource = {
     id:'2',
     auteur: User1,
     date_creation: '17/50/2000',
+    texte: "Nouveau bar ouverte",
     image: 'https://picsum.photos/1200/1200',
     like:25645,
     partage: 7521,
@@ -26,6 +28,7 @@ export const Ressource2: IRessource = {
 export const Ressource3: IRessource = {
     id:'3',
     description: " Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
+    texte: "Nouvelle école ouverte au sud de Rouen",
     auteur: User2,
     date_creation: '17/50/2000',
     like:20,

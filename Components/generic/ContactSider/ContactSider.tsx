@@ -4,7 +4,9 @@ import { Button, Layout, List, Row, Col, Typography, Avatar, Badge, Dropdown, Me
 import {
     SearchOutlined, UserOutlined,
 } from '@ant-design/icons';
-
+import BadgeUser from '../../User/BadgeUser/BadgeUser';
+import { UserList, User1 } from '../../../mocks/user.mock';
+import BadgeUserProfile from '../../User/BadgeUser/BadgeUserProfile';
 const { Title, Text } = Typography;
 const { Sider } = Layout;
 
@@ -17,44 +19,8 @@ export const ContactSider: FunctionComponent = () => {
         '5',
     ];
 
-    const menu = (
-        <Menu>
-            <Menu.Item>
-                <a target="_blank" rel="noopener noreferrer" href="https://www.antgroup.com">
-                    Profile
-                </a>
-            </Menu.Item>
-
-            <Menu.Item>
-                <Badge size="small" count={5} offset={[5, 0]}>
-                    <a target="_blank" rel="noopener noreferrer" href="https://www.luohanacademy.com">
-                        Amis
-                    </a>
-                </Badge>
-            </Menu.Item>
-            <Menu.Item>
-                <a target="_blank" rel="noopener noreferrer" href="https://www.luohanacademy.com">
-                    Messages
-                </a>
-            </Menu.Item>
-            <Menu.Item>
-                <a target="_blank" rel="noopener noreferrer" href="https://www.luohanacademy.com">
-                    Déconnexion
-                </a>
-            </Menu.Item>
-
-        </Menu>
-    );
-
     return (
-        <Sider
-            className='siderMenu'
-        >
-            <Dropdown overlay={menu} placement="bottomRight" arrow>
-                <Badge dot={true}>
-                    <Avatar icon={<UserOutlined />} />
-                </Badge>
-            </Dropdown>
+        <>
             <List
                 header={
                     <Row>
@@ -67,16 +33,16 @@ export const ContactSider: FunctionComponent = () => {
                     </Row>
                 }
                 footer={null}
-                dataSource={data}
+                dataSource={UserList}
                 renderItem={item => (
                     <List.Item>
                         <Space>
-                            <Avatar src={<Image src="https://joeschmoe.io/api/v1/random" style={{ width: 32 }} />} />
-                            <Text>Ant Design (default)</Text>
+                            <BadgeUser size={30} user={item} />
                         </Space>
                     </List.Item>
                 )}
             />
-        </Sider>
+        </>
+
     );
 };

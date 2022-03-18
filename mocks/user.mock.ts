@@ -11,6 +11,7 @@ export const User1: IUser = {
     abonnés: 15,
     publication: 7,
     isActif: true,
+    pseudo:'a'
 };
 
 export const User2: IUser = {
@@ -23,7 +24,8 @@ export const User2: IUser = {
     abonement: 120,
     abonnés: 530,
     publication: 50,
-    isActif: false
+    isActif: false,
+    pseudo:'a'
 };
 
 export const UserList: IUser[] = [
@@ -37,7 +39,8 @@ export const UserList: IUser[] = [
         abonement: 120,
         abonnés: 15,
         publication: 7,
-        isActif: true
+        isActif: true,
+        pseudo:'a'
     },
     {
         email: 'tohmas.back@viacesi.fr',
@@ -49,7 +52,8 @@ export const UserList: IUser[] = [
         abonement: 120,
         abonnés: 530,
         publication: 50,
-        isActif: true
+        isActif: true,
+        pseudo:'a'
     },
     {
         email: 'tohmas.back@viacesi.fr',
@@ -61,7 +65,8 @@ export const UserList: IUser[] = [
         abonement: 120,
         abonnés: 530,
         publication: 50,
-        isActif: false
+        isActif: false,
+        pseudo:'a'
     },
     {
         email: 'tohmas.back@viacesi.fr',
@@ -73,7 +78,8 @@ export const UserList: IUser[] = [
         abonement: 120,
         abonnés: 530,
         publication: 50,
-        isActif: false
+        isActif: false,
+        pseudo:'a'
     },
     {
         email: 'tohmas.back@viacesi.fr',
@@ -85,7 +91,8 @@ export const UserList: IUser[] = [
         abonement: 120,
         abonnés: 530,
         publication: 50,
-        isActif: false
+        isActif: false,
+        pseudo:'a'
     },
     {
         email: 'tohmas.back@viacesi.fr',
@@ -97,7 +104,8 @@ export const UserList: IUser[] = [
         abonement: 120,
         abonnés: 530,
         publication: 50,
-        isActif: false
+        isActif: false,
+        pseudo:'a'
     },
     {
         email: 'tohmas.back@viacesi.fr',
@@ -109,7 +117,8 @@ export const UserList: IUser[] = [
         abonement: 120,
         abonnés: 530,
         publication: 50,
-        isActif: false
+        isActif: false,
+        pseudo:'a'
     },
     {
         email: 'tohmas.back@viacesi.fr',
@@ -121,6 +130,7 @@ export const UserList: IUser[] = [
         abonement: 120,
         abonnés: 530,
         publication: 50,
-        isActif: true
+        isActif: true,
+        pseudo:'a'
     }
 ];

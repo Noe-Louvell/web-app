@@ -7,12 +7,9 @@ export default function Publications() {
     return (
         <Page
             title='Mon profile'
-            content={
-                <>
-                    <UpdateUser />
-                    <AccountUser />
-                </>
-            }
-        />
+        >
+            <UpdateUser />
+            <AccountUser />
+        </Page>
     );
 }

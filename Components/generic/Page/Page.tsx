@@ -9,7 +9,7 @@ import Head from 'next/head'
 
 interface IPropsPage {
     title: string;
-    siderContent?: React.ReactNode
+    siderContent?: boolean
 }
 
 

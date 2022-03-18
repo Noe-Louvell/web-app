@@ -5,20 +5,21 @@ import CardUserIndex from '../CardUser/CardUser';
 
 interface IPropsBadgeUser {
     user: IUser;
+    size?: number;
     date?: string;
 }
 
 const { Text } = Typography;
 
 
-const BadgeUserIndex: React.FunctionComponent<IPropsBadgeUser> = ({ user = null, date }) => {
+const BadgeUser: React.FunctionComponent<IPropsBadgeUser> = ({ user = null, date, size }) => {
     if (user === null) return null;
     return (
         <Space size='middle'>
             <Popover placement="leftTop" style={{ width: 300, backgroundColor: '#f2f2f2' }} content={<CardUserIndex user={user} />} >
                 <Badge color={user.isActif ? 'green' : 'red'} dot>
                     <Avatar
-                        size={{ xs: 45, lg: 45, xl: 45, xxl: 45 }}
+                        size= {size ? size : 45}
                         src={user.avatar} 
                     />
                 </Badge>
@@ -35,5 +36,5 @@ const BadgeUserIndex: React.FunctionComponent<IPropsBadgeUser> = ({ user = null,
     );
 };
 
-export default BadgeUserIndex;
+export default BadgeUser;
 
