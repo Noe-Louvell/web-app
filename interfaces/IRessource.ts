@@ -4,6 +4,7 @@ import { IUser } from "./IUser";
 export interface IRessource {
     id:string,
     description?: string,
+    texte?: string,
     auteur: IUser,
     commentaires?: ICommentaire[];
     date_creation: string,
