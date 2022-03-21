@@ -35,6 +35,7 @@ export const MenuSider: FunctionComponent = () => {
                     left: 0,
                     top: 0,
                     bottom: 0,
+                    marginTop:'-40px !important'
                 }}
             >
                 <MarianneIcon className='logoMarianne' />

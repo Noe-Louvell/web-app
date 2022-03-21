@@ -43,8 +43,7 @@ export const HeaderLayout: FunctionComponent = () => {
     return (
         <Header className='header-layout'>
             <Row style={{ height: '100%' }} gutter={16} justify="space-between">
-                <Col className='header-col' span={2}> <MarianneIcon className='logoMarianne' /></Col>
-                <Col className='header-col' span={20}><Title level={3} style={{ marginBottom: '0px!important', fontSize: '17px!important' }}>Ressources Relationnelles</Title></Col>
+                <Col className='header-col' span={22}><Title level={3} style={{ marginBottom: '0px!important', fontSize: '17px!important' }}>Ressources Relationnelles</Title></Col>
                 <Col className='header-col' span={2}>
                     <Dropdown overlay={menu} placement="bottomRight" arrow>
                         <BadgeUserProfile user={User1} />
