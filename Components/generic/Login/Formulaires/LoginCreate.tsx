@@ -1,14 +1,16 @@
 import * as React from 'react';
 import { useEffect, useState } from 'react';
-import { Form, Input, Button, Col, Row, Typography, Progress, Spin } from 'antd';
+import { Form, Input, Button, Col, Row, Typography, Progress, Spin, Upload } from 'antd';
 import { IUser } from '../../../../interfaces/IUser';
 import { createUtilisateur } from '../../../../services/utilisateur.service';
-
+import { UploadOutlined } from '@ant-design/icons';
+import { Convert } from 'mongo-image-converter';
 const { Text } = Typography;
 
 interface IValueForm {
     nom: string,
     prenom: string,
+    pseudo: string,
     email: string,
     password: string
 }
@@ -18,6 +20,7 @@ const LoginCreate: React.FunctionComponent = () => {
     const [, forceUpdate] = useState({});
     const [regexRes, setRegexRes] = useState('');
     const [isLoading, setIsLoading] = useState(false);
+    const [file, setFile] = useState<string | ArrayBuffer>();
     useEffect(() => {
         forceUpdate({});
     }, []);
@@ -25,6 +28,21 @@ const LoginCreate: React.FunctionComponent = () => {
     const mediumRegexPassword = '^(((?=.*[a-z])(?=.*[A-Z]))|((?=.*[a-z])(?=.*[0-9]))|((?=.*[A-Z])(?=.*[0-9])))(?=.{6,})';
     const strongRegexPassword = '^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])(?=.{8,})';
 
+    const getFile = async (e) => {
+        // getBase64(e.file.originFileObj);
+        const convertedImage = await Convert(e.file.originFileObj);
+        setFile(convertedImage);
+        console.log(file);
+        return;
+    };
+
+    function beforeUpload(file) {
+        const isJpgOrPng = file.type === 'image/jpeg' || file.type === 'image/png';
+        if (!isJpgOrPng) {
+            console.error('You can only upload JPG/PNG file!');
+        }
+        return isJpgOrPng;
+    }
     const analysePassword = (password) => {
         if (new RegExp(mediumRegexPassword).test(password) === true) {
 
@@ -46,7 +64,7 @@ const LoginCreate: React.FunctionComponent = () => {
         const newUtilisateur: IUser = {
             nom: values.nom,
             prenom: values.prenom,
-            pseudo: values.nom,
+            image: file,
             mail: values.email,
             mot_de_passe: values.password
         }
@@ -94,7 +112,39 @@ const LoginCreate: React.FunctionComponent = () => {
                             </Form.Item>
                         </Col>
                     </Row>
-
+                    <Row gutter={16}>
+                        <Col span={12}>
+                            <Form.Item
+                                label="Pseudo"
+                                name="pseudo"
+                                rules={[
+                                    {
+                                        required: true,
+                                        message: 'Veuillez entrer votre pseudo !'
+                                    }
+                                ]}
+                            >
+                                <Input />
+                            </Form.Item>
+                        </Col>
+                        <Col span={12}>
+                            <Form.Item
+                                label="Image"
+                                name='image'
+                                getValueFromEvent={getFile}
+                            >
+                                <Upload
+                                    listType="picture"
+                                    maxCount={1}
+                                    multiple={false}
+                                    className="upload-list-inline"
+                                    beforeUpload={beforeUpload}
+                                >
+                                    <Button icon={<UploadOutlined />}>Upload</Button>
+                                </Upload>
+                            </Form.Item>
+                        </Col>
+                    </Row>
                     <Row gutter={{ xs: 8, sm: 16, md: 24, lg: 32 }} align="middle">
                         <Col span={24}>
                             <Form.Item

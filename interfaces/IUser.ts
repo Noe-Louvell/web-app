@@ -1,15 +1,15 @@
 export interface IUser {
-    mail: string,
-    mot_de_passe: string,
+    _id?: number,
     nom: string,
     prenom: string,
-    description?: string,
-    avatar?: Blob,
+    mail: string,
+    mot_de_passe: string,
+    date_creation?: string,
+    ressources?: [],
+    compte_actif?: boolean,
+    image?: string | ArrayBuffer,
     abonement?: number,
     abonnés?: number,
-    publication?: number,
-    compte_actif?: boolean,
-    pseudo: string
 }
 
 export interface IAuteur {

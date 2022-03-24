@@ -230,3 +230,9 @@ h3.ant-typography {
   margin: 20px;
   padding: 5px;
 }
+
+.fixedButton{
+  position: fixed !important;
+  bottom: 1em;
+  right: 21em;
+}
