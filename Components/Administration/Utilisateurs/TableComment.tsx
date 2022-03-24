@@ -14,7 +14,7 @@ const { Title } = Typography;
 
 
 
-export const TableUser: React.FunctionComponent<IPropsCardUser> = ({ users }) => {
+export const TableComment: React.FunctionComponent<IPropsCardUser> = ({ users }) => {
     const [idEditUser, setIdEditUser] = useState(null);
     console.log(idEditUser)
 

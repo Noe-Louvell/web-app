@@ -1,38 +1,37 @@
 import * as React from 'react';
 import { useState } from 'react';
-import { Button, Col, Modal, Row, Typography, Upload, message, Input, Divider, Space } from 'antd';
+import { Button, Col, Modal, Row, Upload, message, Input, Divider, Space, Tooltip, Avatar } from 'antd';
 import { IUser } from '../../../interfaces/IUser';
 import { EditOutlined, LoadingOutlined, PlusOutlined } from '@ant-design/icons';
 import ImgCrop from 'antd-img-crop';
 import Image from 'next/image'
-
-const { Title } = Typography;
-const { TextArea } = Input;
-
+import Text from 'antd/lib/typography/Text';
+import { Convert } from 'mongo-image-converter';
+import { updateUtilisateur } from '../../../services/utilisateur.service';
+import { redirect } from 'next/dist/server/api-utils';
+import { useRouter } from 'next/router'
 interface IPropsUpdateUser {
     user?: IUser;
 }
 
-const getBase64 = (img, callback) => {
-    const reader = new FileReader();
-    reader.addEventListener('load', () => callback(reader.result));
-    reader.readAsDataURL(img);
-}
 
 const beforeUpload = (file) => {
     const isJpgOrPng = file.type === 'image/jpeg' || file.type === 'image/png';
     if (!isJpgOrPng) {
         message.error('Vous ne pouvez télécharger que le fichier JPG/PNG !');
     }
-    const isLt2M = file.size / 1024 / 1024 < 2;
-    if (!isLt2M) {
-        message.error('L’image doit être inférieure à 2 Mo !');
-    }
-    return isJpgOrPng && isLt2M;
+
+    return isJpgOrPng;
 }
 
 const UpdateUser: React.FunctionComponent<IPropsUpdateUser> = ({ user }) => {
+    const router = useRouter();
+
     const [isModalOpen, setIsModalOpen] = useState(false);
+    const [nomValue, setNomValue] = useState(user.nom);
+    const [prenomValue, setPrenomValue] = useState(user.prenom);
+    const [isLoading, setIsLoading] = useState(false);
+    const [file, setFile] = useState<string | ArrayBuffer>();
     const handleOk = () => {
         setIsModalOpen(false);
     };
@@ -41,94 +40,90 @@ const UpdateUser: React.FunctionComponent<IPropsUpdateUser> = ({ user }) => {
         setIsModalOpen(false);
     };
 
-    const [loadingImg, setLoadingImg] = useState(false);
-    const [image, setImage] = useState<File>();
-    const [imageUrl, setImageUrl] = useState<string>('');
-    const handleChange = (info) => {
-        if (info.file.status === 'uploading') {
-            setLoadingImg(true);
-            return;
-        }
-        if (info.file.status === 'done') {
-            setImage(info.file.originFileObj);
-            getBase64(info.file.originFileObj, imageUrl => {
-                setImageUrl(imageUrl);
-                setLoadingImg(false);
-                return;
-            }
-            );
-        }
+    const getFile = async (e) => {
+        const convertedImage = await Convert(e.file.originFileObj);
+        setFile(convertedImage);
+        return;
     };
-    const uploadButton = (
-        <div>
-            {loadingImg ? <LoadingOutlined /> : <PlusOutlined />}
-            <div style={{ marginTop: 8 }}>Upload</div>
-        </div>
-    );
+
+    const onFinish = async () => {
+        console.log('blob')
+        setIsLoading(true);
+        const upUtilisateur: IUser = {
+            nom: nomValue,
+            prenom: prenomValue,
+            image: file,
+            mail: user.mail,
+            mot_de_passe: user.mot_de_passe
+        }
+        await updateUtilisateur(user._id, upUtilisateur);
+        setIsLoading(false);
+        router.reload();
+        setIsModalOpen(false);
+    };
 
     return (
-        <>
-            <Button icon={<EditOutlined />} onClick={() => setIsModalOpen(true)}>Modifier le profil</Button>
-            <Modal
-                width={600}
-                className='modalUpdateUser'
-                title="Modifier le profil"
-                visible={isModalOpen}
-                onOk={handleOk}
-                onCancel={handleCancel}
-                footer={null}
-            >
-                <Space size={'large'} direction='vertical' style={{width: '100%'}}>
-                    <Row gutter={16} align='middle' justify='center'>
-                        <Col span={6} >
-                            <Title level={3}>Photo de profil :</Title>
-                        </Col>
-                        <Col span={12} style={{ textAlign: 'center' }}>
-                            <ImgCrop rotate>
-                                <Upload
-                                    name="avatar"
-                                    listType="picture-card"
-                                    className="avatar-uploader"
-                                    showUploadList={false}
-                                    beforeUpload={beforeUpload}
-                                    onChange={handleChange}
-                                >
-                                    {imageUrl ? <Image src={imageUrl} alt="avatar" width={102} height={102} /> : uploadButton}
-                                </Upload>
-                            </ImgCrop>
-                        </Col>
-                        <Col span={6} />
-                    </Row>
-                    <Row gutter={16} align='middle' justify='center'>
-                        <Col span={5} >
-                            <Title level={3}>Pseudo :</Title>
-                        </Col>
-                        <Col span={19} style={{ textAlign: 'center' }}>
-                            <Input placeholder="Basic usage" />
-                        </Col>
-                    </Row>
-                    <Row gutter={16} align='middle' justify='center'>
-                        <Col span={5} >
-                            <Title level={3}>Biographie :</Title>
-                        </Col>
-                        <Col span={19} style={{ textAlign: 'center' }}>
-                            <TextArea rows={4} />
-                        </Col>
-                    </Row>
-                    <Divider />
-                    <Row gutter={16} align='middle' justify='center'>
-                        <Col span={6} />
-                        <Col span={12} style={{ textAlign: 'center' }}>
-                            <Button icon={<EditOutlined />} onClick={() => setIsModalOpen(false)}>Sauvegarder les modifications</Button>
-                        </Col>
-                        <Col span={6} />
-                    </Row>
-                </Space>
-            </Modal>
-        </>
+        isLoading ? <> Test </> :
+            <>
+
+                <Tooltip title="Modifier votre profile">
+                    <Button type="dashed" shape="circle" icon={<EditOutlined />} onClick={() => setIsModalOpen(true)} />
+                </Tooltip>
+                <Modal
+                    width={600}
+                    className='modalUpdateUser'
+                    title="Modifier le profil"
+                    visible={isModalOpen}
+                    onOk={handleOk}
+                    onCancel={handleCancel}
+                    footer={null}
+                >
+                    <Space size={'large'} direction='vertical' style={{ width: '100%' }}>
+                        <Row gutter={16} align='middle' justify='center'>
+                            <Col span={24} style={{ textAlign: 'center' }}>
+                                <ImgCrop rotate>
+                                    <Upload
+                                        name="avatar"
+                                        listType="picture-card"
+                                        className="avatar-uploader"
+                                        showUploadList={false}
+                                        beforeUpload={beforeUpload}
+                                        onChange={getFile}
+                                    >
+                                        {file ? <Avatar shape='square' size={100} src={file} /> : user.image ? <Avatar shape='square' size={100} src={user.image} /> : <PlusOutlined />}
+                                    </Upload>
+                                </ImgCrop>
+                            </Col>
+                        </Row>
+                        <Row gutter={16} align='middle' justify='center'>
+                            <Col span={9}>
+                                <Text>Nom :</Text>
+                            </Col>
+                            <Col span={4}></Col>
+                            <Col span={9}>
+                                <Text>Prenom :</Text>
+                            </Col>
+                            <Col span={9}>
+                                <Input required value={nomValue} onChange={(e) => setNomValue(e.currentTarget.value)} />
+                            </Col>
+                            <Col span={4}></Col>
+                            <Col span={9}>
+                                <Input required value={prenomValue} onChange={(e) => setPrenomValue(e.currentTarget.value)} />
+                            </Col>
+                        </Row>
+                        <Divider />
+                        <Row gutter={16} align='middle' justify='center'>
+                            <Col span={6} />
+                            <Col span={12} style={{ textAlign: 'center' }}>
+                                <Button icon={<EditOutlined />} onClick={onFinish}>Sauvegarder les modifications</Button>
+                            </Col>
+                            <Col span={6} />
+                        </Row>
+                    </Space>
+                </Modal>
+            </>
 
     );
 };
 
 export default UpdateUser;
-

@@ -5,18 +5,29 @@ import Page from '../../Components/generic/Page/Page';
 import AccountUser from '../../Components/User/AccountUser/AccountUser';
 import UpdateUser from '../../Components/User/UpdateUser/UpdateUser';
 import { IUser } from '../../interfaces/IUser';
+import { getUtilisateurById } from '../../services/utilisateur.service';
 
 export default function Publications() {
     const [user, setUser] = useState<IUser>();
 
     useEffect(() => {
-        setUser(JSON.parse(sessionStorage.getItem('user')))
+        if (window) {
+            const userSession: IUser = JSON.parse(sessionStorage.getItem('user'));
+            getUtilisateurById(userSession._id).then((res)=>{
+                setUser(res.data);
+            })
+        }
     }, []);
+
+
+    console.log(user);
+
     return (
+
         <Page
             title='Mon profile'
         >
-            <AccountUser user={user} />
+            { user != undefined ? <AccountUser user={user} /> : <></>}
         </Page>
     );
 }

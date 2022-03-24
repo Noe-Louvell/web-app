@@ -21,7 +21,7 @@ const Layout: React.FunctionComponent<IModalFormSite> = ({ children, siderConten
             <LayoutAntd >
             <MenuSider />
 
-                <div style={{width:'100%'}}>
+                <div style={{width:'100%', display:'flex', justifyContent:'center'}}>
                     {children}
                 </div>
                 

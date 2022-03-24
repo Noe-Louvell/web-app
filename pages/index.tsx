@@ -7,23 +7,14 @@ import { getUtilisateurById } from '../services/utilisateur.service';
 import { useEffect } from "react";
 import { notification } from 'antd';
 import { getAllRessources } from '../services/ressource.service';
+import { IUser } from '../interfaces/IUser';
 
 
 export default function Publications(ressourcesData) {
     console.log(ressourcesData);
     const getUser = (async () => {
-        const idUser = sessionStorage.getItem('idUser');
-
-        await getUtilisateurById(idUser).then(async (res) => {
-            if (res.status == 200) {
-                const utilisateurData = res.data;
-                console.log(utilisateurData[0]);
-            } else {
-                notification.error({
-                    message: 'Une erreur est survenue lors de la récupération de votre compte',
-                });
-            }
-        })
+        const user : IUser = await JSON.parse(sessionStorage.getItem('user'));
+        console.log(user);
     });
 
     useEffect(() => {

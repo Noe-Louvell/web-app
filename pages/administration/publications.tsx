@@ -1,4 +1,5 @@
 import * as React from 'react';
+import { TableRessource } from '../../Components/Administration/Utilisateurs/TableRessource';
 import Page from '../../Components/generic/Page/Page';
 import { getAllRessources } from '../../services/ressource.service';
 
@@ -9,6 +10,7 @@ export default function AdminPublications({ publicationData }) {
             title='Admin Publication'
             siderContent={false}
         >
+            <TableRessource ressources={publicationData} />
         </Page>
     );
 }

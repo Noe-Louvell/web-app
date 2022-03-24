@@ -20,8 +20,15 @@ export function deleteUtilisateur(idUtilisateur: number) {
     })
 }
 
+export function updateUtilisateur(idUtilisateur: number, newValue: IUser) {
+    return axios({
+        url: `http://localhost:3000/api/utilisateur/${idUtilisateur}`,
+        method: 'PATCH',
+        data:newValue
+    })
+}
 
-export function getUtilisateurById(idUtilisateur: string) {
+export function getUtilisateurById(idUtilisateur: number) {
     return axios({
         url: `http://localhost:3000/api/utilisateur/${idUtilisateur}`,
         method: 'get'
