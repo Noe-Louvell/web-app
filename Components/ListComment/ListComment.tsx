@@ -6,6 +6,8 @@ import { ListCommentaire } from '../../mocks/commentaire.mock';
 import { ICommentaire } from '../../interfaces/ICommentaire';
 import { User1 } from '../../mocks/user.mock';
 import { SendOutlined } from '@ant-design/icons';
+import { useState } from 'react';
+import { createComment } from '../../services/commentaire.service';
 // import { User1, User2 } from '../../mocks/user.mock'
 
 
@@ -15,6 +17,11 @@ interface IPropsListComment {
 
 
 const ListCommentIndex: React.FunctionComponent<IPropsListComment> = ({ comments }) => {
+    const [newComment, setNewComment]= useState('');
+
+    const addComment = () => {
+        createComment(newComment);
+    };
 
     return (
         <>
@@ -24,8 +31,8 @@ const ListCommentIndex: React.FunctionComponent<IPropsListComment> = ({ comments
                 </Col>
                 <Col span={20}>
                     <Input.Group compact>
-                        <Input placeholder='Ecrivez un commentaire ...' style={{ width: 'calc(100% - 40px)' }}/>
-                        <Button icon={<SendOutlined />}/>
+                        <Input placeholder='Ecrivez un commentaire ...' style={{ width: 'calc(100% - 40px)' }} onChange={(e)=> setNewComment(e.currentTarget.value)}/>
+                        <Button icon={<SendOutlined />} onClick={addComment}/>
                     </Input.Group>
                 </Col>
             </Row>

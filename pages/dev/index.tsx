@@ -9,7 +9,7 @@ export default function Developement() {
         <Page
             title='Publications'
         >
-            {/* <FormulaireRessource type='create' /> */}
+            <FormulaireRessource type='create' />
         </Page>
     );
 }

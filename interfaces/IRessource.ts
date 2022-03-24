@@ -2,14 +2,15 @@ import { ICommentaire } from "./ICommentaire";
 import { IUser } from "./IUser";
 
 export interface IRessource {
-    id:string,
+    id?:string,
     description?: string,
+    nom:string,
     texte?: string,
-    auteur: IUser,
+    idAuteur: number,
     commentaires?: ICommentaire[];
-    date_creation: string,
-    audio: string,
-    image?: string,
+    date_creation?: string,
+    audio?:  string | ArrayBuffer,
+    image?: string | ArrayBuffer,
     like: number,
     partage?: number,
 }

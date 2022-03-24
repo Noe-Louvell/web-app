@@ -1,18 +1,24 @@
-import { CommentOutlined, ReadOutlined, TeamOutlined, UserOutlined } from '@ant-design/icons';
-import { Avatar, Card, Col, Row, Space, Typography } from 'antd';
 import * as React from 'react';
 import Page from '../../Components/generic/Page/Page';
+import { getAllRessources } from '../../services/ressource.service';
 
-const { Title } = Typography;
-export default function Publications() {
+export default function AdminPublications({ publicationData }) {
+    console.log(publicationData)
     return (
         <Page
-            title='Admin Post'
+            title='Admin Publication'
             siderContent={false}
         >
-            <>
-                Post Admin
-            </>
         </Page>
     );
+}
+
+export async function getStaticProps({ params }) {
+    const res = await getAllRessources();
+    const publicationData = await res.data;
+    return {
+        props: {
+            publicationData
+        }
+    }
 }
