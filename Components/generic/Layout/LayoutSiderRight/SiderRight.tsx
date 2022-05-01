@@ -13,15 +13,15 @@ export const SiderRight: FunctionComponent = () => {
 
     return (
         <Sider className='siderRight'>
-            <Space direction='vertical' style={{ width: '100%'}}>
-                <Card title='Actualité régional'>
-                    <SiderRessourcesListe />
-                </Card>
+            <Space direction='vertical' style={{ width: '100%' }}>
                 <Card title='Actualité national'>
                     <SiderRessourcesListe />
                 </Card>
-                <Card title='Contacts'>
+                <Card title='Actualité régional'>
                     <SiderRessourcesListe />
+                </Card>
+                <Card title='Contacts'>
+                    {/* <SiderRessourcesListe /> */}
                 </Card>
             </Space>
 

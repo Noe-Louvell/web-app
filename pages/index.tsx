@@ -6,15 +6,14 @@ import { RessourceList } from '../mocks/ressource.mock';
 import { getUtilisateurById } from '../services/utilisateur.service';
 import { useEffect } from "react";
 import { notification } from 'antd';
-import { getAllRessources } from '../services/ressource.service';
+import { getAllRessources, getRessourceById, getRessourceByIdUser } from '../services/ressource.service';
 import { IUser } from '../interfaces/IUser';
 
 
 export default function Publications(ressourcesData) {
-    console.log(ressourcesData);
+    console.log(ressourcesData)
     const getUser = (async () => {
         const user : IUser = await JSON.parse(sessionStorage.getItem('user'));
-        console.log(user);
     });
 
     useEffect(() => {

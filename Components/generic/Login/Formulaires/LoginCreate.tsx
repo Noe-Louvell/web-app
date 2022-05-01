@@ -5,6 +5,7 @@ import { IUser } from '../../../../interfaces/IUser';
 import { createUtilisateur } from '../../../../services/utilisateur.service';
 import { UploadOutlined } from '@ant-design/icons';
 import { Convert } from 'mongo-image-converter';
+import router from 'next/router';
 const { Text } = Typography;
 
 interface IValueForm {
@@ -72,6 +73,7 @@ const LoginCreate: React.FunctionComponent = () => {
         form.resetFields();
         setRegexRes('');
         setIsLoading(false);
+        // router.push('/');
     };
 
     return (

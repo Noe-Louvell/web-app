@@ -10,6 +10,7 @@ interface IPropsCardRessource {
 
 
 const ListRessources: FunctionComponent<IPropsCardRessource> = ({ ressources }) => {
+    console.log(ressources);
     return (
             <List
                 itemLayout="horizontal"

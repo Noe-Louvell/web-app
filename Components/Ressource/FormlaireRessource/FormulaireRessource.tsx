@@ -7,7 +7,7 @@ import TextArea from 'antd/lib/input/TextArea';
 import { getUtilisateurById } from '../../../services/utilisateur.service';
 import { IUser } from '../../../interfaces/IUser';
 import { createRessource } from '../../../services/ressource.service';
-
+import { Convert } from 'mongo-image-converter';
 
 interface IValueForm {
     texte?: string,
@@ -26,30 +26,31 @@ const FormulaireRessource: React.FunctionComponent<IFormulaireProps> = ({ type, 
     const [user, setUser] = useState<IUser>();
     const [file, setFile] = useState<string | ArrayBuffer>();
     useEffect(() => {
+        setUser(JSON.parse(sessionStorage.getItem('user')));
         forceUpdate({});
     }, []);
 
-    const getUser = async (idUser: number) => {
-        await getUtilisateurById(idUser).then((res) => {
-            if (res.status == 200) {
-                setUser(res.data);
-            } else {
-                notification.error({
-                    message: 'Une erreur est survenue',
-                });
-            }
-        })
-    }
+    // const getUser = async (idUser: number) => {
+    //     await getUtilisateurById(idUser).then((res) => {
+    //         if (res.status == 200) {
+    //             setUser(res.data);
+    //         } else {
+    //             notification.error({
+    //                 message: 'Une erreur est survenue',
+    //             });
+    //         }
+    //     })
+    // }
     const onFinish = async (values: IValueForm) => {
         setIsLoading(true);
-        getUser(14);
+        // getUser(14);
         const newRessource: IRessource = {
             texte: values.texte,
-            image: new ArrayBuffer(16),
+            image: file,
             audio: new ArrayBuffer(16),
             nom:'',
             description:'',
-            idAuteur:14,
+            idAuteur:user._id,
             like: 0,
             partage: 0,
             commentaires: [],
@@ -71,12 +72,11 @@ const FormulaireRessource: React.FunctionComponent<IFormulaireProps> = ({ type, 
         };
     }
 
-
-    const getFile = (e) => {
-        getBase64(e.file.originFileObj);
+    const getFile = async (e) => {
+        const convertedImage = await Convert(e.file.originFileObj);
+        setFile(convertedImage);
         return;
     };
-
     function beforeUpload(file) {
         const isJpgOrPng = file.type === 'image/jpeg' || file.type === 'image/png';
         if (!isJpgOrPng) {

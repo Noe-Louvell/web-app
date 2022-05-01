@@ -29,6 +29,7 @@ const UpdateUser: React.FunctionComponent<IPropsUpdateUser> = ({ user }) => {
 
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [nomValue, setNomValue] = useState(user.nom);
+    const [pseudoValue, setPseudoValue] = useState(user.pseudo);
     const [prenomValue, setPrenomValue] = useState(user.prenom);
     const [isLoading, setIsLoading] = useState(false);
     const [file, setFile] = useState<string | ArrayBuffer>();
@@ -52,6 +53,7 @@ const UpdateUser: React.FunctionComponent<IPropsUpdateUser> = ({ user }) => {
         const upUtilisateur: IUser = {
             nom: nomValue,
             prenom: prenomValue,
+            pseudo: pseudoValue,
             image: file,
             mail: user.mail,
             mot_de_passe: user.mot_de_passe
@@ -96,19 +98,23 @@ const UpdateUser: React.FunctionComponent<IPropsUpdateUser> = ({ user }) => {
                             </Col>
                         </Row>
                         <Row gutter={16} align='middle' justify='center'>
-                            <Col span={9}>
+                            <Col span={8}>
                                 <Text>Nom :</Text>
                             </Col>
-                            <Col span={4}></Col>
-                            <Col span={9}>
+                            <Col span={8}>
                                 <Text>Prenom :</Text>
                             </Col>
-                            <Col span={9}>
+                            <Col span={8}>
+                                <Text>Pseudo :</Text>
+                            </Col>
+                            <Col span={8}>
                                 <Input required value={nomValue} onChange={(e) => setNomValue(e.currentTarget.value)} />
                             </Col>
-                            <Col span={4}></Col>
-                            <Col span={9}>
+                            <Col span={8}>
                                 <Input required value={prenomValue} onChange={(e) => setPrenomValue(e.currentTarget.value)} />
+                            </Col>
+                            <Col span={8}>
+                                <Input required value={pseudoValue} onChange={(e) => setPseudoValue(e.currentTarget.value)} />
                             </Col>
                         </Row>
                         <Divider />

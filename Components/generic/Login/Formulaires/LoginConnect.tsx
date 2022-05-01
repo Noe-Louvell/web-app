@@ -27,7 +27,7 @@ const LoginConnect: React.FunctionComponent = () => {
                 const resUser = await getUtilisateurById(decoded.utilisateur._id);
                 sessionStorage.setItem('user', JSON.stringify(resUser.data));
 
-                // router.push('/')
+                router.push('/')
             } else {
                 notification.error({
                     message: 'Une erreur est survenue lors de la co',

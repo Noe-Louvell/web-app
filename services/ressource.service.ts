@@ -23,6 +23,13 @@ export function getRessourceById(idUtilisateur: number) {
     })
 }
 
+export function getRessourceByIdUser(idUtilisateur: number) {
+    return axios({
+        url: `http://localhost:3000/api/utilisateur/${idUtilisateur}/ressources/`,
+        method: 'get'
+    })
+}
+
 export function createRessource(newRessource: IRessource) {
     return axios({
         url: 'http://localhost:3000/api/ressource',

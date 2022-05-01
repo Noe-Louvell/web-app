@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { FunctionComponent, useState } from 'react';
+import { FunctionComponent, useEffect, useState } from 'react';
 import { Image, Button, Card, Col, Dropdown, Menu, Row, Space, Typography, Divider } from 'antd';
 import { EllipsisOutlined, MessageOutlined, LikeOutlined, ShareAltOutlined, LikeTwoTone, HeartOutlined } from '@ant-design/icons';
 import BadgeUserIndex from '../../User/BadgeUser/BadgeUser';
@@ -20,6 +20,8 @@ const handleClickComment = () => {
     console.log('ok');
 };
 
+
+
 const menu = (
     <Menu onClick={handleMenuClick}>
         <Menu.Item key='message'>
@@ -33,7 +35,15 @@ const menu = (
 
 const CardRessourceIndex: FunctionComponent<IPropsCardRessource> = ({ ressource }) => {
     console.log(ressource)
+    const [user, setUser] = useState();
+    const getUser = () =>{
+        const usersession = sessionStorage.getItem('user');
+        setUser(JSON.parse(usersession));
+    }
+    useEffect(() => {
+        getUser();
 
+    }, []);
     const [isShowComment, setIsShowComment] = useState(false);
     const onClick = () => isShowComment ? setIsShowComment(false) : setIsShowComment(true);
     return (
@@ -42,29 +52,29 @@ const CardRessourceIndex: FunctionComponent<IPropsCardRessource> = ({ ressource 
             <Col xs={{ span: 24 }} lg={{ span: 2 }}></Col>
             <Col xs={{ span: 24 }} lg={{ span: 20 }}>
                 <Card
-                    style={{ backgroundColor: '#fbfbfb', marginBottom: '5%', maxWidth:'1250px' }}
+                    style={{ backgroundColor: '#fbfbfb', marginBottom: '5%', width:'750px' }}
                 >
 
                     <Row gutter={16}>
                         <Col xs={{ span: 22 }} lg={{ span: 23 }}>
                             <Space direction='vertical'>
-                                <BadgeUserIndex user={ressource.auteur} date={ressource.date_creation} />
+                                <BadgeUserIndex user={user} date={ressource.date_creation} />
                             </Space>
 
                         </Col>
                         <Col xs={{ span: 2 }} lg={{ span: 1 }}>
-                            <Dropdown overlay={menu} placement='bottomRight'>
+                            {/* <Dropdown overlay={menu} placement='bottomRight'>
                                 <Button type="text" icon={<EllipsisOutlined />}></Button>
-                            </Dropdown>
+                            </Dropdown> */}
                         </Col>
 
                     </Row>
                     <Row gutter={16} style={{ marginTop: '10px' }}>
 
-                        {ressource.description && (
+                        {ressource.texte && (
                             <Col xs={{ span: 24 }} lg={{ span: 24 }}>
                                 <Paragraph>
-                                    {ressource.description}
+                                    {ressource.texte}
                                 </Paragraph>
                             </Col>
                         )}
@@ -92,13 +102,13 @@ const CardRessourceIndex: FunctionComponent<IPropsCardRessource> = ({ ressource 
                     <Row gutter={16} style={{textAlign:'start', marginTop:'5px'}}>
                         <Col xs={{ span: 24 }} lg={{ span: 14 }}>
                             <HeartOutlined style={{color:'#000091'}}/>
-                            <Text type='secondary'> {ressource.like > 1 ? ressource.like + ' likes' : ressource.like + ' like'} </Text>
+                            <Text type='secondary'> {ressource.like == undefined ? '0 like' :ressource.like > 1 ? ressource.like + ' likes' : ressource.like + ' like'} </Text>
                         </Col>
                         <Col xs={{ span: 12 }} lg={{ span: 5 }} >
                             <Text type='secondary'> {ressource.commentaires.length > 1 ? ressource.commentaires.length + ' commentaires' :ressource.commentaires.length + ' commentaire'} </Text>
                         </Col>
                         <Col xs={{ span: 12 }} lg={{ span: 5 }} >
-                            <Text type='secondary'> {ressource.partage > 1 ? ressource.partage + ' partages' : ressource.partage + ' partage'} </Text>
+                            <Text type='secondary'> {ressource.partage == undefined ? '0 partage' : ressource.partage > 1 ? ressource.partage + ' partages' : ressource.partage + ' partage'} </Text>
                         </Col>
                         
                     </Row>

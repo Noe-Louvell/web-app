@@ -20,7 +20,7 @@ const BadgeUser: React.FunctionComponent<IPropsBadgeUser> = ({ user = null, date
                 <Badge color={user.isActif ? 'green' : 'red'} dot>
                     <Avatar
                         size= {size ? size : 45}
-                        src={user.avatar} 
+                        src={user.image} 
                     />
                 </Badge>
 
