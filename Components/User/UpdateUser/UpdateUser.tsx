@@ -54,11 +54,11 @@ const UpdateUser: React.FunctionComponent<IPropsUpdateUser> = ({ user }) => {
             nom: nomValue,
             prenom: prenomValue,
             pseudo: pseudoValue,
-            image: file,
+            image: null,
             mail: user.mail,
             mot_de_passe: user.mot_de_passe
         }
-        await updateUtilisateur(user._id, upUtilisateur);
+        await updateUtilisateur(user.id, upUtilisateur);
         setIsLoading(false);
         router.reload();
         setIsModalOpen(false);

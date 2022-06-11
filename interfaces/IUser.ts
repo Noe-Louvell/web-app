@@ -1,20 +1,17 @@
+import { IRole } from "./IRole";
+
 export interface IUser {
-    _id?: number,
+    id?: number,
     nom: string,
     prenom: string,
     mail: string,
-    pseudo?:string,
     mot_de_passe?: string,
     date_creation?: string,
-    ressources?: [],
     compte_actif?: boolean,
-    image?: string | ArrayBuffer,
+    pseudo?:string,
+    avatar: string | ArrayBuffer,
+    ressources?: [],
+    roleentities: IRole,
     abonement?: number,
     abonnés?: number,
 }
-
-export interface IAuteur {
-    nom: string,
-    prenom: string,
-}
-

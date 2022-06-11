@@ -1,18 +1,25 @@
-import { CommentOutlined, ReadOutlined, TeamOutlined, UserOutlined } from '@ant-design/icons';
-import { Avatar, Card, Col, Row, Space, Typography } from 'antd';
 import * as React from 'react';
+import { TableCommentaire } from '../../Components/Administration/Commentaires/TableCommentaire';
 import Page from '../../Components/generic/Page/Page';
+import { getAllComments } from '../../services/commentaire.service';
 
-const { Title } = Typography;
-export default function Publications() {
+export default function AdminCommentaires({ commentaireData }) {
     return (
         <Page
-            title='Admin commentaires'
+            title='Admin Publication'
             siderContent={false}
         >
-            <>
-                User commentaires
-            </>
+            <TableCommentaire commentaires={commentaireData} />
         </Page>
     );
+}
+
+export async function getStaticProps({ params }) {
+    const res = await getAllComments();
+    const commentaireData = await res.data;
+    return {
+        props: {
+            commentaireData
+        }
+    }
 }

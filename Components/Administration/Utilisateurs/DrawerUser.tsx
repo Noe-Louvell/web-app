@@ -17,7 +17,7 @@ const { Option } = Select;
 
 export const DrawerUser: React.FunctionComponent<IPropsDrawerUser> = ({ idUser, visible, onClose }) => {
     const router = useRouter();
-
+    const { Option } = Select;
     const [form] = Form.useForm();
     const [user, setUser] = useState<IUser>({} as IUser);
     const [isLoading, setIsLoading] = useState<boolean>(false);
@@ -61,12 +61,13 @@ export const DrawerUser: React.FunctionComponent<IPropsDrawerUser> = ({ idUser, 
         const upUtilisateur: IUser = {
             nom: value.nom,
             prenom: value.prenom,
-            image: file,
+            avatar: file,
             mail: value.mail,
             compte_actif: value.actif,
             pseudo: value.pseudo,
+            roleentities:value.role
         }
-        await updateUtilisateur(user._id, upUtilisateur);
+        await updateUtilisateur(user.id, upUtilisateur);
         setIsLoading(false);
         router.reload();
     };
@@ -160,7 +161,7 @@ export const DrawerUser: React.FunctionComponent<IPropsDrawerUser> = ({ idUser, 
                                     <Form.Item
                                         name="nom"
                                         label="Nom"
-                                        rules={[{ required: true, message: 'Please enter user name' }]}
+                                        rules={[{ required: true, message: 'Veuillez entrez un nom' }]}
                                     >
                                         <Input />
                                     </Form.Item>
@@ -169,7 +170,7 @@ export const DrawerUser: React.FunctionComponent<IPropsDrawerUser> = ({ idUser, 
                                     <Form.Item
                                         name="prenom"
                                         label="Prénom"
-                                        rules={[{ required: true, message: 'Please enter user name' }]}
+                                        rules={[{ required: true, message: 'Veuillez entrez un prenom' }]}
                                     >
                                         <Input />
                                     </Form.Item>
@@ -180,7 +181,7 @@ export const DrawerUser: React.FunctionComponent<IPropsDrawerUser> = ({ idUser, 
                                     <Form.Item
                                         name="pseudo"
                                         label="Pseudo"
-                                        rules={[{ required: true, message: 'Please enter user name' }]}
+                                        rules={[{ required: true, message: 'Veuillez entrez un pseudo' }]}
                                     >
                                         <Input />
                                     </Form.Item>
@@ -189,7 +190,7 @@ export const DrawerUser: React.FunctionComponent<IPropsDrawerUser> = ({ idUser, 
                                     <Form.Item
                                         name="mail"
                                         label="E-mail"
-                                        rules={[{ required: true, message: 'Please enter user name' }]}
+                                        rules={[{ required: true, message: 'Veuillez entrez un e-mail' }]}
                                     >
                                         <Input />
                                     </Form.Item>
@@ -200,16 +201,34 @@ export const DrawerUser: React.FunctionComponent<IPropsDrawerUser> = ({ idUser, 
                                     <Form.Item
                                         name="actif"
                                         label="Compte actif"
-                                        rules={[{ required: true, message: 'Please enter user name' }]}
+                                        rules={[{ required: true, message: "Veuillez entrez l'activité" }]}
                                     >
                                         <Switch checkedChildren="Actif" unCheckedChildren="Non actif" />
                                     </Form.Item>
                                 </Col>
                                 <Col span={12}>
                                     <Form.Item
+                                        name="role"
+                                        label="Rôle"
+                                        rules={[{ required: true, message: "Veuillez entrez un rôle" }]}
+                                    >
+                                        <Select
+                                            showSearch
+                                            placeholder="Selectionnez un rôle"
+                                        >
+                                            <Option value="jack">Jack</Option>
+                                            <Option value="lucy">Lucy</Option>
+                                            <Option value="tom">Tom</Option>
+                                        </Select>
+                                    </Form.Item>
+                                </Col>
+                            </Row>
+                            <Row gutter={16}>
+                                <Col span={24}>
+                                    <Form.Item
                                         name="avatar"
                                         label="Avatar"
-                                        rules={[{ required: true, message: 'Please enter user name' }]}
+                                        rules={[{ required: true, message: 'Veuillez entrez un avatar' }]}
                                     >
                                         <ImgCrop rotate>
                                             <Upload
@@ -220,7 +239,7 @@ export const DrawerUser: React.FunctionComponent<IPropsDrawerUser> = ({ idUser, 
                                                 beforeUpload={beforeUpload}
                                                 onChange={getFile}
                                             >
-                                                {file ? <Avatar shape='square' size={100} src={file} /> : user.image ? <Avatar shape='square' size={100} src={user.image} /> : <PlusOutlined />}
+                                                {file ? <Avatar shape='square' size={100} src={file} /> : user.avatar ? <Avatar shape='square' size={100} src={user.avatar} /> : <PlusOutlined />}
                                             </Upload>
                                         </ImgCrop>
 
