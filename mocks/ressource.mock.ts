@@ -1,5 +1,5 @@
 import { IRessource } from "../interfaces/IRessource";
-import { ListCommentaire } from "./commentaire.mock";
+// import { [] } from "./commentaire.mock";
 import { User1, User2 } from "./user.mock";
 
 export const Ressource1: IRessource = {
@@ -11,7 +11,7 @@ export const Ressource1: IRessource = {
     image: 'https://picsum.photos/1200/1200',
     like:25645,
     // partage: 7521,
-    commentaires: ListCommentaire
+    commentaires: []
 };
 
 export const Ressource2: IRessource = {
@@ -23,7 +23,7 @@ export const Ressource2: IRessource = {
     image: 'https://picsum.photos/1200/1200',
     like:25645,
     // partage: 7521,
-    commentaires: ListCommentaire
+    commentaires: []
 };
 
 export const Ressource3: IRessource = {
@@ -35,7 +35,7 @@ export const Ressource3: IRessource = {
     image: 'https://picsum.photos/1200/1200',
     like:25645,
     // partage: 7521,
-    commentaires: ListCommentaire
+    commentaires: []
 };
 
 export const RessourceList : IRessource[] = [

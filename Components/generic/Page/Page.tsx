@@ -16,27 +16,27 @@ interface IPropsPage {
 
 
 const Page: FunctionComponent<IPropsPage> = ({ title, children, siderContent }) => {
-    const [isLoading, setIsLoading] = useState<boolean>(false);
-    const [user, setUser] = useState<IUser>({} as IUser);
+    // const [isLoading, setIsLoading] = useState<boolean>(false);
+    // const [user, setUser] = useState<IUser>({} as IUser);
 
-    const getUser = async (idUser: string) => {
-        setIsLoading(true);
-        console.log(idUser);
-        await getUtilisateurById(idUser).then((res) => {
-            if (res.status == 200) {
-                setUser(res.data);
-            } else {
-                notification.error({
-                    message: 'Une erreur est survenue',
-                });
-            }
-            setIsLoading(false);
-        })
-    }
-    useEffect(() => {
-        const resUser = getUser(sessionStorage.getItem('userId'));
-        sessionStorage.setItem('user', JSON.stringify(resUser));
-    }, []);
+    // const getUser = async (idUser: string) => {
+    //     setIsLoading(true);
+    //     console.log(idUser);
+    //     await getUtilisateurById(idUser).then((res) => {
+    //         if (res.status == 200) {
+    //             setUser(res.data);
+    //         } else {
+    //             notification.error({
+    //                 message: 'Une erreur est survenue',
+    //             });
+    //         }
+    //         setIsLoading(false);
+    //     })
+    // }
+    // useEffect(() => {
+    //     const resUser = getUser(sessionStorage.getItem('userId'));
+    //     sessionStorage.setItem('user', JSON.stringify(resUser));
+    // }, []);
 
     return (
 

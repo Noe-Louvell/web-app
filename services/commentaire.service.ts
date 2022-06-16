@@ -1,6 +1,12 @@
 import axios from "axios";
 import { ICommentaire } from "../interfaces/ICommentaire";
-import { IRessource } from "../interfaces/IRessource";
+
+interface newComment{
+    description:string,
+    validation: boolean,
+    utilisateur: string,
+    ressource: string
+}
 
 export function getAllComments() {
     return axios({
@@ -36,7 +42,8 @@ export function updateComment(idComment: number, newValue: ICommentaire) {
         data:newValue
     })
 }
-export function createComment(newComment: string) {
+
+export function createComment(newComment: newComment) {
     return axios({
         url: 'http://localhost:3000/api/commentaire',
         method: 'post',

@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { FunctionComponent, useEffect, useState } from 'react';
 import { Image, Button, Card, Col, Dropdown, Menu, Row, Space, Typography, Divider } from 'antd';
-import { EllipsisOutlined, MessageOutlined, LikeOutlined, ShareAltOutlined, LikeTwoTone, HeartOutlined } from '@ant-design/icons';
+import { EllipsisOutlined, MessageOutlined, LikeOutlined, ShareAltOutlined, CommentOutlined, HeartOutlined } from '@ant-design/icons';
 import BadgeUserIndex from '../../User/BadgeUser/BadgeUser';
 import { IRessource } from '../../../interfaces/IRessource';
 import ListCommentIndex from '../../ListComment/ListComment';
@@ -34,31 +34,19 @@ const menu = (
 );
 
 const CardRessourceIndex: FunctionComponent<IPropsCardRessource> = ({ ressource }) => {
-    console.log(ressource)
-    const [user, setUser] = useState();
-    const getUser = () =>{
-        const usersession = sessionStorage.getItem('user');
-        setUser(JSON.parse(usersession));
-    }
-    useEffect(() => {
-        getUser();
-
-    }, []);
     const [isShowComment, setIsShowComment] = useState(false);
     const onClick = () => isShowComment ? setIsShowComment(false) : setIsShowComment(true);
     return (
-        
-        <Row gutter={16} style={{marginTop:'10px'}}>
+
+        <Row gutter={16} style={{ marginTop: '10px' }}>
             <Col xs={{ span: 24 }} lg={{ span: 2 }}></Col>
             <Col xs={{ span: 24 }} lg={{ span: 20 }}>
-                <Card
-                    style={{ backgroundColor: '#fbfbfb', marginBottom: '5%', width:'750px' }}
-                >
+                <Card bodyStyle={{paddingBottom: 6}} style={{ backgroundColor: '#fbfbfb', marginBottom: '5%', width: '750px', paddingBottom: '6px !important' }} >
 
                     <Row gutter={16}>
                         <Col xs={{ span: 22 }} lg={{ span: 23 }}>
                             <Space direction='vertical'>
-                                <BadgeUserIndex user={user} date={ressource.date_creation} />
+                                <BadgeUserIndex user={ressource.utilisateur} date={ressource.date_creation} />
                             </Space>
 
                         </Col>
@@ -99,43 +87,41 @@ const CardRessourceIndex: FunctionComponent<IPropsCardRessource> = ({ ressource 
                         )}
 
                     </Row>
-                    <Row gutter={16} style={{textAlign:'start', marginTop:'5px'}}>
-                        <Col xs={{ span: 24 }} lg={{ span: 14 }}>
-                            <HeartOutlined style={{color:'#000091'}}/>
-                            <Text type='secondary'> {ressource.like == undefined ? '0 like' :ressource.like > 1 ? ressource.like + ' likes' : ressource.like + ' like'} </Text>
+                    <Row gutter={16} style={{ textAlign: 'start', marginTop: '5px' }}>
+                        <Col xs={{ span: 12 }} lg={{ span: 19 }}>
+                            <HeartOutlined style={{ color: '#000091' }} />
+                            <Text type='secondary'> {ressource.like == undefined ? '0 like' : ressource.like > 1 ? ressource.like + ' likes' : ressource.like + ' like'} </Text>
                         </Col>
                         <Col xs={{ span: 12 }} lg={{ span: 5 }} >
-                            <Text type='secondary'> {ressource.commentaires.length > 1 ? ressource.commentaires.length + ' commentaires' :ressource.commentaires.length + ' commentaire'} </Text>
+                            <CommentOutlined style={{ color: '#000091' }} />
+                            <Text type='secondary'> {ressource.commentaires.length > 1 ? ressource.commentaires.length + ' commentaires' : ressource.commentaires.length + ' commentaire'} </Text>
                         </Col>
-                        {/* <Col xs={{ span: 12 }} lg={{ span: 5 }} >
-                            <Text type='secondary'> {ressource.partage == undefined ? '0 partage' : ressource.partage > 1 ? ressource.partage + ' partages' : ressource.partage + ' partage'} </Text>
-                        </Col> */}
-                        
+
                     </Row>
 
                     <Row gutter={16} align='middle' justify='space-around'>
-                        <Divider style={{ minWidth: '97%' }} />
+                        <Divider style={{ minWidth: '97%', margin: 5, marginTop: 15 }} />
 
                         <Col xs={{ span: 12 }} lg={{ span: 5 }}>
-                            <Button className='button-card-ressrource' type='text' icon={<LikeOutlined style={{marginRight: '5px', color:'rgba(0, 0, 0, 0.45)'}} title="J'aime" />}>
-                            <Text type='secondary'> J&apos;aime </Text>
+                            <Button className='button-card-ressrource' type='text' icon={<LikeOutlined style={{ marginRight: '5px', color: 'rgba(0, 0, 0, 0.45)' }} title="J'aime" />}>
+                                <Text type='secondary'> J&apos;aime </Text>
                             </Button>
                         </Col>
                         <Col xs={{ span: 12 }} lg={{ span: 5 }}>
-                            <Button className='button-card-ressrource' type='text' onClick={onClick} icon={<MessageOutlined style={{marginRight: '5px', color:'rgba(0, 0, 0, 0.45)'}} title="Commenter" />}>
-                            <Text type='secondary'> Commenter </Text>
+                            <Button className='button-card-ressrource' type='text' onClick={onClick} icon={<MessageOutlined style={{ marginRight: '5px', color: 'rgba(0, 0, 0, 0.45)' }} title="Commenter" />}>
+                                <Text type='secondary'> Commenter </Text>
                             </Button>
                         </Col>
                         <Col xs={{ span: 12 }} lg={{ span: 5 }}>
-                            <Button className='button-card-ressrource' type='text' icon={<ShareAltOutlined style={{marginRight: '5px', color:'rgba(0, 0, 0, 0.45)'}} title="Partager" />}>
-                            <Text type='secondary'> Partager </Text>
+                            <Button className='button-card-ressrource' type='text' icon={<ShareAltOutlined style={{ marginRight: '5px', color: 'rgba(0, 0, 0, 0.45)' }} title="Partager" />}>
+                                <Text type='secondary'> Partager </Text>
                             </Button>
                         </Col>
                     </Row>
                     {isShowComment && (
                         <>
                             <Divider />
-                            <ListCommentIndex comments={ressource.commentaires} />
+                            <ListCommentIndex ressourceId={ressource._id} utilisateurId={ressource.utilisateur._id} comments={ressource.commentaires} />
                         </>
                     )}
                 </Card>

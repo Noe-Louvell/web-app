@@ -20,7 +20,6 @@ const LoginCreate: React.FunctionComponent = () => {
     const [form] = Form.useForm();
     const [, forceUpdate] = useState({});
     const [regexRes, setRegexRes] = useState('');
-    const [isLoading, setIsLoading] = useState(false);
     const [file, setFile] = useState<string | ArrayBuffer>();
     useEffect(() => {
         forceUpdate({});
@@ -30,10 +29,9 @@ const LoginCreate: React.FunctionComponent = () => {
     const strongRegexPassword = '^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])(?=.{8,})';
 
     const getFile = async (e) => {
-        // getBase64(e.file.originFileObj);
         const convertedImage = await Convert(e.file.originFileObj);
-        setFile(convertedImage);
-        console.log(file);
+        console.log(e.file)
+        // setFile(e.file.originFileObj);
         return;
     };
 

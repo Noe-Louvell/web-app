@@ -2,7 +2,7 @@ import { ICommentaire } from "./ICommentaire";
 import { IUser } from "./IUser";
 
 export interface IRessource {
-    id?:string,
+    _id?:string,
     texte : string,
     titre: string,
     image: string,

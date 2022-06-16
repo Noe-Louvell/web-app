@@ -1,28 +1,35 @@
 import * as React from 'react';
-import { Comment, Tooltip, List, Typography, Button, Avatar, Modal, Popover, Badge, Divider, Input, Space, Row, Col } from 'antd';
-import moment from 'moment';
-import CardUserIndex from '../User/CardUser/CardUser';
-import { ListCommentaire } from '../../mocks/commentaire.mock';
+import { Comment, List, Button, Avatar, Badge, Divider, Input, Row, Col } from 'antd';
 import { ICommentaire } from '../../interfaces/ICommentaire';
 import { User1 } from '../../mocks/user.mock';
 import { SendOutlined } from '@ant-design/icons';
 import { useState } from 'react';
 import { createComment } from '../../services/commentaire.service';
-// import { User1, User2 } from '../../mocks/user.mock'
 
 
 interface IPropsListComment {
+    ressourceId: string;
+    utilisateurId: string;
     comments: ICommentaire[];
 }
 
 
-const ListCommentIndex: React.FunctionComponent<IPropsListComment> = ({ comments }) => {
-    const [newComment, setNewComment]= useState('');
+const ListCommentIndex: React.FunctionComponent<IPropsListComment> = ({ comments, ressourceId, utilisateurId }) => {
+    const [newCommentContent, setNewCommentContent]= useState('');
+    const [isLoading, setIsLoading] = useState(false);
 
-    const addComment = () => {
-        createComment(newComment);
+
+    const addComment = async () => {
+        setIsLoading(true);
+        const newComment = {
+            description:newCommentContent,
+            validation: false,
+            utilisateur: utilisateurId,
+            ressource: ressourceId
+        }
+        await createComment(newComment);
+        setIsLoading(false);
     };
-
     return (
         <>
             <Row gutter={16} style={{marginBottom:'2%'}}>
@@ -31,7 +38,7 @@ const ListCommentIndex: React.FunctionComponent<IPropsListComment> = ({ comments
                 </Col>
                 <Col span={20}>
                     <Input.Group compact>
-                        <Input placeholder='Ecrivez un commentaire ...' style={{ width: 'calc(100% - 40px)' }} onChange={(e)=> setNewComment(e.currentTarget.value)}/>
+                        <Input placeholder='Ecrivez un commentaire ...' style={{ width: 'calc(100% - 40px)' }} onChange={(e)=> setNewCommentContent(e.currentTarget.value)}/>
                         <Button icon={<SendOutlined />} onClick={addComment}/>
                     </Input.Group>
                 </Col>
