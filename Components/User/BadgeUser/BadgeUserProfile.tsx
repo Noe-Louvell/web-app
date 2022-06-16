@@ -8,7 +8,7 @@ const { Text } = Typography;
 
 
 const BadgeUserProfile: FunctionComponent= () => {
-    const [user, setUserS] = useState();
+    const [user, setUserS] = useState<IUser>();
     const getUser = () => {
         const usersession = sessionStorage.getItem('user');
         setUserS(JSON.parse(usersession));

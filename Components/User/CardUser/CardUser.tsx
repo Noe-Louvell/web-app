@@ -118,13 +118,13 @@ const CardUserIndex: React.FunctionComponent<IPropsCardUser> = ({ user }) => {
 
                         <Avatar
                             size={{ xs: 45, lg: 45, xl: 45, xxl: 45 }}
-                            src={user.avatar}
+                            src={user.image}
                         />
                         <Title level={5}>{user.nom} {user.prenom}</Title>
                         <Space size='large'>
                             <Space direction='vertical' align='center' size={0}>
                                 <Text type="secondary">Publication </Text>
-                                <Text strong >{user.publication}</Text>
+                                <Text strong >{user.ressources}</Text>
                             </Space>
                             <Space direction='vertical' align='center' size={0}>
                                 <Text type="secondary">Abonné </Text>
@@ -141,7 +141,7 @@ const CardUserIndex: React.FunctionComponent<IPropsCardUser> = ({ user }) => {
                             style={{ textAlign: 'center' }}
                             type="secondary"
                         >
-                            {user.description}
+                            {user.pseudo}
                         </Paragraph>
                     </Space>
                 </Space>

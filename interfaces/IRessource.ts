@@ -5,7 +5,7 @@ export interface IRessource {
     id?:string,
     texte : string,
     titre: string,
-    image: Buffer,
+    image: string,
     date_creation?: string,
     utilisateur: IUser,
     commentaires?: ICommentaire[];

@@ -107,9 +107,9 @@ const CardRessourceIndex: FunctionComponent<IPropsCardRessource> = ({ ressource 
                         <Col xs={{ span: 12 }} lg={{ span: 5 }} >
                             <Text type='secondary'> {ressource.commentaires.length > 1 ? ressource.commentaires.length + ' commentaires' :ressource.commentaires.length + ' commentaire'} </Text>
                         </Col>
-                        <Col xs={{ span: 12 }} lg={{ span: 5 }} >
+                        {/* <Col xs={{ span: 12 }} lg={{ span: 5 }} >
                             <Text type='secondary'> {ressource.partage == undefined ? '0 partage' : ressource.partage > 1 ? ressource.partage + ' partages' : ressource.partage + ' partage'} </Text>
-                        </Col>
+                        </Col> */}
                         
                     </Row>
 

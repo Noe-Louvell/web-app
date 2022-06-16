@@ -46,7 +46,7 @@ export const HeaderLayout: FunctionComponent = () => {
                 <Col className='header-col' span={22}><Title level={3} style={{ marginBottom: '0px!important', fontSize: '17px!important' }}>Ressources Relationnelles</Title></Col>
                 <Col className='header-col' span={2}>
                     <Dropdown overlay={menu} placement="bottomRight" arrow>
-                        <BadgeUserProfile user={User1} />
+                        <BadgeUserProfile />
                     </Dropdown>
                 </Col>
             </Row>

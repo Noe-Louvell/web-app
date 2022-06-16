@@ -41,11 +41,10 @@ export const TableCommentaire: React.FunctionComponent<IPropsCardCommentaire> = 
         setIsLoading(true);
         const updateCommentaire: ICommentaire = {
             validation: validation,
-            auteur: auteur,
+            utilisateur: auteur,
             date_creation: date,
             description: description,
             ressource: ressource,
-            robot: false
         }
         await updateComment(commentaireId, updateCommentaire);
         setIsLoading(false);

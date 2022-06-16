@@ -13,14 +13,14 @@ export function getAllUtilisateurs() {
     })
 }
 
-export function deleteUtilisateur(idUtilisateur: number) {
+export function deleteUtilisateur(idUtilisateur: string) {
     return axios({
         url: `http://localhost:3000/api/utilisateur/${idUtilisateur}`,
         method: 'delete'
     })
 }
 
-export function updateUtilisateur(idUtilisateur: number, newValue: IUser) {
+export function updateUtilisateur(idUtilisateur: string, newValue: IUser) {
     return axios({
         url: `http://localhost:3000/api/utilisateur/${idUtilisateur}`,
         method: 'PATCH',

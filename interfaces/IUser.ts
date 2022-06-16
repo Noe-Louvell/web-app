@@ -1,7 +1,7 @@
 import { IRole } from "./IRole";
 
 export interface IUser {
-    _id?: number,
+    _id?: string,
     nom: string,
     prenom: string,
     pseudo: string,

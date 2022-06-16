@@ -6,9 +6,13 @@ import { connexion, getUtilisateurById } from '../../../../services/utilisateur.
 import jwt_decode from "jwt-decode";
 import { redirect } from 'next/dist/server/api-utils';
 import { useRouter } from 'next/router'
+import { IUser } from '../../../../interfaces/IUser';
 interface IValueConnect {
     mail: string,
     mot_de_passe: string
+}
+interface resDecodec {
+    utilisateur: IUser;
 }
 const LoginConnect: React.FunctionComponent = () => {
     const [form] = Form.useForm();
@@ -22,7 +26,7 @@ const LoginConnect: React.FunctionComponent = () => {
     const onFinish = async (values: IValueConnect) => {
         await connexion(values).then(async (res) => {
             if (res.status == 200) {
-                const decoded = jwt_decode(res.data.token);
+                const decoded: resDecodec = jwt_decode(res.data.token);
                 sessionStorage.setItem('token', res.data.token);
                 sessionStorage.setItem('userId', decoded.utilisateur._id);
                 router.push('/')

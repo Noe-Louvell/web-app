@@ -8,7 +8,7 @@ import ImgCrop from 'antd-img-crop';
 import { Convert } from 'mongo-image-converter';
 import { useRouter } from 'next/router'
 interface IPropsDrawerUser {
-    idUser: number;
+    idUser: string;
     visible: boolean;
     onClose: (e) => void;
 }
@@ -31,7 +31,7 @@ export const DrawerUser: React.FunctionComponent<IPropsDrawerUser> = ({ idUser, 
 
 
 
-    const getUser = async (idUser: number) => {
+    const getUser = async (idUser: string) => {
         setIsLoading(true);
         await getUtilisateurById(idUser).then((res) => {
             if (res.status == 200) {

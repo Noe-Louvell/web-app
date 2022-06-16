@@ -27,7 +27,7 @@ const ListCommentIndex: React.FunctionComponent<IPropsListComment> = ({ comments
         <>
             <Row gutter={16} style={{marginBottom:'2%'}}>
                 <Col span={2}>
-                    <Avatar src={User1.avatar} />
+                    <Avatar src={User1.image} />
                 </Col>
                 <Col span={20}>
                     <Input.Group compact>
@@ -47,13 +47,13 @@ const ListCommentIndex: React.FunctionComponent<IPropsListComment> = ({ comments
                 renderItem={item => (
                     <>
                         <Comment
-                            author={item.auteur.nom + ' ' + item.auteur.prenom}
+                            author={item.utilisateur.nom + ' ' + item.utilisateur.prenom}
                             avatar={
-                                <Badge color={item.auteur.isActif ? 'green' : 'red'} dot>
-                                    <Avatar src={item.auteur.avatar} />
+                                <Badge color={item.utilisateur.compte_actif ? 'green' : 'red'} dot>
+                                    <Avatar src={item.utilisateur.image} />
                                 </Badge>
                             }
-                            content={item.content}
+                            content={item.description}
                             datetime={item.date_creation}
                         />
                         <Divider />

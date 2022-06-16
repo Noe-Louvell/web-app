@@ -17,7 +17,7 @@ const { Text, Paragraph } = Typography;
 export const SiderRessourcesCard: FunctionComponent<IPropsCardRessource> = ({ ressource }) => {
     return (
         <Card>
-            <BadgeUser size={30} user={ressource.auteur} date={ressource.date_creation} />
+            <BadgeUser size={30} user={ressource.utilisateur} date={ressource.date_creation} />
             <br/>
             <Text>
                 {ressource.texte}

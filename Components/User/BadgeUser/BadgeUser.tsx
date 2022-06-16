@@ -17,7 +17,7 @@ const BadgeUser: React.FunctionComponent<IPropsBadgeUser> = ({ user = null, date
     return (
         <Space size='middle'>
             <Popover placement="leftTop" style={{ width: 300, backgroundColor: '#f2f2f2' }} content={<CardUserIndex user={user} />} >
-                <Badge color={user.isActif ? 'green' : 'red'} dot>
+                <Badge color={user.compte_actif ? 'green' : 'red'} dot>
                     <Avatar
                         size= {size ? size : 45}
                         src={user.image} 

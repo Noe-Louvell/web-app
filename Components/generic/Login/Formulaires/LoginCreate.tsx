@@ -65,7 +65,8 @@ const LoginCreate: React.FunctionComponent = () => {
         const newUtilisateur: IUser = {
             nom: values.nom,
             prenom: values.prenom,
-            image: file,
+            pseudo: '',
+            image: file.toString(),
             mail: values.email,
             mot_de_passe: values.password
         }

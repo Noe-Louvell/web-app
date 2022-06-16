@@ -46,13 +46,10 @@ const FormulaireRessource: React.FunctionComponent<IFormulaireProps> = ({ type, 
         // getUser(14);
         const newRessource: IRessource = {
             texte: values.texte,
-            image: file,
-            audio: new ArrayBuffer(16),
-            nom:'',
-            description:'',
-            idAuteur:user._id,
+            image: file.toString(),
+            titre:'',
+            utilisateur:user,
             like: 0,
-            partage: 0,
             commentaires: [],
         }
         await createRessource(newRessource);
@@ -107,7 +104,7 @@ const FormulaireRessource: React.FunctionComponent<IFormulaireProps> = ({ type, 
                         fields={[
                             {
                                 name: ["texte"],
-                                value: ressource ? ressource.description : '',
+                                value: ressource ? ressource.texte : '',
                             }
                         ]}
                     >
