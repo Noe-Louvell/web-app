@@ -65,12 +65,12 @@ const LoginCreate: React.FunctionComponent = () => {
         const newUtilisateur: IUser = {
             nom: values.nom,
             prenom: values.prenom,
-            pseudo: '',
+            pseudo: values.pseudo,
             image: file.toString(),
             mail: values.email,
             mot_de_passe: values.password
         }
-        await createUtilisateur(newUtilisateur);
+        await createUtilisateur(file, newUtilisateur);
         form.resetFields();
         setRegexRes('');
         setIsLoading(false);

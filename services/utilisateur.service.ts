@@ -35,11 +35,11 @@ export function getUtilisateurById(idUtilisateur: string) {
     })
 }
 
-export function createUtilisateur(newUtilisateur: IUser) {
+export function createUtilisateur(image :string | ArrayBuffer, newUtilisateur: IUser) {
     return axios({
         url: 'http://localhost:3000/api/utilisateur',
         method: 'post',
-        data:newUtilisateur
+        data: {image, newUtilisateur}
     })
 }
 
