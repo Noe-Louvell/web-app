@@ -3,14 +3,11 @@ import { IUser } from "./IUser";
 
 export interface IRessource {
     id?:string,
-    nom:string,
-    description?: string,
+    texte : string,
+    titre: string,
+    image: Buffer,
     date_creation?: string,
-    texte?: string,
-    image?: string | ArrayBuffer,
-    audio?:  string | ArrayBuffer,
     utilisateur: IUser,
     commentaires?: ICommentaire[];
     like?: number,
-    partage?: number,
 }

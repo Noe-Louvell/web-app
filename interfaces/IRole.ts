@@ -4,5 +4,5 @@ export interface IRole {
     id?: number,
     nom: string,
     trigramme: string,
-    userentities: IUser[]
+    utilisateurs: IUser[]
 }

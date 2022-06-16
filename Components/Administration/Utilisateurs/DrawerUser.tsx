@@ -61,13 +61,12 @@ export const DrawerUser: React.FunctionComponent<IPropsDrawerUser> = ({ idUser, 
         const upUtilisateur: IUser = {
             nom: value.nom,
             prenom: value.prenom,
-            avatar: file,
+            image: file.toString(),
             mail: value.mail,
             compte_actif: value.actif,
             pseudo: value.pseudo,
-            roleentities:value.role
         }
-        await updateUtilisateur(user.id, upUtilisateur);
+        await updateUtilisateur(user._id, upUtilisateur);
         setIsLoading(false);
         router.reload();
     };
@@ -239,7 +238,7 @@ export const DrawerUser: React.FunctionComponent<IPropsDrawerUser> = ({ idUser, 
                                                 beforeUpload={beforeUpload}
                                                 onChange={getFile}
                                             >
-                                                {file ? <Avatar shape='square' size={100} src={file} /> : user.avatar ? <Avatar shape='square' size={100} src={user.avatar} /> : <PlusOutlined />}
+                                                {file ? <Avatar shape='square' size={100} src={file} /> : user.image ? <Avatar shape='square' size={100} src={user.image} /> : <PlusOutlined />}
                                             </Upload>
                                         </ImgCrop>
 

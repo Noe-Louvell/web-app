@@ -70,8 +70,8 @@ export const TableUser: React.FunctionComponent<IPropsCardUser> = ({ users }) =>
             key: 'action',
             render: (record) => (
                 <Space>
-                    <Button icon={<EditOutlined />} onClick={() => { setIdEditUser(record.id) }} />
-                    <Button icon={<DeleteOutlined />} onClick={() => { deleteUser(record.id) }} />
+                    <Button icon={<EditOutlined />} onClick={() => { setIdEditUser(record._id) }} />
+                    <Button icon={<DeleteOutlined />} onClick={() => { deleteUser(record._id) }} />
                 </Space>
             ),
         },

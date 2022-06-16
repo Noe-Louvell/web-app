@@ -1,17 +1,17 @@
 import { IRole } from "./IRole";
 
 export interface IUser {
-    id?: number,
+    _id?: number,
     nom: string,
     prenom: string,
+    pseudo: string,
     mail: string,
     mot_de_passe?: string,
     date_creation?: string,
     compte_actif?: boolean,
-    pseudo?:string,
-    avatar: string | ArrayBuffer,
+    image: string,
     ressources?: [],
-    roleentities: IRole,
+    owner?: IRole,
     abonement?: number,
     abonnés?: number,
 }

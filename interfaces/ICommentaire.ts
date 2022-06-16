@@ -6,7 +6,6 @@ export interface ICommentaire {
     description:string,
     date_creation: string,
     validation: boolean,
-    robot: boolean,
-    auteur: IUser,
+    utilisateur: IUser,
     ressource: IRessource
 }

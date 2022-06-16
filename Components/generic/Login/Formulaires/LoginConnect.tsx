@@ -24,9 +24,7 @@ const LoginConnect: React.FunctionComponent = () => {
             if (res.status == 200) {
                 const decoded = jwt_decode(res.data.token);
                 sessionStorage.setItem('token', res.data.token);
-                const resUser = await getUtilisateurById(decoded.utilisateur._id);
-                sessionStorage.setItem('user', JSON.stringify(resUser.data));
-
+                sessionStorage.setItem('userId', decoded.utilisateur._id);
                 router.push('/')
             } else {
                 notification.error({

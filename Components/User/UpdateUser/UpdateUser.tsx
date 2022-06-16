@@ -58,7 +58,7 @@ const UpdateUser: React.FunctionComponent<IPropsUpdateUser> = ({ user }) => {
             mail: user.mail,
             mot_de_passe: user.mot_de_passe
         }
-        await updateUtilisateur(user.id, upUtilisateur);
+        await updateUtilisateur(user._id, upUtilisateur);
         setIsLoading(false);
         router.reload();
         setIsModalOpen(false);

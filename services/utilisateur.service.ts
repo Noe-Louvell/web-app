@@ -8,36 +8,36 @@ interface IConnect {
 
 export function getAllUtilisateurs() {
     return axios({
-        url: 'http://localhost:3001/api/utilisateur',
+        url: 'http://localhost:3000/api/utilisateur',
         method: 'get'
     })
 }
 
 export function deleteUtilisateur(idUtilisateur: number) {
     return axios({
-        url: `http://localhost:3001/api/utilisateur/${idUtilisateur}`,
+        url: `http://localhost:3000/api/utilisateur/${idUtilisateur}`,
         method: 'delete'
     })
 }
 
 export function updateUtilisateur(idUtilisateur: number, newValue: IUser) {
     return axios({
-        url: `http://localhost:3001/api/utilisateur/${idUtilisateur}`,
+        url: `http://localhost:3000/api/utilisateur/${idUtilisateur}`,
         method: 'PATCH',
         data:newValue
     })
 }
 
-export function getUtilisateurById(idUtilisateur: number) {
+export function getUtilisateurById(idUtilisateur: string) {
     return axios({
-        url: `http://localhost:3001/api/utilisateur/${idUtilisateur}`,
+        url: `http://localhost:3000/api/utilisateur/${idUtilisateur}`,
         method: 'get'
     })
 }
 
 export function createUtilisateur(newUtilisateur: IUser) {
     return axios({
-        url: 'http://localhost:3001/api/utilisateur',
+        url: 'http://localhost:3000/api/utilisateur',
         method: 'post',
         data:newUtilisateur
     })
@@ -45,7 +45,7 @@ export function createUtilisateur(newUtilisateur: IUser) {
 
 export function connexion(newConnection : IConnect) {
     return axios({
-        url: 'http://localhost:3001/api/connexion',
+        url: 'http://localhost:3000/api/connexion',
         method: 'post',
         data:newConnection
     })

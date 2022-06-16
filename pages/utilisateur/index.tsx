@@ -12,8 +12,8 @@ export default function Publications() {
 
     useEffect(() => {
         if (window) {
-            const userSession: IUser = JSON.parse(sessionStorage.getItem('user'));
-            getUtilisateurById(userSession._id).then((res)=>{
+            const userIdSession: string = sessionStorage.getItem('userId');
+            getUtilisateurById(userIdSession).then((res)=>{
                 setUser(res.data);
             })
         }
