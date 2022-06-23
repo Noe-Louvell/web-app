@@ -46,14 +46,12 @@ export const DrawerUser: React.FunctionComponent<IPropsDrawerUser> = ({ idUser, 
     }
     useEffect(() => {
         getUser(idUser);
-        console.log(user);
     }, [idUser]);
 
 
     const onFinish = () => {
         setIsLoading(true);
         form.submit();
-        console.log("value");
     };
 
 

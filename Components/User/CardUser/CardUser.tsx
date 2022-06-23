@@ -19,36 +19,29 @@ const CardUserIndex: React.FunctionComponent<IPropsCardUser> = ({ user }) => {
     const handleMenuClick = ({ key }) => {
         setKeyselect(key);
     };
-    console.log(user)
     useEffect(() => {
         switch (keySelect) {
             case 'add': {
-                console.log('ajout');
                 //statements; 
                 break;
             }
             case 'delete': {
-                console.log('suppression');
                 //statements; 
                 break;
             }
             case 'message': {
-                console.log('message');
                 //statements; 
                 break;
             }
             case 'hide': {
-                console.log('masquer');
                 //statements; 
                 break;
             }
             case 'report': {
-                console.log('signaler');
                 //statements; 
                 break;
             }
             case 'block': {
-                console.log('bloquer');
                 //statements; 
                 break;
             }

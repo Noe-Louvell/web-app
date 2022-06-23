@@ -37,7 +37,7 @@ const FormulaireRessource: React.FunctionComponent<IFormulaireProps> = ({ type, 
             image: file.toString(),
             titre:'',
             utilisateur:user,
-            like: 0,
+            nb_reaction: 0,
             commentaires: [],
         }
         await createRessource(newRessource);

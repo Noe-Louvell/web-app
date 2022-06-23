@@ -18,7 +18,6 @@ export default function Publications({ resRessources }) {
 export async function getStaticProps({ params }) {
     const res = await getAllRessources();
     const resRessources = await res.data;
-    console.log(resRessources)
     return {
         props: {
             resRessources

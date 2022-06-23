@@ -19,7 +19,6 @@ const { Title } = Typography;
 export const TableCommentaire: React.FunctionComponent<IPropsCardCommentaire> = ({ commentaires }) => {
     const [idEditCommentaire, setIdEditCommentaire] = useState(null);
     const [isLoading, setIsLoading] = useState(false);
-    console.log(idEditCommentaire)
 
     const deleteCommentaire = async (IdCommentaire: number) => {
         setIsLoading(true);

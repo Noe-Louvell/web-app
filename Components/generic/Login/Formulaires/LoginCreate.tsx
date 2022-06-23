@@ -30,7 +30,6 @@ const LoginCreate: React.FunctionComponent = () => {
 
     const getFile = async (e) => {
         const convertedImage = await Convert(e.file.originFileObj);
-        console.log(e.file)
         // setFile(e.file.originFileObj);
         return;
     };
@@ -183,7 +182,6 @@ const LoginCreate: React.FunctionComponent = () => {
                                     },
                                     {
                                         validator(_, value) {
-                                            console.log(value);
                                             if (analysePassword(value) === 'medium') {
                                                 setRegexRes('medium')
                                                 return Promise.resolve();
@@ -243,7 +241,6 @@ const LoginCreate: React.FunctionComponent = () => {
                                     },
                                     ({ getFieldValue }) => ({
                                         validator(_, value) {
-                                            console.log(getFieldValue('password'));
                                             if (!value || getFieldValue('password') === value) {
                                                 return Promise.resolve();
                                             }

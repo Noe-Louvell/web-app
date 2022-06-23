@@ -5,6 +5,7 @@ import { EllipsisOutlined, MessageOutlined, LikeOutlined, ShareAltOutlined, Comm
 import BadgeUserIndex from '../../User/BadgeUser/BadgeUser';
 import { IRessource } from '../../../interfaces/IRessource';
 import ListCommentIndex from '../../ListComment/ListComment';
+import { reactRessource } from '../../../services/ressource.service';
 
 interface IPropsCardRessource {
     ressource: IRessource;
@@ -13,12 +14,8 @@ interface IPropsCardRessource {
 const { Text, Paragraph } = Typography;
 
 const handleMenuClick = ({ key }) => {
-    console.log(key);
 };
 
-const handleClickComment = () => {
-    console.log('ok');
-};
 
 
 
@@ -36,12 +33,13 @@ const menu = (
 const CardRessourceIndex: FunctionComponent<IPropsCardRessource> = ({ ressource }) => {
     const [isShowComment, setIsShowComment] = useState(false);
     const onClick = () => isShowComment ? setIsShowComment(false) : setIsShowComment(true);
+    console.log(ressource)
     return (
 
         <Row gutter={16} style={{ marginTop: '10px' }}>
             <Col xs={{ span: 24 }} lg={{ span: 2 }}></Col>
             <Col xs={{ span: 24 }} lg={{ span: 20 }}>
-                <Card bodyStyle={{paddingBottom: 6}} style={{ backgroundColor: '#fbfbfb', marginBottom: '5%', width: '750px', paddingBottom: '6px !important' }} >
+                <Card bodyStyle={{ paddingBottom: 6 }} style={{ backgroundColor: '#fbfbfb', marginBottom: '5%', width: '750px', paddingBottom: '6px !important' }} >
 
                     <Row gutter={16}>
                         <Col xs={{ span: 22 }} lg={{ span: 23 }}>
@@ -90,7 +88,7 @@ const CardRessourceIndex: FunctionComponent<IPropsCardRessource> = ({ ressource 
                     <Row gutter={16} style={{ textAlign: 'start', marginTop: '5px' }}>
                         <Col xs={{ span: 12 }} lg={{ span: 19 }}>
                             <HeartOutlined style={{ color: '#000091' }} />
-                            <Text type='secondary'> {ressource.like == undefined ? '0 like' : ressource.like > 1 ? ressource.like + ' likes' : ressource.like + ' like'} </Text>
+                            <Text type='secondary'> {ressource.nb_reaction == undefined ? '0 like' : ressource.nb_reaction > 1 ? ressource.nb_reaction + ' likes' : ressource.nb_reaction + ' like'} </Text>
                         </Col>
                         <Col xs={{ span: 12 }} lg={{ span: 5 }} >
                             <CommentOutlined style={{ color: '#000091' }} />
@@ -103,7 +101,7 @@ const CardRessourceIndex: FunctionComponent<IPropsCardRessource> = ({ ressource 
                         <Divider style={{ minWidth: '97%', margin: 5, marginTop: 15 }} />
 
                         <Col xs={{ span: 12 }} lg={{ span: 5 }}>
-                            <Button className='button-card-ressrource' type='text' icon={<LikeOutlined style={{ marginRight: '5px', color: 'rgba(0, 0, 0, 0.45)' }} title="J'aime" />}>
+                            <Button className='button-card-ressrource' type='text' onClick={() => reactRessource(ressource._id)} icon={<LikeOutlined style={{ marginRight: '5px', color: 'rgba(0, 0, 0, 0.45)' }} title="J'aime" />}>
                                 <Text type='secondary'> J&apos;aime </Text>
                             </Button>
                         </Col>
@@ -121,7 +119,7 @@ const CardRessourceIndex: FunctionComponent<IPropsCardRessource> = ({ ressource 
                     {isShowComment && (
                         <>
                             <Divider />
-                            <ListCommentIndex ressourceId={ressource._id} utilisateurId={ressource.utilisateur._id} comments={ressource.commentaires} />
+                            <ListCommentIndex ressourceId={ressource._id} comments={ressource.commentaires} />
                         </>
                     )}
                 </Card>

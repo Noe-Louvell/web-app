@@ -55,7 +55,6 @@ export const DrawerCommentaire: React.FunctionComponent<IPropsDrawerUser> = ({ i
     const onFinish = () => {
         setIsLoading(true);
         form.submit();
-        console.log("value");
     };
 
 

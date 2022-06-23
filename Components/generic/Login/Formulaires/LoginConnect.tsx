@@ -7,8 +7,8 @@ import jwt_decode from "jwt-decode";
 import { redirect } from 'next/dist/server/api-utils';
 import { useRouter } from 'next/router'
 import { IUser } from '../../../../interfaces/IUser';
-import { ContextApp } from '../../../../Context/ContextApp/ContextApp';
-import { IValueConnect } from '../../../../Context/ContextApp/InterfaceApp';
+import { ContextApp } from '../../../../Context/ContextAuth/ContextAuth';
+import { IValueConnect } from '../../../../Context/ContextAuth/InterfaceAuth';
 
 interface resDecodec {
     utilisateur: IUser;

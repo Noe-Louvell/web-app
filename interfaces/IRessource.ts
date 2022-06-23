@@ -9,5 +9,5 @@ export interface IRessource {
     date_creation?: string,
     utilisateur: IUser,
     commentaires?: ICommentaire[];
-    like?: number,
+    nb_reaction?: number,
 }

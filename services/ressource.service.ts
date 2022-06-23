@@ -8,24 +8,24 @@ export function getAllRessources() {
     })
 }
 
-export function deleteRessource(idUtilisateur: number) {
+export function deleteRessource(idRessource: string) {
     return axios({
-        url: `http://localhost:3000/api/ressource/${idUtilisateur}`,
+        url: `http://localhost:3000/api/ressource/${idRessource}`,
         method: 'delete'
     })
 }
 
 
-export function getRessourceById(idUtilisateur: number) {
+export function getRessourceById(idRessource: string) {
     return axios({
-        url: `http://localhost:3000/api/ressource/${idUtilisateur}`,
+        url: `http://localhost:3000/api/ressource/${idRessource}`,
         method: 'get'
     })
 }
 
-export function getRessourceByIdUser(idUtilisateur: number) {
+export function getRessourceByIdUser(idUser: string) {
     return axios({
-        url: `http://localhost:3000/api/utilisateur/${idUtilisateur}/ressources/`,
+        url: `http://localhost:3000/api/utilisateur/${idUser}/ressources/`,
         method: 'get'
     })
 }
@@ -37,3 +37,11 @@ export function createRessource(newRessource: IRessource) {
         data:newRessource
     })
 }
+
+export function reactRessource(idRessource: string) {
+    return axios({
+        url: `http://localhost:3000/api/ressource/${idRessource}/reaction`,
+        method: 'patch',
+    })
+}
+

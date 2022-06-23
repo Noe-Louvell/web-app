@@ -4,7 +4,7 @@ import { IUser } from '../../../interfaces/IUser';
 import CardUserIndex from '../CardUser/CardUser';
 import router from 'next/router';
 import { FunctionComponent, useContext, useEffect, useState } from 'react';
-import { ContextApp } from '../../../Context/ContextApp/ContextApp';
+import { ContextApp } from '../../../Context/ContextAuth/ContextAuth';
 const { Text } = Typography;
 
 
@@ -13,7 +13,7 @@ const BadgeUserProfile: FunctionComponent= () => {
 
 const onDeconection = () => {
     sessionStorage.clear();
-    setUserSession({} as IUser);
+    setUserSession(null);
     router.push('/login');
 }
     

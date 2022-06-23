@@ -5,7 +5,7 @@ import { IUser } from '../../../interfaces/IUser';
 import { EditOutlined, UserOutlined } from '@ant-design/icons';
 import ListRessources from '../../Ressource/ListRessources/ListRessources';
 import UpdateUser from '../UpdateUser/UpdateUser';
-import { ContextApp } from '../../../Context/ContextApp/ContextApp';
+import { ContextApp } from '../../../Context/ContextAuth/ContextAuth';
 
 const { TabPane } = Tabs;
 const { Title, Text } = Typography;
@@ -39,8 +39,8 @@ const AccountUser: React.FunctionComponent = () => {
             </Row>
             <Row gutter={16} align='middle' justify='center'>
                 <Space size={'large'} direction='horizontal' >
-                    <Text type='secondary'>{userSession.nbdabonnement}</Text>
-                    <Text type='secondary' >{userSession.nbdabonne}</Text>
+                    <Text type='secondary'>{userSession.nbdabonnement + ' Abonnements'}</Text>
+                    <Text type='secondary' >{userSession.nbdabonne + ' Abonnés'}</Text>
                 </Space>
 
             </Row>
@@ -53,7 +53,7 @@ const AccountUser: React.FunctionComponent = () => {
                 </TabPane>
                 
             </Tabs>
-            {/* <ListRessources ressources={user.ressources}/> */}
+            <ListRessources ressources={userSession.ressources}/>
 
         </Space>
     );

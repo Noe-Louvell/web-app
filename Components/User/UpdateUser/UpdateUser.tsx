@@ -48,7 +48,6 @@ const UpdateUser: React.FunctionComponent<IPropsUpdateUser> = ({ user }) => {
     };
 
     const onFinish = async () => {
-        console.log('blob')
         setIsLoading(true);
         const upUtilisateur: IUser = {
             nom: nomValue,

@@ -16,7 +16,6 @@ const { Title } = Typography;
 
 export const TableRessource: React.FunctionComponent<IPropsCardRessource> = ({ ressources }) => {
     const [idEditRessource, setIdEditRessource] = useState(null);
-    console.log(idEditRessource)
     const deleteRessource = async (IdRessource: string) => {
         await deleteUtilisateur(IdRessource).then((res) => {
             if (res.status == 200) {
