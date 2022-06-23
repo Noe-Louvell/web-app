@@ -30,20 +30,8 @@ const FormulaireRessource: React.FunctionComponent<IFormulaireProps> = ({ type, 
         forceUpdate({});
     }, []);
 
-    // const getUser = async (idUser: number) => {
-    //     await getUtilisateurById(idUser).then((res) => {
-    //         if (res.status == 200) {
-    //             setUser(res.data);
-    //         } else {
-    //             notification.error({
-    //                 message: 'Une erreur est survenue',
-    //             });
-    //         }
-    //     })
-    // }
     const onFinish = async (values: IValueForm) => {
         setIsLoading(true);
-        // getUser(14);
         const newRessource: IRessource = {
             texte: values.texte,
             image: file.toString(),

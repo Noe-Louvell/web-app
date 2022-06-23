@@ -16,7 +16,9 @@ const tabList = [
     },
 ];
 const contentList = {
-    connect: <LoginConnect />,
+    connect: <>
+        <LoginConnect />
+    </>,
     createAccount: <LoginCreate />,
 };
 

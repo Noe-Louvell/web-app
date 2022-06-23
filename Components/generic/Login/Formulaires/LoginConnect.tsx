@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { useEffect, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { Form, Input, Button, Checkbox, Row, Col, notification } from 'antd';
 import { UserOutlined, LockOutlined } from '@ant-design/icons';
 import { connexion, getUtilisateurById } from '../../../../services/utilisateur.service';
@@ -7,35 +7,24 @@ import jwt_decode from "jwt-decode";
 import { redirect } from 'next/dist/server/api-utils';
 import { useRouter } from 'next/router'
 import { IUser } from '../../../../interfaces/IUser';
-interface IValueConnect {
-    mail: string,
-    mot_de_passe: string
-}
+import { ContextApp } from '../../../../Context/ContextApp/ContextApp';
+import { IValueConnect } from '../../../../Context/ContextApp/InterfaceApp';
+
 interface resDecodec {
     utilisateur: IUser;
 }
 const LoginConnect: React.FunctionComponent = () => {
+    const { getConnect } = useContext(ContextApp);
+
     const [form] = Form.useForm();
     const [, forceUpdate] = useState({});
-    const router = useRouter();
 
     useEffect(() => {
         forceUpdate({});
     }, []);
 
     const onFinish = async (values: IValueConnect) => {
-        await connexion(values).then(async (res) => {
-            if (res.status == 200) {
-                const decoded: resDecodec = jwt_decode(res.data.token);
-                sessionStorage.setItem('token', res.data.token);
-                sessionStorage.setItem('userId', decoded.utilisateur._id);
-                router.push('/')
-            } else {
-                notification.error({
-                    message: 'Une erreur est survenue lors de la co',
-                });
-            }
-        })
+        getConnect(values);
     };
 
 

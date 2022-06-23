@@ -19,7 +19,7 @@ const CardUserIndex: React.FunctionComponent<IPropsCardUser> = ({ user }) => {
     const handleMenuClick = ({ key }) => {
         setKeyselect(key);
     };
-
+    console.log(user)
     useEffect(() => {
         switch (keySelect) {
             case 'add': {
@@ -124,15 +124,15 @@ const CardUserIndex: React.FunctionComponent<IPropsCardUser> = ({ user }) => {
                         <Space size='large'>
                             <Space direction='vertical' align='center' size={0}>
                                 <Text type="secondary">Publication </Text>
-                                <Text strong >{user.ressources}</Text>
+                                <Text strong >{user.ressources.length}</Text>
                             </Space>
                             <Space direction='vertical' align='center' size={0}>
                                 <Text type="secondary">Abonné </Text>
-                                <Text strong >{user.abonnés}</Text>
+                                <Text strong >{user.nbdabonne}</Text>
                             </Space>
                             <Space direction='vertical' align='center' size={0}>
                                 <Text type="secondary">Abonnement </Text>
-                                <Text strong >{user.abonement}</Text>
+                                <Text strong >{user.nbdabonnement}</Text>
                             </Space>
 
                         </Space>

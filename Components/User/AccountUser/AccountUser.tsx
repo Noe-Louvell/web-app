@@ -1,19 +1,18 @@
 import * as React from 'react';
-import { useState } from 'react';
+import { useContext, useState } from 'react';
 import { Button, Col, Modal, Row, Typography, Upload, message, Input, Divider, Space, Avatar, Tabs, Tooltip } from 'antd';
 import { IUser } from '../../../interfaces/IUser';
 import { EditOutlined, UserOutlined } from '@ant-design/icons';
 import ListRessources from '../../Ressource/ListRessources/ListRessources';
 import UpdateUser from '../UpdateUser/UpdateUser';
+import { ContextApp } from '../../../Context/ContextApp/ContextApp';
 
 const { TabPane } = Tabs;
 const { Title, Text } = Typography;
-interface IPropsAccountUser {
-    user: IUser;
-}
 
-const AccountUser: React.FunctionComponent<IPropsAccountUser> = ({ user }) => {
-    console.log(user)
+const AccountUser: React.FunctionComponent = () => {
+    const { userSession } = useContext(ContextApp);
+
     return (
         <Space size={'large'} direction='vertical' style={{ margin: 20, padding: 15, backgroundColor: "#fff", height: "auto", display: 'flex', alignItems: 'center' }}>
 
@@ -25,30 +24,29 @@ const AccountUser: React.FunctionComponent<IPropsAccountUser> = ({ user }) => {
                     </Col>
 
                     <Col span={11} style={{ marginLeft: 25 }} >
-                        <Avatar size={100} src={user.image} />
+                        <Avatar size={100} src={userSession.image} />
                     </Col>
                     <Col span={3} >
-                        <UpdateUser user={user}/>
+                        <UpdateUser user={userSession}/>
                     </Col>
                 </div>
             </Row>
 
             <Row gutter={16} align='middle' justify='center'>
                 <Col span={24} >
-                    <Title level={3} style={{ margin: '0px 300px' }}>{user.nom + ' ' + user.prenom}</Title>
+                    <Title level={3} style={{ margin: '0px 300px' }}>{userSession.nom + ' ' + userSession.prenom}</Title>
                 </Col>
             </Row>
             <Row gutter={16} align='middle' justify='center'>
                 <Space size={'large'} direction='horizontal' >
-                    <Text type='secondary'> 0 abonnement</Text>
-                    <Text type='secondary' >0 abonné</Text>
+                    <Text type='secondary'>{userSession.nbdabonnement}</Text>
+                    <Text type='secondary' >{userSession.nbdabonne}</Text>
                 </Space>
 
             </Row>
             <Tabs defaultActiveKey="1" centered style={{width:'700px'}}>
                 <TabPane tab="Publications" key="1">
-                    {/* <ListRessources ressources={user.ressources} /> */}
-                    <ListRessources ressources={user.ressources} />
+                    <ListRessources ressources={userSession.ressources} />
                 </TabPane>
                 <TabPane tab="Contacts" key="2">
                     In progress

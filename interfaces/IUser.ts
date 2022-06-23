@@ -12,6 +12,6 @@ export interface IUser {
     image: string,
     ressources?: [],
     owner?: IRole,
-    abonement?: number,
-    abonnés?: number,
+    nbdabonnement?: number,
+    nbdabonne?: number,
 }

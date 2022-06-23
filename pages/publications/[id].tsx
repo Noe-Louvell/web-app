@@ -1,8 +1,8 @@
 import * as React from 'react';
 import { getAllRessourcesIds, getRessourceData } from '.';
-import Page from '../../Components/generic/Page/Page';
-import CardRessourceIndex from '../../Components/Ressource/CardRessource/CardRessource';
-import { IRessource } from '../../interfaces/IRessource';
+import Page from '../../../Components/generic/Page/Page';
+import CardRessourceIndex from '../../../Components/Ressource/CardRessource/CardRessource';
+import { IRessource } from '../../../interfaces/IRessource';
 
 export default function Publication({publicationData}) {
     return (
