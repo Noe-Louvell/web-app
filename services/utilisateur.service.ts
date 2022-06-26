@@ -1,4 +1,4 @@
-import axios from "axios";
+import axios from "../axiosinstance";
 import { IUser } from "../interfaces/IUser";
 
 interface IConnect {
@@ -8,21 +8,21 @@ interface IConnect {
 
 export function getAllUtilisateurs() {
     return axios({
-        url: 'http://localhost:3000/api/utilisateur',
+        url: '/utilisateur',
         method: 'get'
     })
 }
 
 export function deleteUtilisateur(idUtilisateur: string) {
     return axios({
-        url: `http://localhost:3000/api/utilisateur/${idUtilisateur}`,
+        url: `/utilisateur/${idUtilisateur}`,
         method: 'delete'
     })
 }
 
 export function updateUtilisateur(idUtilisateur: string, newValue: IUser) {
     return axios({
-        url: `http://localhost:3000/api/utilisateur/${idUtilisateur}`,
+        url: `/${idUtilisateur}`,
         method: 'PATCH',
         data:newValue
     })
@@ -30,14 +30,20 @@ export function updateUtilisateur(idUtilisateur: string, newValue: IUser) {
 
 export function getUtilisateurById(idUtilisateur: string) {
     return axios({
-        url: `http://localhost:3000/api/utilisateur/${idUtilisateur}`,
+        url: `/${idUtilisateur}`,
         method: 'get'
+    })
+}
+export function followUser(idUtilisateur: string) {
+    return axios({
+        url: `/utilisateur/${idUtilisateur}/follow`,
+        method: 'patch'
     })
 }
 
 export function createUtilisateur(image :string | ArrayBuffer, newUtilisateur: IUser) {
     return axios({
-        url: 'http://localhost:3000/api/utilisateur',
+        url: '/utilisateur',
         method: 'post',
         data: {image, newUtilisateur}
     })
@@ -45,7 +51,7 @@ export function createUtilisateur(image :string | ArrayBuffer, newUtilisateur: I
 
 export function connexion(newConnection : IConnect) {
     return axios({
-        url: 'http://localhost:3000/api/connexion',
+        url: '/connexion',
         method: 'post',
         data:newConnection
     })

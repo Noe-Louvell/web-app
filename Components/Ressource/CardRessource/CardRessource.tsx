@@ -6,6 +6,7 @@ import BadgeUserIndex from '../../User/BadgeUser/BadgeUser';
 import { IRessource } from '../../../interfaces/IRessource';
 import ListCommentIndex from '../../ListComment/ListComment';
 import { reactRessource } from '../../../services/ressource.service';
+import Title from 'antd/lib/typography/Title';
 
 interface IPropsCardRessource {
     ressource: IRessource;
@@ -56,7 +57,13 @@ const CardRessourceIndex: FunctionComponent<IPropsCardRessource> = ({ ressource 
 
                     </Row>
                     <Row gutter={16} style={{ marginTop: '10px' }}>
-
+                        {ressource.titre && (
+                            <Col xs={{ span: 24 }} lg={{ span: 24 }}>
+                                <Title>
+                                    {ressource.titre}
+                                </Title>
+                            </Col>
+                        )}
                         {ressource.texte && (
                             <Col xs={{ span: 24 }} lg={{ span: 24 }}>
                                 <Paragraph>

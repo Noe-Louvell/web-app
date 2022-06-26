@@ -24,7 +24,7 @@ const LoginConnect: React.FunctionComponent = () => {
     }, []);
 
     const onFinish = async (values: IValueConnect) => {
-        getConnect(values);
+       await getConnect(values);
     };
 
 

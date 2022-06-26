@@ -6,18 +6,20 @@ export interface IValueConnect {
 }
 
 export interface ITokenDecoded {
-    iat: number,
-    utilisateur: {
-        mail: string,
-        _id: string
-    }
+    token: string,
+    utilisateur: IUser
 }
 
 export interface IContextApp{
     appLoading: boolean,
     setAppLoading: (appLoading: boolean) => void,
+
     userSession: IUser,
     setUserSession: (userSession: IUser) => void,
     getUserSession: (idUser: string)=> void
+
+    tokenSession: string,
+    setTokenSession: (tokenSession: string) => void,
+
     getConnect: (value: IValueConnect)=> void
 }

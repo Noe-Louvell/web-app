@@ -22,7 +22,6 @@ const CardUserIndex: React.FunctionComponent<IPropsCardUser> = ({ user }) => {
     useEffect(() => {
         switch (keySelect) {
             case 'add': {
-                //statements; 
                 break;
             }
             case 'delete': {
@@ -51,11 +50,11 @@ const CardUserIndex: React.FunctionComponent<IPropsCardUser> = ({ user }) => {
         }
     }, [keySelect]);
 
-
+    
 
     const menu = (
         <Menu onClick={handleMenuClick}>
-            <Menu.Item key={!isAmi ? 'add' : 'delete'}>
+            <Menu.Item key={!isAmi ? 'add' : 'delete'} >
                 <Space>
                     {!isAmi && (
                         <>
