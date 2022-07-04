@@ -11,7 +11,8 @@ import { updateUtilisateur } from '../../../services/utilisateur.service';
 import { redirect } from 'next/dist/server/api-utils';
 import { useRouter } from 'next/router'
 interface IPropsUpdateUser {
-    user?: IUser;
+    user: IUser;
+    token: string
 }
 
 
@@ -24,7 +25,7 @@ const beforeUpload = (file) => {
     return isJpgOrPng;
 }
 
-const UpdateUser: React.FunctionComponent<IPropsUpdateUser> = ({ user }) => {
+const UpdateUser: React.FunctionComponent<IPropsUpdateUser> = ({ user, token }) => {
     const router = useRouter();
 
     const [isModalOpen, setIsModalOpen] = useState(false);
@@ -57,14 +58,14 @@ const UpdateUser: React.FunctionComponent<IPropsUpdateUser> = ({ user }) => {
             mail: user.mail,
             mot_de_passe: user.mot_de_passe
         }
-        await updateUtilisateur(user._id, upUtilisateur);
+        
+        await updateUtilisateur(user._id, upUtilisateur, token);
         setIsLoading(false);
         router.reload();
         setIsModalOpen(false);
     };
 
     return (
-        isLoading ? <> Test </> :
             <>
 
                 <Tooltip title="Modifier votre profile">

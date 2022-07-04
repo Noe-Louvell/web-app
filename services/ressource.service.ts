@@ -1,3 +1,4 @@
+
 import axios from "axios";
 import { IRessource } from "../interfaces/IRessource";
 
@@ -38,10 +39,10 @@ export function createRessource(newRessource: IRessource) {
     })
 }
 
-export function reactRessource(idRessource: string) {
-    return axios({
-        url: `http://localhost:3000/api/ressource/${idRessource}/reaction`,
-        method: 'patch',
-    })
-}
+// export function reactRessource(idRessource: string) {
+//     return axios({
+//         url: `http://localhost:3000/api/ressource/${idRessource}/reaction`,
+//         method: 'patch',
+//     })
+// }
 

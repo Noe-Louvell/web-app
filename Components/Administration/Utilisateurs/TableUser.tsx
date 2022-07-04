@@ -5,6 +5,8 @@ import { IUser } from '../../../interfaces/IUser';
 import { deleteUtilisateur } from '../../../services/utilisateur.service';
 import { DrawerUser } from './DrawerUser';
 import { useState } from 'react';
+import { ContextApp } from '../../../Context/ContextAuth/ContextAuth';
+import router from 'next/router';
 
 interface IPropsCardUser {
     users: IUser[];
@@ -16,9 +18,9 @@ const { Title } = Typography;
 
 export const TableUser: React.FunctionComponent<IPropsCardUser> = ({ users }) => {
     const [idEditUser, setIdEditUser] = useState(null);
-
+    const {tokenSession} = React.useContext(ContextApp)
     const deleteUser = async (IdUser: string) => {
-        await deleteUtilisateur(IdUser).then((res) => {
+        await deleteUtilisateur(IdUser, tokenSession.token).then((res) => {
             if (res.status == 200) {
                 notification.success({
                     message: 'Utilisateur suprimmer',
@@ -29,7 +31,7 @@ export const TableUser: React.FunctionComponent<IPropsCardUser> = ({ users }) =>
                 });
             }
         })
-
+        router.reload();
     }
     const columns = [
         {

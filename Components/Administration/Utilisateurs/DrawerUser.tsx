@@ -7,6 +7,7 @@ import { useEffect, useState } from 'react';
 import ImgCrop from 'antd-img-crop';
 import { Convert } from 'mongo-image-converter';
 import { useRouter } from 'next/router'
+import { ContextApp } from '../../../Context/ContextAuth/ContextAuth';
 interface IPropsDrawerUser {
     idUser: string;
     visible: boolean;
@@ -16,6 +17,7 @@ interface IPropsDrawerUser {
 const { Option } = Select;
 
 export const DrawerUser: React.FunctionComponent<IPropsDrawerUser> = ({ idUser, visible, onClose }) => {
+    const {tokenSession} = React.useContext(ContextApp)
     const router = useRouter();
     const { Option } = Select;
     const [form] = Form.useForm();
@@ -33,7 +35,7 @@ export const DrawerUser: React.FunctionComponent<IPropsDrawerUser> = ({ idUser, 
 
     const getUser = async (idUser: string) => {
         setIsLoading(true);
-        await getUtilisateurById(idUser).then((res) => {
+        await getUtilisateurById(idUser, tokenSession.token).then((res) => {
             if (res.status == 200) {
                 setUser(res.data);
             } else {

@@ -1,3 +1,4 @@
+
 module.exports = {
     reactStrictMode: true,
     images: {
@@ -15,5 +16,6 @@ module.exports = {
             }]
         }]
 
-    }
+    },
+    
 }

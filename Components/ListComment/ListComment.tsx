@@ -6,6 +6,7 @@ import { SendOutlined } from '@ant-design/icons';
 import { useContext, useState } from 'react';
 import { createComment } from '../../services/commentaire.service';
 import { ContextApp } from '../../Context/ContextAuth/ContextAuth';
+import axios from 'axios';
 
 
 interface IPropsListComment {
@@ -20,13 +21,17 @@ const ListCommentIndex: React.FunctionComponent<IPropsListComment> = ({ comments
     const { userSession } = useContext(ContextApp);
     const addComment = async () => {
         setIsLoading(true);
-        const newComment = {
-            description: newCommentContent,
-            validation: false,
-            utilisateur: userSession._id,
-            ressource: ressourceId
-        }
-        await createComment(newComment);
+
+        await axios({
+            url: `http://localhost:3000/api/ressource/${ressourceId}/commentaire`,
+            method: 'post',
+            data: {
+                description: newCommentContent,
+            },
+            headers: {
+                Authorization: `Bearer ${userSession.token}`,
+            },
+        })
         setIsLoading(false);
     };
     return (

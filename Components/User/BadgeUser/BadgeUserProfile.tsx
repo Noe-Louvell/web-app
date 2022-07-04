@@ -8,32 +8,34 @@ import { ContextApp } from '../../../Context/ContextAuth/ContextAuth';
 const { Text } = Typography;
 
 
-const BadgeUserProfile: FunctionComponent= () => {
-    const { userSession, setUserSession } = useContext(ContextApp);
+const BadgeUserProfile: FunctionComponent = () => {
+    const { userSession, removeUserSession } = useContext(ContextApp);
 
-const onDeconection = () => {
-    sessionStorage.clear();
-    setUserSession(null);
-    router.push('/login');
-}
-    
+    const onDeconection = () => {
+        removeUserSession("user")
+        router.push('/login');
+    }
+
     return (
-        userSession ? 
-        <Space size='middle'>
-            <Popover placement="bottomRight" style={{ width: 100, backgroundColor: '#f2f2f2' }} content={<Button onClick={() => onDeconection()}>Se déconecter</Button>} >
-                <Badge dot>
-                    <Avatar
-                        size={40}
-                        src={userSession.image}
-                    />
-                </Badge>
+        Object.keys(userSession).length !== 0 ?
+            <Space size='middle'>
+                <Popover placement="bottomRight" style={{ width: 100, backgroundColor: '#f2f2f2' }} content={<Button onClick={() => onDeconection()}>Se déconecter</Button>} >
+                    <Badge dot>
+                        <Avatar
+                            size={40}
+                            src={userSession.image}
+                        />
+                    </Badge>
 
-            </Popover>
-        </Space>
-        :
-        <></>
+                </Popover>
+            </Space>
+            :
+            <>
+                <Space size='middle'>
+                    <Button onClick={() => router.push('/login')}>Se connecter</Button>
+                </Space>
+            </>
     );
 };
 
 export default BadgeUserProfile;
-

@@ -6,6 +6,7 @@ import { createUtilisateur } from '../../../../services/utilisateur.service';
 import { UploadOutlined } from '@ant-design/icons';
 import { Convert } from 'mongo-image-converter';
 import router from 'next/router';
+import axios from 'axios';
 const { Text } = Typography;
 
 interface IValueForm {
@@ -20,7 +21,8 @@ const LoginCreate: React.FunctionComponent = () => {
     const [form] = Form.useForm();
     const [, forceUpdate] = useState({});
     const [regexRes, setRegexRes] = useState('');
-    const [file, setFile] = useState<string | ArrayBuffer>();
+    const [file, setFile] = useState<ArrayBuffer>();
+    const [isLoading, setIsLoading] = useState<boolean>();
     useEffect(() => {
         forceUpdate({});
     }, []);
@@ -30,7 +32,8 @@ const LoginCreate: React.FunctionComponent = () => {
 
     const getFile = async (e) => {
         const convertedImage = await Convert(e.file.originFileObj);
-        // setFile(e.file.originFileObj);
+        setFile(e.file);
+        
         return;
     };
 
@@ -59,19 +62,21 @@ const LoginCreate: React.FunctionComponent = () => {
 
     const onFinish = async (values: IValueForm) => {
         setIsLoading(true);
-        const newUtilisateur: IUser = {
-            nom: values.nom,
-            prenom: values.prenom,
-            pseudo: values.pseudo,
-            image: file.toString(),
-            mail: values.email,
-            mot_de_passe: values.password
-        }
-        await createUtilisateur(file, newUtilisateur);
+        await axios({
+            method: 'post',
+            url: 'http://localhost:3000/api/inscription',
+            data: {
+                nom: values.nom,
+                prenom: values.prenom,
+                pseudo: values.pseudo,
+                image: file,
+                mail: values.email,
+                mot_de_passe: values.password
+            }
+        })
         form.resetFields();
         setRegexRes('');
         setIsLoading(false);
-        // router.push('/');
     };
 
     return (

@@ -9,6 +9,7 @@ import { useRouter } from 'next/router'
 import { IUser } from '../../../../interfaces/IUser';
 import { ContextApp } from '../../../../Context/ContextAuth/ContextAuth';
 import { IValueConnect } from '../../../../Context/ContextAuth/InterfaceAuth';
+import Title from 'antd/lib/typography/Title';
 
 interface resDecodec {
     utilisateur: IUser;

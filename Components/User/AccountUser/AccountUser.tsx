@@ -12,7 +12,7 @@ const { Title, Text } = Typography;
 
 const AccountUser: React.FunctionComponent = () => {
     const { userSession } = useContext(ContextApp);
-
+    const user = userSession.user;
     return (
         <Space size={'large'} direction='vertical' style={{ margin: 20, padding: 15, backgroundColor: "#fff", height: "auto", display: 'flex', alignItems: 'center' }}>
 
@@ -24,36 +24,35 @@ const AccountUser: React.FunctionComponent = () => {
                     </Col>
 
                     <Col span={11} style={{ marginLeft: 25 }} >
-                        <Avatar size={100} src={userSession.image} />
+                        <Avatar size={100} src={user.image} />
                     </Col>
                     <Col span={3} >
-                        <UpdateUser user={userSession}/>
+                        <UpdateUser user={user} token={userSession.token}/>
                     </Col>
                 </div>
             </Row>
 
             <Row gutter={16} align='middle' justify='center'>
                 <Col span={24} >
-                    <Title level={3} style={{ margin: '0px 300px' }}>{userSession.nom + ' ' + userSession.prenom}</Title>
+                    <Title level={3} style={{ margin: '0px 300px' }}>{user.nom + ' ' + user.prenom}</Title>
                 </Col>
             </Row>
             <Row gutter={16} align='middle' justify='center'>
                 <Space size={'large'} direction='horizontal' >
-                    <Text type='secondary'>{userSession.nbdabonnement + ' Abonnements'}</Text>
-                    <Text type='secondary' >{userSession.nbdabonne + ' Abonnés'}</Text>
+                    <Text type='secondary'>{user.nbdabonnement + ' Abonnements'}</Text>
+                    <Text type='secondary' >{user.nbdabonne + ' Abonnés'}</Text>
                 </Space>
 
             </Row>
             <Tabs defaultActiveKey="1" centered style={{width:'700px'}}>
                 <TabPane tab="Publications" key="1">
-                    <ListRessources ressources={userSession.ressources} />
+                    <ListRessources ressources={user.ressources} />
                 </TabPane>
                 <TabPane tab="Contacts" key="2">
                     In progress
                 </TabPane>
                 
             </Tabs>
-            <ListRessources ressources={userSession.ressources}/>
 
         </Space>
     );

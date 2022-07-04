@@ -1,3 +1,4 @@
+
 import axios from "axios";
 import { ICommentaire } from "../interfaces/ICommentaire";
 
@@ -43,10 +44,13 @@ export function updateComment(idComment: number, newValue: ICommentaire) {
     })
 }
 
-export function createComment(newComment: newComment) {
+export function createComment(newComment: newComment, token: string) {
     return axios({
         url: 'http://localhost:3000/api/commentaire',
         method: 'post',
-        data:newComment
+        data:newComment,
+        headers: {
+            Authorization: `Bearer ${token}`,
+        },
     })
 }

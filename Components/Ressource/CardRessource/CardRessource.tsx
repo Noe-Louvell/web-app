@@ -1,12 +1,14 @@
 import * as React from 'react';
-import { FunctionComponent, useEffect, useState } from 'react';
+import { FunctionComponent, useContext, useEffect, useState } from 'react';
 import { Image, Button, Card, Col, Dropdown, Menu, Row, Space, Typography, Divider } from 'antd';
 import { EllipsisOutlined, MessageOutlined, LikeOutlined, ShareAltOutlined, CommentOutlined, HeartOutlined } from '@ant-design/icons';
 import BadgeUserIndex from '../../User/BadgeUser/BadgeUser';
 import { IRessource } from '../../../interfaces/IRessource';
 import ListCommentIndex from '../../ListComment/ListComment';
-import { reactRessource } from '../../../services/ressource.service';
 import Title from 'antd/lib/typography/Title';
+import axios from 'axios';
+import { ContextApp } from '../../../Context/ContextAuth/ContextAuth';
+import router from 'next/router';
 
 interface IPropsCardRessource {
     ressource: IRessource;
@@ -34,7 +36,19 @@ const menu = (
 const CardRessourceIndex: FunctionComponent<IPropsCardRessource> = ({ ressource }) => {
     const [isShowComment, setIsShowComment] = useState(false);
     const onClick = () => isShowComment ? setIsShowComment(false) : setIsShowComment(true);
-    console.log(ressource)
+    const {tokenSession} = useContext(ContextApp);
+    async function reactRessource(idRessource: string) {
+        await axios({
+            url: `http://localhost:3000/api/ressource/${idRessource}/reaction`,
+            method: 'patch',
+            headers: {
+                'Authorization': `Bearer ${tokenSession.token}`
+            }
+        })
+
+        router.reload();
+        return
+    }
     return (
 
         <Row gutter={16} style={{ marginTop: '10px' }}>

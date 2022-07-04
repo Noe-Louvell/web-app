@@ -14,12 +14,12 @@ export interface IContextApp{
     appLoading: boolean,
     setAppLoading: (appLoading: boolean) => void,
 
-    userSession: IUser,
-    setUserSession: (userSession: IUser) => void,
-    getUserSession: (idUser: string)=> void
+    userSession: any,
+    setUserSession: any,
+    removeUserSession: any,
 
-    tokenSession: string,
-    setTokenSession: (tokenSession: string) => void,
+    tokenSession: any,
+    setTokenSession: any,
 
     getConnect: (value: IValueConnect)=> void
 }

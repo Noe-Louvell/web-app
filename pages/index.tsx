@@ -12,12 +12,13 @@ import { ContextApp } from '../Context/ContextAuth/ContextAuth';
 
 export default function Index({ resRessources }) {
     const { userSession } = useContext(ContextApp);
+    console.log(resRessources)
     return (
         <Page
             title='Accueil'
         >
             <ListRessources ressources={resRessources} />
-            <FormulaireRessource type='create' />
+            <FormulaireRessource disable={Object.keys(userSession).length !== 0 ? false : false} type='create' />
         </Page>
     );
 }

@@ -9,7 +9,7 @@ export interface IUser {
     mot_de_passe?: string,
     date_creation?: string,
     compte_actif?: boolean,
-    image: string,
+    image: ArrayBuffer,
     ressources?: [],
     owner?: IRole,
     nbdabonnement?: number,

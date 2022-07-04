@@ -16,9 +16,10 @@ interface IValueForm {
 
 interface IFormulaireProps {
     type: string,
-    ressource?: IRessource
+    ressource?: IRessource,
+    disable: boolean
 }
-const FormulaireRessource: React.FunctionComponent<IFormulaireProps> = ({ type, ressource }) => {
+const FormulaireRessource: React.FunctionComponent<IFormulaireProps> = ({ type, ressource, disable }) => {
     const [form] = Form.useForm();
     const [, forceUpdate] = useState({});
     const [isLoading, setIsLoading] = useState(false);
@@ -30,12 +31,20 @@ const FormulaireRessource: React.FunctionComponent<IFormulaireProps> = ({ type, 
         forceUpdate({});
     }, []);
 
+    // _id?:string,
+    // texte : string,
+    // titre: string,
+    // image: string,
+    // date_creation?: string,
+    // utilisateur: IUser,
+    // commentaires?: ICommentaire[];
+    // nb_reaction?: number,
     const onFinish = async (values: IValueForm) => {
         setIsLoading(true);
         const newRessource: IRessource = {
             texte: values.texte,
-            image: file.toString(),
-            titre:'',
+            image: null,
+            titre:values.titre,
             utilisateur:user,
             nb_reaction: 0,
             commentaires: [],
@@ -73,7 +82,7 @@ const FormulaireRessource: React.FunctionComponent<IFormulaireProps> = ({ type, 
     return (
         isLoading ? <Spin className='center' /> :
             <>
-                <Button className='fixedButton' shape="circle" size='large' icon={<PlusOutlined />} onClick={() => setVisible(true)} />
+                <Button className='fixedButton' disabled={disable} shape="circle" size='large' icon={<PlusOutlined />} onClick={() => setVisible(true)} />
 
                 <Modal
                     title={type == 'create' ? "Nouvelle publication" : "Modifier la publication"}
@@ -93,9 +102,25 @@ const FormulaireRessource: React.FunctionComponent<IFormulaireProps> = ({ type, 
                             {
                                 name: ["texte"],
                                 value: ressource ? ressource.texte : '',
+                            },
+                            {
+                                name: ["titre"],
+                                value: ressource ? ressource.titre : '',
                             }
                         ]}
                     >
+                        <Row gutter={16}>
+                            <Col span={24}>
+                                <Form.Item
+                                    name="titre"
+                                    label="Titre"
+                                    required
+                                    rules={[{ required: true, message: 'Veuillez entre un titre' }]}
+                                >
+                                    <Input required placeholder='Titre de la publication'/>
+                                </Form.Item>
+                            </Col>
+                        </Row>
                         <Row gutter={16}>
                             <Col span={24}>
                                 <Form.Item
@@ -105,7 +130,9 @@ const FormulaireRessource: React.FunctionComponent<IFormulaireProps> = ({ type, 
                                     rules={[{ required: true, message: 'Veuillez entre un texte' }]}
                                 >
                                     <TextArea
+                                        required
                                         rows={4}
+                                        placeholder='Contenue de la publication'
                                     />
                                 </Form.Item>
                             </Col>
