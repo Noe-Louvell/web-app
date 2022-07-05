@@ -4,7 +4,6 @@ import router from 'next/router';
 import jwt_decode from "jwt-decode";
 import React, { createContext, useState, useEffect } from 'react';
 import Cookies from 'js-cookie';
-import { useCookies } from "react-cookie";
 // Composants locaux
 // Services
 
@@ -12,6 +11,7 @@ import { useCookies } from "react-cookie";
 import { IUser } from '../../interfaces/IUser';
 import { connexion, getUtilisateurById } from '../../services/utilisateur.service';
 import { IContextApp, ITokenDecoded, IValueConnect } from './InterfaceAuth';
+import { useCookies } from 'react-cookie';
 
 export const ContextApp = createContext<IContextApp>({
     appLoading: false,
@@ -28,7 +28,7 @@ export const ContextApp = createContext<IContextApp>({
 });
 
 export const ContextAppProvider: React.FunctionComponent = ({ children }) => {
-    const [userSession, setUserSession, removeUserSession] = useCookies(["user"]);
+    const [userSession, setUserSession, removeUserSession] = useCookies(["utilisateur"]);
     const [tokenSession, setTokenSession] = useCookies(["token"]);
 
     const [appLoading, setAppLoading] = useState<boolean>(false);
@@ -38,7 +38,7 @@ export const ContextAppProvider: React.FunctionComponent = ({ children }) => {
         setAppLoading(true);
         await connexion(values).then(async (res) => {
             if (res.status == 200) {
-                setUserSession("user", res.data.utilisateur, {
+                setUserSession("utilisateur", res.data.utilisateur._id, {
                     path: "/"
                 });
                 setTokenSession("token", res.data.token, {

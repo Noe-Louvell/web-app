@@ -9,10 +9,13 @@ export function getAllRessources() {
     })
 }
 
-export function deleteRessource(idRessource: string) {
+export function deleteRessource(idRessource: string , token: string) {
     return axios({
         url: `http://localhost:3000/api/ressource/${idRessource}`,
-        method: 'delete'
+        method: 'delete',
+        headers: {
+            Authorization: `Bearer ${token}`,
+        },
     })
 }
 
@@ -31,11 +34,14 @@ export function getRessourceByIdUser(idUser: string) {
     })
 }
 
-export function createRessource(newRessource: IRessource) {
+export function createRessource(newRessource: IRessource, token: string) {
     return axios({
         url: 'http://localhost:3000/api/ressource',
         method: 'post',
-        data:newRessource
+        data: newRessource,
+        headers: {
+            Authorization: `Bearer ${token}`,
+        },
     })
 }
 

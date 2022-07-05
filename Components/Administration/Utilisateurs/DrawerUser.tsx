@@ -61,25 +61,14 @@ export const DrawerUser: React.FunctionComponent<IPropsDrawerUser> = ({ idUser, 
         const upUtilisateur: IUser = {
             nom: value.nom,
             prenom: value.prenom,
-            image: file.toString(),
+            description: value.description,
+            image: null,
             mail: user.mail,
             compte_actif: value.actif,
             pseudo: value.pseudo,
         }
-        await updateUtilisateur(user._id, upUtilisateur);
-        const userSession = JSON.parse(sessionStorage.getItem('user'));
-        if (userSession._id === user._id) {
-            await getUtilisateurById(user._id).then((res) => {
-                if (res.status == 200) {
-                    sessionStorage.setItem('user', JSON.stringify(res.data));
-                } else {
-                    notification.error({
-                        message: 'Une erreur est survenue',
-                    });
-                }
-            })
-        }
-        router.reload();
+        await updateUtilisateur(user._id, upUtilisateur, tokenSession.token);
+        router.replace(router.asPath);
     };
     const beforeUpload = (file) => {
         const isJpgOrPng = file.type === 'image/jpeg' || file.type === 'image/png';

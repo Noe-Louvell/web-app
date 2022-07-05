@@ -46,10 +46,13 @@ export function getUtilisateurById(idUtilisateur: string, token) {
     },
   });
 }
-export function followUser(idUtilisateur: string) {
+export function followUser(idUtilisateur: string, token: string) {
   return axios({
-    url: `/utilisateur/${idUtilisateur}/follow`,
+    url: `http://localhost:3000/api/utilisateur/follow/${idUtilisateur}`,
     method: "patch",
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
   });
 }
 
@@ -66,5 +69,24 @@ export function connexion(newConnection: IConnect) {
     url: "http://localhost:3000/api/connexion",
     method: "post",
     data: newConnection,
+  });
+}
+
+export function getUtilisateurAbonnement(token) {
+  return axios({
+    url: `http://localhost:3000/api/utilisateur/abonnement`,
+    method: "get",
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  });
+}
+export function getUtilisateurAbonne(token) {
+  return axios({
+    url: `http://localhost:3000/api/utilisateur/abonne`,
+    method: "get",
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
   });
 }

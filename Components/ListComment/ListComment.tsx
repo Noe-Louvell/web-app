@@ -38,7 +38,7 @@ const ListCommentIndex: React.FunctionComponent<IPropsListComment> = ({ comments
         <>
             <Row gutter={16} style={{ marginBottom: '2%' }}>
                 <Col span={2}>
-                    <Avatar src={userSession.image} />
+                    {/* <Avatar src={userSession.image} /> */}
                 </Col>
                 <Col span={20}>
                     <Input.Group compact>

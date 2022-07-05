@@ -5,6 +5,9 @@ import { IRessource } from '../../../interfaces/IRessource';
 import { deleteUtilisateur, getUtilisateurById } from '../../../services/utilisateur.service';
 import { useState } from 'react';
 import Text from 'antd/lib/typography/Text';
+import { deleteRessource } from '../../../services/ressource.service';
+import { ContextApp } from '../../../Context/ContextAuth/ContextAuth';
+import { useRouter } from 'next/router';
 
 interface IPropsCardRessource {
     ressources: IRessource[];
@@ -15,20 +18,22 @@ const { Title } = Typography;
 
 
 export const TableRessource: React.FunctionComponent<IPropsCardRessource> = ({ ressources }) => {
+    const router = useRouter();
     const [idEditRessource, setIdEditRessource] = useState(null);
-    const deleteRessource = async (IdRessource: string) => {
-        await deleteUtilisateur(IdRessource).then((res) => {
+    const {tokenSession} = React.useContext(ContextApp)
+    const deleteRessourceById = async (IdRessource: string) => {
+        await deleteRessource(IdRessource, tokenSession.token).then((res) => {
             if (res.status == 200) {
                 notification.success({
                     message: 'Utilisateur suprimmer',
-                });
+                })
+                router.replace(router.asPath);
             } else {
                 notification.error({
                     message: 'Une erreur est survenue',
                 });
             }
         })
-
     }
     const columns = [
         {
@@ -58,7 +63,7 @@ export const TableRessource: React.FunctionComponent<IPropsCardRessource> = ({ r
             render: (record) => (
                 <Space>
                     <Button icon={<EditOutlined />} onClick={() => { setIdEditRessource(record._id) }} />
-                    <Button icon={<DeleteOutlined />} onClick={() => { deleteRessource(record._id) }} />
+                    <Button icon={<DeleteOutlined />} onClick={() => { deleteRessourceById(record._id) }} />
                 </Space>
             ),
         },

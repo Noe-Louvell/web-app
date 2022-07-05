@@ -1,16 +1,17 @@
 import * as React from 'react';
 import { useEffect, useState } from 'react';
-import { Form, Input, Button, Col, Row, Typography, Progress, Spin, Card, Modal, Upload, notification } from 'antd';
+import { Form, Input, Button, Col, Row, Typography, Progress, Spin, Card, Modal, Upload, message, UploadProps } from 'antd';
 import { IRessource } from '../../../interfaces/IRessource';
 import { PlusOutlined, UploadOutlined } from '@ant-design/icons';
 import TextArea from 'antd/lib/input/TextArea';
-import { getUtilisateurById } from '../../../services/utilisateur.service';
 import { IUser } from '../../../interfaces/IUser';
-import { createRessource } from '../../../services/ressource.service';
-import { Convert } from 'mongo-image-converter';
+import { ContextApp } from '../../../Context/ContextAuth/ContextAuth';
+import axios from 'axios';
+import { useRouter } from 'next/router';
 
 interface IValueForm {
     texte?: string,
+    titre?: string,
     image?: string,
 }
 
@@ -25,33 +26,30 @@ const FormulaireRessource: React.FunctionComponent<IFormulaireProps> = ({ type, 
     const [isLoading, setIsLoading] = useState(false);
     const [visible, setVisible] = useState(false);
     const [user, setUser] = useState<IUser>();
-    const [file, setFile] = useState<string | ArrayBuffer>();
+    const [file, setFile] = useState<any>();
     useEffect(() => {
         setUser(JSON.parse(sessionStorage.getItem('user')));
         forceUpdate({});
     }, []);
-
-    // _id?:string,
-    // texte : string,
-    // titre: string,
-    // image: string,
-    // date_creation?: string,
-    // utilisateur: IUser,
-    // commentaires?: ICommentaire[];
-    // nb_reaction?: number,
+    const { tokenSession } = React.useContext(ContextApp)
+    const router = useRouter();
     const onFinish = async (values: IValueForm) => {
         setIsLoading(true);
-        const newRessource: IRessource = {
-            texte: values.texte,
-            image: null,
-            titre:values.titre,
-            utilisateur:user,
-            nb_reaction: 0,
-            commentaires: [],
-        }
-        await createRessource(newRessource);
+        await axios({
+            method: 'post',
+            url: 'http://localhost:3000/api/ressource',
+            data: {
+                texte: values.texte,
+                titre: values.titre,
+                image:  file
+            },
+            headers: {
+                Authorization: `Bearer ${tokenSession.token}`,
+            },
+        })
         form.resetFields();
         setIsLoading(false);
+        router.replace(router.asPath);
         setVisible(false);
     };
 
@@ -66,11 +64,11 @@ const FormulaireRessource: React.FunctionComponent<IFormulaireProps> = ({ type, 
         };
     }
 
-    const getFile = async (e) => {
-        const convertedImage = await Convert(e.file.originFileObj);
-        setFile(convertedImage);
+    const getFile = (e) => {
+        getBase64(e.file.originFileObj);
         return;
     };
+
     function beforeUpload(file) {
         const isJpgOrPng = file.type === 'image/jpeg' || file.type === 'image/png';
         if (!isJpgOrPng) {
@@ -117,7 +115,7 @@ const FormulaireRessource: React.FunctionComponent<IFormulaireProps> = ({ type, 
                                     required
                                     rules={[{ required: true, message: 'Veuillez entre un titre' }]}
                                 >
-                                    <Input required placeholder='Titre de la publication'/>
+                                    <Input required placeholder='Titre de la publication' />
                                 </Form.Item>
                             </Col>
                         </Row>
@@ -149,7 +147,19 @@ const FormulaireRessource: React.FunctionComponent<IFormulaireProps> = ({ type, 
                                     >
                                         <Button icon={<UploadOutlined />}>Upload</Button>
                                     </Upload>
+                                    {/* <Upload
+                                        name="avatar"
+                                        listType="picture-card"
+                                        className="avatar-uploader"
+                                        showUploadList={false}
+                                        action="https://www.mocky.io/v2/5cc8019d300000980a055e76"
+                                        beforeUpload={beforeUpload}
+                                        onChange={handleChange}
+                                    >
+                                        {imageUrl ? <img src={imageUrl} alt="avatar" style={{ width: '100%' }} /> : uploadButton}
+                                    </Upload> */}
                                 </Form.Item>
+
                             </Col>
                         </Row>
                         <Row gutter={16} style={{ justifyContent: 'center' }}>

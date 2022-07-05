@@ -21,7 +21,7 @@ const LoginCreate: React.FunctionComponent = () => {
     const [form] = Form.useForm();
     const [, forceUpdate] = useState({});
     const [regexRes, setRegexRes] = useState('');
-    const [file, setFile] = useState<ArrayBuffer>();
+    const [file, setFile] = useState<any>();
     const [isLoading, setIsLoading] = useState<boolean>();
     useEffect(() => {
         forceUpdate({});
@@ -30,10 +30,19 @@ const LoginCreate: React.FunctionComponent = () => {
     const mediumRegexPassword = '^(((?=.*[a-z])(?=.*[A-Z]))|((?=.*[a-z])(?=.*[0-9]))|((?=.*[A-Z])(?=.*[0-9])))(?=.{6,})';
     const strongRegexPassword = '^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])(?=.{8,})';
 
-    const getFile = async (e) => {
-        const convertedImage = await Convert(e.file.originFileObj);
-        setFile(e.file);
-        
+    function getBase64(file) {
+        var reader = new FileReader();
+        reader.readAsDataURL(file);
+        reader.onload = function () {
+            setFile(reader.result);
+        };
+        reader.onerror = function (error) {
+            console.log('Error: ', error);
+        };
+    }
+
+    const getFile = (e) => {
+        getBase64(e.file.originFileObj);
         return;
     };
 
@@ -44,6 +53,7 @@ const LoginCreate: React.FunctionComponent = () => {
         }
         return isJpgOrPng;
     }
+
     const analysePassword = (password) => {
         if (new RegExp(mediumRegexPassword).test(password) === true) {
 

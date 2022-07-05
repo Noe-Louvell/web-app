@@ -3,6 +3,7 @@ import { Avatar, Badge, Popover, Space, Typography } from 'antd';
 import { IUser } from '../../../interfaces/IUser';
 import CardUserIndex from '../CardUser/CardUser';
 import moment from 'moment';
+import { ContextApp } from '../../../Context/ContextAuth/ContextAuth';
 
 interface IPropsBadgeUser {
     user: IUser;
@@ -22,13 +23,13 @@ const BadgeUser: React.FunctionComponent<IPropsBadgeUser> = ({ user = null, date
                 <Badge color={user.compte_actif ? 'green' : 'red'} dot>
                     <Avatar
                         size= {size ? size : 45}
-                        src={user.image} 
+                        src={user.image ? user.image : null} 
                     />
                 </Badge>
 
             </Popover>
             <Space direction='vertical' className='space-badge-user'>
-                <Text>{user.nom.charAt(0).toUpperCase() + user.nom.slice(1)} {user.prenom.charAt(0).toUpperCase() + user.prenom.slice(1)}</Text>
+                <Text>{user.nom} {user.prenom}</Text>
                 {date && (
                     
                     <Text className='antDateType' type='secondary'>{moment(dateFormated).format('L')}</Text>

@@ -7,7 +7,6 @@ import { IUser } from '../../interfaces/IUser';
 import axios from 'axios';
 
 export default function AdminUtilisateur({ utilisateurData, errorCode }) {
-    const { tokenSession } = useContext(ContextApp)
 
     return (
 

@@ -12,7 +12,6 @@ import { ContextApp } from '../Context/ContextAuth/ContextAuth';
 
 export default function Index({ resRessources }) {
     const { userSession } = useContext(ContextApp);
-    console.log(resRessources)
     return (
         <Page
             title='Accueil'

@@ -8,10 +8,12 @@ import ListCommentIndex from '../../ListComment/ListComment';
 import Title from 'antd/lib/typography/Title';
 import axios from 'axios';
 import { ContextApp } from '../../../Context/ContextAuth/ContextAuth';
-import router from 'next/router';
+import { useRouter } from 'next/router';
+import { IUser } from '../../../interfaces/IUser';
 
 interface IPropsCardRessource {
     ressource: IRessource;
+    user?: IUser;
 }
 
 const { Text, Paragraph } = Typography;
@@ -33,10 +35,11 @@ const menu = (
     </Menu>
 );
 
-const CardRessourceIndex: FunctionComponent<IPropsCardRessource> = ({ ressource }) => {
+const CardRessourceIndex: FunctionComponent<IPropsCardRessource> = ({ ressource, user }) => {
+    const router = useRouter();
     const [isShowComment, setIsShowComment] = useState(false);
     const onClick = () => isShowComment ? setIsShowComment(false) : setIsShowComment(true);
-    const {tokenSession} = useContext(ContextApp);
+    const { tokenSession } = useContext(ContextApp);
     async function reactRessource(idRessource: string) {
         await axios({
             url: `http://localhost:3000/api/ressource/${idRessource}/reaction`,
@@ -45,10 +48,10 @@ const CardRessourceIndex: FunctionComponent<IPropsCardRessource> = ({ ressource 
                 'Authorization': `Bearer ${tokenSession.token}`
             }
         })
-
-        router.reload();
+        router.replace(router.asPath);
         return
     }
+
     return (
 
         <Row gutter={16} style={{ marginTop: '10px' }}>
@@ -59,7 +62,7 @@ const CardRessourceIndex: FunctionComponent<IPropsCardRessource> = ({ ressource 
                     <Row gutter={16}>
                         <Col xs={{ span: 22 }} lg={{ span: 23 }}>
                             <Space direction='vertical'>
-                                <BadgeUserIndex user={ressource.utilisateur} date={ressource.date_creation} />
+                                <BadgeUserIndex user={user ? user : ressource.utilisateur} date={ressource.date_creation} />
                             </Space>
 
                         </Col>
@@ -87,10 +90,10 @@ const CardRessourceIndex: FunctionComponent<IPropsCardRessource> = ({ ressource 
                         )}
                         {ressource.image && (
                             <Col xs={{ span: 24 }} lg={{ span: 24 }}>
-                                <Row gutter={16}>
+                                <Row gutter={16} align="middle">
                                     <Col xs={{ span: 24 }} lg={{ span: 5 }}>
                                     </Col>
-                                    <Col xs={{ span: 24 }} lg={{ span: 14 }}>
+                                    <Col xs={{ span: 24 }} lg={{ span: 14 }} style={{display:'flex', justifyContent:'center'}}>
                                         <Image
                                             width='auto'
                                             height='auto'
