@@ -247,3 +247,7 @@ h3.ant-typography {
   bottom: 1em;
   right: 20em;
 }
+
+.ant-comment-actions{
+  margin-top: 5px !important;
+}

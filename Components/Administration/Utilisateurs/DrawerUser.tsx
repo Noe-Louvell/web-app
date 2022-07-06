@@ -8,6 +8,7 @@ import ImgCrop from 'antd-img-crop';
 import { Convert } from 'mongo-image-converter';
 import { useRouter } from 'next/router'
 import { ContextApp } from '../../../Context/ContextAuth/ContextAuth';
+import axios from 'axios';
 interface IPropsDrawerUser {
     idUser: string;
     visible: boolean;
@@ -17,19 +18,16 @@ interface IPropsDrawerUser {
 const { Option } = Select;
 
 export const DrawerUser: React.FunctionComponent<IPropsDrawerUser> = ({ idUser, visible, onClose }) => {
-    const {tokenSession} = React.useContext(ContextApp)
+    const { tokenSession } = React.useContext(ContextApp)
     const router = useRouter();
     const { Option } = Select;
     const [form] = Form.useForm();
     const [user, setUser] = useState<IUser>({} as IUser);
     const [isLoading, setIsLoading] = useState<boolean>(false);
     const [file, setFile] = useState<string | ArrayBuffer>();
+    const [roles, setRoles] = useState();
 
-    const getFile = async (e) => {
-        const convertedImage = await Convert(e.file.originFileObj);
-        setFile(convertedImage);
-        return;
-    };
+
 
 
 
@@ -46,8 +44,22 @@ export const DrawerUser: React.FunctionComponent<IPropsDrawerUser> = ({ idUser, 
             setIsLoading(false);
         })
     }
+    const getAllRoles = async () => {
+        setIsLoading(true);
+        await axios({
+            url: `http://localhost:3000/api/role`,
+            method: "GET",
+            headers: {
+                Authorization: `Bearer ${tokenSession.token}`,
+            },
+        }).then(async (res) => {
+            await setRoles(res.data)
+        })
+        setIsLoading(false);
+    }
     useEffect(() => {
         getUser(idUser);
+        getAllRoles()
     }, [idUser]);
 
 
@@ -58,26 +70,51 @@ export const DrawerUser: React.FunctionComponent<IPropsDrawerUser> = ({ idUser, 
 
 
     const onSubmit = async (value) => {
-        const upUtilisateur: IUser = {
-            nom: value.nom,
-            prenom: value.prenom,
-            description: value.description,
-            image: null,
-            mail: user.mail,
-            compte_actif: value.actif,
-            pseudo: value.pseudo,
-        }
-        await updateUtilisateur(user._id, upUtilisateur, tokenSession.token);
-        router.replace(router.asPath);
+        await axios({
+            url: `http://localhost:3000/api/utilisateur/${idUser}`,
+            method: "PATCH",
+            data: {
+                nom: value.nom,
+                prenom: value.prenom,
+                description: value.description,
+                image: file,
+                compte_actif: value.actif,
+                pseudo: value.pseudo,
+                role: value.role
+            },
+            headers: {
+                Authorization: `Bearer ${tokenSession.token}`,
+            },
+        }).then(() => {
+            onClose;
+            router.replace(router.asPath);
+        })
     };
-    const beforeUpload = (file) => {
+
+    function getBase64(file) {
+        var reader = new FileReader();
+        reader.readAsDataURL(file);
+        reader.onload = function () {
+            setFile(reader.result);
+        };
+        reader.onerror = function (error) {
+            console.log('Error: ', error);
+        };
+    }
+
+    const getFile = (e) => {
+        getBase64(e.file.originFileObj);
+        return;
+    };
+
+    function beforeUpload(file) {
         const isJpgOrPng = file.type === 'image/jpeg' || file.type === 'image/png';
         if (!isJpgOrPng) {
-            message.error('You can only upload JPG/PNG file!');
+            console.error('You can only upload JPG/PNG file!');
         }
         return isJpgOrPng;
     }
-
+    console.log(roles)
     return (
         <>
             <Drawer
@@ -214,10 +251,19 @@ export const DrawerUser: React.FunctionComponent<IPropsDrawerUser> = ({ idUser, 
                                         <Select
                                             showSearch
                                             placeholder="Selectionnez un rôle"
+                                            defaultValue={user.role ? user.role : null}
                                         >
-                                            <Option value="jack">Jack</Option>
-                                            <Option value="lucy">Lucy</Option>
-                                            <Option value="tom">Tom</Option>
+                                            {roles ? roles.map((option: any) => (
+                                                <Option
+                                                    key={option._id}
+                                                    value={option._id}
+                                                >
+                                                    {option.nom}
+                                                </Option>
+                                            )) : <></>}
+                                            {/* {roles ? .map((item) => {
+                                                <Option value={item._id}>{item.nom}</Option>
+                                            }) : <></>} */}
                                         </Select>
                                     </Form.Item>
                                 </Col>

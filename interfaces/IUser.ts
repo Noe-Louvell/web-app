@@ -16,4 +16,5 @@ export interface IUser {
     owner?: IRole,
     nbdabonnement?: number,
     nbdabonne?: number,
+    role?: string
 }

@@ -29,10 +29,10 @@ const BadgeUser: React.FunctionComponent<IPropsBadgeUser> = ({ user = null, date
 
             </Popover>
             <Space direction='vertical' className='space-badge-user'>
-                <Text>{user.nom} {user.prenom}</Text>
+                <Text>{user.pseudo}</Text>
                 {date && (
                     
-                    <Text className='antDateType' type='secondary'>{moment(dateFormated).format('L')}</Text>
+                    <Text className='antDateType' type='secondary'>{moment(dateFormated).format("DD/MM/YYYY HH:mm:ss")}</Text>
                 )}
             </Space>
 

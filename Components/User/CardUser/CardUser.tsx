@@ -17,7 +17,7 @@ const { Paragraph, Title, Text } = Typography;
 
 
 const CardUserIndex: React.FunctionComponent<IPropsCardUser> = ({ user }) => {
-    const { userSession } = React.useContext(ContextApp);
+    const { tokenSession, userSession } = React.useContext(ContextApp);
 
     const menu = (
         <Menu
@@ -28,7 +28,7 @@ const CardUserIndex: React.FunctionComponent<IPropsCardUser> = ({ user }) => {
                     <Text >Voir le profil de {user.pseudo} </Text>
                 </Space>
             </Menu.Item>
-            <Menu.Item key='follow' onClick={() => followUser(user._id, userSession.token)}>
+            <Menu.Item key='follow' onClick={() => followUser(user._id, tokenSession.token)}>
                 <Space>
                     <MessageOutlined />
                     <Text >S&apos;abonner à {user.pseudo} </Text>

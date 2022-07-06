@@ -29,7 +29,7 @@ const beforeUpload = (file) => {
 
 const UpdateUser: React.FunctionComponent<IPropsUpdateUser> = ({ user, token }) => {
     const router = useRouter();
-    const {setUserSession, setTokenSession} = React.useContext(ContextApp)
+    const {setUserSession} = React.useContext(ContextApp)
 
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [pseudoValue, setPseudoValue] = useState(user.pseudo);
@@ -85,7 +85,7 @@ const UpdateUser: React.FunctionComponent<IPropsUpdateUser> = ({ user, token }) 
                 Authorization: `Bearer ${token}`,
             },
         }).then(res =>{
-            setUserSession("user", res.data, {
+            setUserSession("utilisateur", res.data._id, {
                 path: "/"
             });
             router.replace(router.asPath);

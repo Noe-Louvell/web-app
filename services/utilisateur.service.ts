@@ -59,7 +59,7 @@ export function followUser(idUtilisateur: string, token: string) {
 export function createUtilisateur(newUtilisateur: IUser) {
   return axios({
     url: "http://localhost:3000/api/inscription",
-    method: "post",
+    method: "patch",
     data: { newUtilisateur },
   });
 }

@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { FunctionComponent, useContext, useState } from 'react';
+import { FunctionComponent, useContext, useEffect, useState } from 'react';
 import { Menu, Button, Layout } from 'antd';
 import {
     MenuUnfoldOutlined,
@@ -13,20 +13,44 @@ import {
     ReadOutlined,
     TeamOutlined,
     ToolOutlined,
+    HomeOutlined,
+    BarChartOutlined,
 } from '@ant-design/icons';
 const { Sider } = Layout;
 import { MarianneIcon } from '../CustomIcon/CutomIcons';
 import SubMenu from 'antd/lib/menu/SubMenu';
 import { useRouter } from 'next/router'
 import { ContextApp } from '../../../Context/ContextAuth/ContextAuth';
+import axios from 'axios';
+import { isADM, isSAM } from '../../../Utils/getPermission';
 
 export const MenuSider: FunctionComponent = () => {
-    const { userSession } = useContext(ContextApp);
+    const { userSession, tokenSession } = useContext(ContextApp);
 
     const [collapsed, setCollapsed] = useState(false);
+    const [role, setRole] = useState(false);
+    const [isLoading, setIsLoading] = useState(false);
     const router = useRouter();
-    return (
 
+    const getData = () => {
+        setIsLoading(true)
+        axios({
+            method: 'get',
+            url: 'http://localhost:3000/api/utilisateur/role',
+            headers: {
+                'Authorization': 'Bearer ' + tokenSession.token
+            }
+        }).then((res) => {
+            setRole(res.data)
+
+            setIsLoading(false)
+        })
+    }
+
+    useEffect(() => {
+        getData()
+    }, []);
+    return (
         <>
             <Sider
                 className='siderMenu'
@@ -48,7 +72,7 @@ export const MenuSider: FunctionComponent = () => {
                     mode="inline"
                     inlineCollapsed={collapsed}
                 >
-                    <Menu.Item key="1" icon={<PieChartOutlined />} onClick={() => router.push('/')}>
+                    <Menu.Item key="1" icon={<HomeOutlined />} onClick={() => router.push('/')}>
                         Accueil
                     </Menu.Item>
                     {
@@ -64,8 +88,16 @@ export const MenuSider: FunctionComponent = () => {
                         Object.keys(userSession).length !== 0 ?
                             <SubMenu key="3" icon={<ToolOutlined />} title="Administration">
                                 <Menu.Item icon={<TeamOutlined />} key="5" onClick={() => router.push('/administration/utilisateurs')}>Utilisateurs</Menu.Item>
-                                <Menu.Item icon={<ReadOutlined />} key="6" onClick={() => router.push('/administration/publications')}>Publications</Menu.Item>
-                                {/* <Menu.Item icon={<CommentOutlined />} key="7" onClick={()=>router.push('/administration/commentaires')}>Commentaires</Menu.Item> */}
+                                {isADM(role) ? <>
+                                    <Menu.Item icon={<ReadOutlined />} key="6" onClick={() => router.push('/administration/publications')}>Publications</Menu.Item>
+                                    <Menu.Item icon={<CommentOutlined />} key="7" onClick={() => router.push('/administration/commentaires')}>Commentaires</Menu.Item>
+                                </> : isSAM(role) ? <>
+                                    <Menu.Item icon={<ReadOutlined />} key="6" onClick={() => router.push('/administration/publications')}>Publications</Menu.Item>
+                                    <Menu.Item icon={<CommentOutlined />} key="7" onClick={() => router.push('/administration/commentaires')}>Commentaires</Menu.Item>
+                                </> : <></>
+                                }
+
+                                <Menu.Item icon={<BarChartOutlined />} key="8" onClick={() => router.push('/administration/statistiques')}>Statistiques</Menu.Item>
                             </SubMenu> :
                             <></>
                     }

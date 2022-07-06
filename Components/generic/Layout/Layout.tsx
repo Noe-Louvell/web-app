@@ -36,6 +36,3 @@ const Layout: React.FunctionComponent<IModalFormSite> = ({ children, siderConten
 };
 
 export default Layout;
-{/* <Sider  className='siderRight'>
-                <ContactSider />
-            </Sider> */}

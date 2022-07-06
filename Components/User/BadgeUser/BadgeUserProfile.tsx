@@ -10,7 +10,7 @@ const { Text } = Typography;
 
 
 const BadgeUserProfile: FunctionComponent = () => {
-    const { userSession, removeUserSession } = useContext(ContextApp);
+    const { userSession, removeUserSession, tokenSession } = useContext(ContextApp);
     const [user, setUser] = useState<any>(null);
 
 
@@ -20,7 +20,7 @@ const BadgeUserProfile: FunctionComponent = () => {
                 method: 'get',
                 url: 'http://localhost:3000/api/utilisateur/monprofil',
                 headers: {
-                    'Authorization': 'Bearer ' + userSession.token
+                    'Authorization': 'Bearer ' + tokenSession.token
                 }
             }).then((res) => {
                 setUser(res.data)
@@ -29,7 +29,7 @@ const BadgeUserProfile: FunctionComponent = () => {
     }, [userSession]);
 
     const onDeconection = () => {
-        removeUserSession("user")
+        removeUserSession("utilisateur")
         router.push('/login');
     }
     const ContentPopover = <>

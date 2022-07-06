@@ -37,7 +37,7 @@ export function getRessourceByIdUser(idUser: string) {
 export function createRessource(newRessource: IRessource, token: string) {
     return axios({
         url: 'http://localhost:3000/api/ressource',
-        method: 'post',
+        method: 'patch',
         data: newRessource,
         headers: {
             Authorization: `Bearer ${token}`,

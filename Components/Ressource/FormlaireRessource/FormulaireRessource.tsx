@@ -36,7 +36,7 @@ const FormulaireRessource: React.FunctionComponent<IFormulaireProps> = ({ type, 
     const onFinish = async (values: IValueForm) => {
         setIsLoading(true);
         await axios({
-            method: 'post',
+            method: 'patch',
             url: 'http://localhost:3000/api/ressource',
             data: {
                 texte: values.texte,

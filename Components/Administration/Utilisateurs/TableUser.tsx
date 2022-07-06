@@ -6,7 +6,7 @@ import { deleteUtilisateur } from '../../../services/utilisateur.service';
 import { DrawerUser } from './DrawerUser';
 import { useState } from 'react';
 import { ContextApp } from '../../../Context/ContextAuth/ContextAuth';
-import router from 'next/router';
+import router, { useRouter } from 'next/router';
 
 interface IPropsCardUser {
     users: IUser[];
@@ -17,6 +17,7 @@ const { Title } = Typography;
 
 
 export const TableUser: React.FunctionComponent<IPropsCardUser> = ({ users }) => {
+    const router = useRouter();
     const [idEditUser, setIdEditUser] = useState(null);
     const {tokenSession} = React.useContext(ContextApp)
     const deleteUser = async (IdUser: string) => {
@@ -31,7 +32,7 @@ export const TableUser: React.FunctionComponent<IPropsCardUser> = ({ users }) =>
                 });
             }
         })
-        router.reload();
+        router.replace(router.asPath);
     }
     const columns = [
         {
@@ -43,6 +44,11 @@ export const TableUser: React.FunctionComponent<IPropsCardUser> = ({ users }) =>
             title: 'Prenom',
             dataIndex: 'prenom',
             key: 'prenom',
+        },
+        {
+            title: 'Pseudo',
+            dataIndex: 'pseudo',
+            key: 'pseudo',
         },
         {
             title: 'Email',
@@ -62,9 +68,11 @@ export const TableUser: React.FunctionComponent<IPropsCardUser> = ({ users }) =>
             render: val => (val ? <div className='left'><Tag color="green">Actif</Tag></div> : <div className='left'><Tag color="red">Non Actif</Tag></div>),
         },
         {
-            title: 'Pseudo',
-            dataIndex: 'pseudo',
-            key: 'pseudo',
+            title: 'Rôle',
+            dataIndex: 'role',
+            key: 'role',
+            render: val => (<p>{val.trigramme}</p>),
+
         },
         {
             title: 'Actions',
@@ -81,6 +89,7 @@ export const TableUser: React.FunctionComponent<IPropsCardUser> = ({ users }) =>
         setIdEditUser(null);
         return false;
     }
+    console.log(users)
     return (
         <div className='container'>
             {idEditUser ? <DrawerUser idUser={idEditUser} visible={idEditUser ? true : false} onClose={onCloseDrawer} /> : <></>}

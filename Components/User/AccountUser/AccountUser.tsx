@@ -19,16 +19,16 @@ interface IAccountProps {
 }
 
 const AccountUser: React.FunctionComponent<IAccountProps> = ({ user }) => {
-    const { userSession } = useContext(ContextApp);
+    const { tokenSession, userSession } = useContext(ContextApp);
     const [key, setKey] = useState('1');
     const [abonnement, setAbonnement] = useState([]);
     const [loadingAbonnement, setloadingAbonnement] = useState(false);
     const [abonee, setAbonee] = useState([]);
     const [loadingAbonee, setLoadingAbonee] = useState(false);
-    // const user = userSession.user;
     const router = useRouter();
+
     const deleteRessourceById = async (IdRessource: string) => {
-        await deleteRessource(IdRessource, userSession.token).then((res) => {
+        await deleteRessource(IdRessource, tokenSession.token).then((res) => {
             if (res.status == 200) {
                 notification.success({
                     message: 'Utilisateur suprimmer',
@@ -42,31 +42,55 @@ const AccountUser: React.FunctionComponent<IAccountProps> = ({ user }) => {
         })
     }
 
-    const getData = () =>{
+    const getData = () => {
         setLoadingAbonee(true)
         setloadingAbonnement(true)
-        axios({
-            method: 'get',
-            url: 'http://localhost:3000/api/utilisateur/abonnenoe',
-            headers: {
-                'Authorization': 'Bearer ' + userSession.token
-            }
-        }).then((res) => {
-            setAbonee(res.data);
-            setLoadingAbonee(false)
-        })
+        if (userSession.utilisateur === user._id) {
+            axios({
+                method: 'get',
+                url: 'http://localhost:3000/api/utilisateur/abonne',
+                headers: {
+                    'Authorization': 'Bearer ' + tokenSession.token
+                }
+            }).then((res) => {
+                setAbonee(res.data);
+                setLoadingAbonee(false)
+            })
 
-        axios({
-            method: 'get',
-            url: 'http://localhost:3000/api/utilisateur/abonnementnoe',
-            headers: {
-                'Authorization': 'Bearer ' + userSession.token
-            }
-        }).then((res) => {
-            setAbonnement(res.data)
+            axios({
+                method: 'get',
+                url: 'http://localhost:3000/api/utilisateur/abonnementnoe',
+                headers: {
+                    'Authorization': 'Bearer ' + tokenSession.token
+                }
+            }).then((res) => {
+                setAbonnement(res.data)
 
-            setloadingAbonnement(false)
-        })
+                setloadingAbonnement(false)
+            })
+        } else {
+            axios({
+                method: 'get',
+                url: `http://localhost:3000/api/utilisateur/abonne/${user._id}`,
+                headers: {
+                    'Authorization': 'Bearer ' + tokenSession.token
+                }
+            }).then((res) => {
+                setAbonee(res.data);
+                setLoadingAbonee(false)
+            })
+
+            axios({
+                method: 'get',
+                url: `http://localhost:3000/api/utilisateur/abonnement/${user._id}`,
+                headers: {
+                    'Authorization': 'Bearer ' + tokenSession.token
+                }
+            }).then((res) => {
+                setAbonnement(res.data)
+                setloadingAbonnement(false)
+            })
+        }
     }
     useEffect(() => {
         if (key === '2') {
@@ -74,15 +98,21 @@ const AccountUser: React.FunctionComponent<IAccountProps> = ({ user }) => {
         }
     }, [key]);
 
-        const handleUnFollow = async (userId) =>{
-            await followUser(userId, userSession.token).then(()=>{
-                getData()
-            })
-        }
+    const handleUnFollow = async (userId) => {
+        await followUser(userId, tokenSession.token).then(() => {
+            getData()
+        })
+    }
 
-    console.log(abonee)
+    const arrayAbonne = abonee.map((item) => {
+        return item.abonnement
+    })
+
+    const arrayAbonnement = abonnement.map((item) => {
+        return item.utilisateur
+    })
+
     const onChange = (key: string) => {
-        console.log(key);
         setKey(key)
     };
     return (
@@ -95,18 +125,22 @@ const AccountUser: React.FunctionComponent<IAccountProps> = ({ user }) => {
 
                     </Col>
 
-                    <Col span={11} style={{ marginLeft: 25 }} >
+                    <Col span={10} style={{ marginLeft: 25 }} >
                         <Avatar size={100} src={user.image} />
                     </Col>
-                    <Col span={2} >
-                        <UpdateUser user={user} token={userSession.token} />
-                    </Col>
+                    {userSession.utilisateur === user._id ?
+                        <>
+                            <Col span={2} >
+                                <UpdateUser user={user} token={tokenSession.token} />
+                            </Col>
 
-                    <Col span={1} >
-                        <Tooltip title="Supprimer votre compte">
-                            <Button type="dashed" shape="circle" icon={<DeleteOutlined />} />
-                        </Tooltip>
-                    </Col>
+                            <Col span={1} >
+                                <Tooltip title="Supprimer votre compte">
+                                    <Button type="dashed" shape="circle" icon={<DeleteOutlined />} />
+                                </Tooltip>
+                            </Col>
+                        </> :
+                        <Col span={3}></Col>}
                 </div>
             </Row>
 
@@ -125,9 +159,9 @@ const AccountUser: React.FunctionComponent<IAccountProps> = ({ user }) => {
             </Row>
             <Row gutter={16} align='middle' justify='center'>
                 <Space size={'large'} direction='horizontal' >
-                    <Text type='secondary'>{user.nbdabonnement + ' Abonnements'}</Text>
-                    <Text type='secondary' >{user.nbdabonne + ' Abonnés'}</Text>
-                    <Text type='secondary' >{user.ressources.length + ' Publications'}</Text>
+                    <Text type='secondary'>{user.nbdabonnement != 0 ? user.nbdabonnement + ' Abonnements' : '0 Abonnement'}</Text>
+                    <Text type='secondary' >{user.nbdabonne != 0 ? user.nbdabonne + ' Abonnés' : '0 Abonné'}</Text>
+                    <Text type='secondary' >{user.ressources ? user.ressources.length + ' Publications' : '0 Publication'}</Text>
                 </Space>
 
             </Row>
@@ -148,7 +182,7 @@ const AccountUser: React.FunctionComponent<IAccountProps> = ({ user }) => {
                             <List.Item
                                 key={item.titre}
                                 actions={[
-                                    <Button key={item._id} icon={<DeleteOutlined />} onClick={() => { deleteRessourceById(item._id) }} />
+                                    userSession.utilisateur === user._id ?<Button key={item._id} icon={<DeleteOutlined />} onClick={() => { deleteRessourceById(item._id) }} /> : <></>
                                 ]}
                             >
                                 <List.Item.Meta
@@ -160,24 +194,26 @@ const AccountUser: React.FunctionComponent<IAccountProps> = ({ user }) => {
                     />
                 </TabPane>
                 <TabPane tab="Contacts" key="2">
-                    <Row gutter={16} align='middle' justify='center' >
+                    <Row gutter={16} justify='center' >
                         <Col span={12}>
                             <Title level={4}>Abonnés :</Title>
-                            <Divider/>
+                            <Divider />
                             <List
                                 className="demo-loadmore-list"
                                 loading={loadingAbonee}
                                 itemLayout="horizontal"
-                                dataSource={abonee}
+                                dataSource={arrayAbonne}
                                 renderItem={item => (
                                     <List.Item
                                     >
                                         <Skeleton avatar title={false} loading={loadingAbonee} active>
-                                            <List.Item.Meta
-                                                avatar={<Avatar src={item.image} />}
-                                                title={item.pseudo}
-                                                key={item._id}
-                                            />
+                                            <a href={`/utilisateur/${item._id}`}>
+                                                <List.Item.Meta
+                                                    avatar={<Avatar src={item.image} />}
+                                                    title={item.pseudo}
+                                                    key={item._id}
+                                                />
+                                            </a>
                                         </Skeleton>
                                     </List.Item>
                                 )}
@@ -185,22 +221,28 @@ const AccountUser: React.FunctionComponent<IAccountProps> = ({ user }) => {
                         </Col>
                         <Col span={12}>
                             <Title level={4}>Abonnement : </Title>
-                            <Divider/>
+                            <Divider />
 
                             <List
                                 className="demo-loadmore-list"
                                 loading={loadingAbonnement}
                                 itemLayout="horizontal"
-                                dataSource={abonnement}
+                                dataSource={arrayAbonnement}
                                 renderItem={item => (
                                     <List.Item
                                     >
                                         <Skeleton avatar title={false} loading={loadingAbonnement} active>
-                                            <List.Item.Meta
-                                                avatar={<Avatar src={item.image} />}
-                                                title={item.pseudo}
-                                            />
-                                            <Button type="default" danger icon={<UserDeleteOutlined />} size='small' onClick={() =>handleUnFollow(item._id)}/>
+                                            <a href={`/utilisateur/${item._id}`}>
+                                                <List.Item.Meta
+                                                    avatar={<Avatar src={item.image} />}
+                                                    title={item.pseudo}
+                                                    key={item._id}
+                                                />
+                                            </a>
+                                            {userSession.utilisateur === user._id ?
+                                                <Button type="default" danger icon={<UserDeleteOutlined />} size='small' onClick={() => handleUnFollow(item._id)} />
+                                                : <></>
+                                            }
                                         </Skeleton>
                                     </List.Item>
                                 )}

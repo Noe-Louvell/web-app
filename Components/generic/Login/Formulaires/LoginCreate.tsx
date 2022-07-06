@@ -73,7 +73,7 @@ const LoginCreate: React.FunctionComponent = () => {
     const onFinish = async (values: IValueForm) => {
         setIsLoading(true);
         await axios({
-            method: 'post',
+            method: 'POST',
             url: 'http://localhost:3000/api/inscription',
             data: {
                 nom: values.nom,
