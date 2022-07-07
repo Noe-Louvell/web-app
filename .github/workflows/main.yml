@@ -21,7 +21,7 @@ jobs:
       - name: Build Web Server
         run: npm run build
       - name: Start Web Server
-        run: npm run start
+        run: npm run start -d
       - name: Cypress run
         uses: cypress-io/github-action@v4
 # name: deploy
