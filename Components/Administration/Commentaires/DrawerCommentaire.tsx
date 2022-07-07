@@ -62,7 +62,7 @@ export const DrawerCommentaire: React.FunctionComponent<IPropsDrawerUser> = ({ i
         const upCommentaire: ICommentaire = commentaire;
         upCommentaire.description = value.description;
         upCommentaire.validation = value.validation;
-        await updateComment(commentaire.id, upCommentaire);
+        await updateComment(commentaire._id, upCommentaire);
         setIsLoading(false);
         router.reload();
     };

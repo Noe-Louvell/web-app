@@ -1,7 +1,6 @@
 import * as React from 'react';
 import { Comment, List, Button, Avatar, Badge, Divider, Input, Row, Col, Empty, Form, Space } from 'antd';
 import { ICommentaire } from '../../interfaces/ICommentaire';
-import { User1 } from '../../mocks/user.mock';
 import { SendOutlined } from '@ant-design/icons';
 import { useContext, useState } from 'react';
 import { createComment } from '../../services/commentaire.service';

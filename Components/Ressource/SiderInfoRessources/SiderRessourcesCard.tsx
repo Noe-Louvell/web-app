@@ -23,7 +23,7 @@ export const SiderRessourcesCard: FunctionComponent<IPropsCardRessource> = ({ re
                 {ressource.texte}
             </Text>
             <br/>
-            <Link href={`/publications/${ressource.id}`} passHref>
+            <Link href={`/publications/${ressource._id}`} passHref>
                 <a>
                     En savoir plus !
                 </a>

@@ -2,8 +2,6 @@ import * as React from 'react';
 import { FunctionComponent } from 'react';
 import { Col, Dropdown, Layout, Menu, Row, Typography } from 'antd';
 import BadgeUserProfile from '../../User/BadgeUser/BadgeUserProfile';
-import { User1 } from '../../../mocks/user.mock';
-import { MarianneIcon } from '../CustomIcon/CutomIcons';
 
 const { Header } = Layout;
 const { Title } = Typography;

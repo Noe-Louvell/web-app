@@ -1,7 +1,7 @@
 import * as React from 'react';
-import Page from '../../../Components/generic/Page/Page';
-import ListRessources from '../../../Components/Ressource/ListRessources/ListRessources';
-import { getAllRessources } from '../../../services/ressource.service';
+import Page from '../../Components/generic/Page/Page';
+import ListRessources from '../../Components/Ressource/ListRessources/ListRessources';
+import { getAllRessources } from '../../services/ressource.service';
 
 export default function Publications({ resRessources }) {
     return (

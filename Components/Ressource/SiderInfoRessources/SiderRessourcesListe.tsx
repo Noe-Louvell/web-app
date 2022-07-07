@@ -6,19 +6,19 @@ import BadgeUserIndex from '../../User/BadgeUser/BadgeUser';
 import { IRessource } from '../../../interfaces/IRessource';
 import ListCommentIndex from '../../ListComment/ListComment';
 import { SiderRessourcesCard } from './SiderRessourcesCard';
-import { RessourceList } from '../../../mocks/ressource.mock';
 
 const { Text, Paragraph } = Typography;
 
 export const SiderRessourcesListe: FunctionComponent = () => {
     return (
-        <List
-                itemLayout="horizontal"
-                dataSource={RessourceList}
-                renderItem={item => (
-                    <SiderRessourcesCard ressource={item} />
-                )}
-            />
+        // <List
+        //         itemLayout="horizontal"
+        //         dataSource={RessourceList}
+        //         renderItem={item => (
+        //             <SiderRessourcesCard ressource={item} />
+        //         )}
+        //     />
+        <></>
     );
 };
 
