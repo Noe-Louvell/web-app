@@ -3,7 +3,7 @@ import { TableRessource } from '../../Components/Administration/Publications/Tab
 import Page from '../../Components/generic/Page/Page';
 import { getAllRessources } from '../../services/ressource.service';
 
-export default function AdminPublications({ publicationData }) {
+export default function AdminPublications({ publicationData = [] }) {
     return (
         <Page
             title='Admin Publication'

@@ -6,7 +6,7 @@ import { useContext } from "react";
 import { getAllRessources } from '../services/ressource.service';
 import { ContextApp } from '../Context/ContextAuth/ContextAuth';
 
-export default function Index({ resRessources }) {
+export default function Index({ resRessources = [] }) {
     const { userSession } = useContext(ContextApp);
     return (
         <>
