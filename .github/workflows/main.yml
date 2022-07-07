@@ -1,24 +1,22 @@
 name: CI
 on:
-push:
+  push:
     branches: [ develop ]
-
 jobs:
-  cypress-run:
+  build:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout
-        uses: actions/checkout@v2
-      # Install NPM dependencies, cache them correctly
-      # and run all Cypress tests
-      - name: Install dependencies
-        run: npm install
-      - name: Cypress run
-        uses: cypress-io/github-action@v4
+      - uses: actions/checkout@v1
+      - uses: actions/setup-node@v1
         with:
-          build: npm run build
+          node-version: '16.x'
+      - name: Install NPM dependencies
+        run: npm install
+  
+# name: deploy
+# on:
 #   push:
-#     branches: [ develop ]
+#     branches: [ dev ]
 #   workflow_dispatch:
 # jobs:
 #   build:
@@ -29,11 +27,12 @@ jobs:
 #       - name: Use Node.js
 #         uses: actions/setup-node@v2
 #         with: 
-#           node-version: "16.x"
+#           node-version: "14.x"
 #       - name: Install dependencies
 #         run: npm install
-#       - name: Run Build
-#         run: npm install
+#       - name: Run test
+#         run: npm test 
+
 #   prod:
 #     runs-on: ubuntu-latest
 #     steps:
@@ -41,5 +40,5 @@ jobs:
 #       - uses: akhileshns/heroku-deploy@v3.12.12 
 #         with:
 #           heroku_api_key: ${{secrets.HEROKU_API_KEY}}
-#           heroku_app_name: "cube-web-app"
-#           heroku_email: "noe.louvel@viacesi.fr"
+#           heroku_app_name: "projetcubesapi"
+#           heroku_email: "codypronnier@gmail.com"
