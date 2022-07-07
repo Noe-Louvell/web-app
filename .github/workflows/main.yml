@@ -19,7 +19,7 @@ jobs:
       - name: Install dependencies
         run: npm install
       - name: Build Web Server
-        run: npm run start
+        run: npm run build
       - name: Start Web Server
         run: npm run start
       - name: Cypress run
