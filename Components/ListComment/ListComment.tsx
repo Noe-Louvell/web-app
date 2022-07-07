@@ -23,7 +23,7 @@ const ListCommentIndex: React.FunctionComponent<IPropsListComment> = ({ comments
     const [idComment, setIdComment] = useState('');
     const [isReply, setIsReply] = useState(false);
     const [isLoading, setIsLoading] = useState(false);
-    const { userSession } = useContext(ContextApp);
+    const { userSession, tokenSession } = useContext(ContextApp);
     const router = useRouter();
     const [formRep] = Form.useForm();
     const addComment = async () => {
@@ -36,7 +36,7 @@ const ListCommentIndex: React.FunctionComponent<IPropsListComment> = ({ comments
                 description: newCommentContent,
             },
             headers: {
-                Authorization: `Bearer ${userSession.token}`,
+                Authorization: `Bearer ${tokenSession.token}`,
             },
         })
         router.replace(router.asPath)
@@ -53,7 +53,7 @@ const ListCommentIndex: React.FunctionComponent<IPropsListComment> = ({ comments
                 description: rep,
             },
             headers: {
-                Authorization: `Bearer ${userSession.token}`,
+                Authorization: `Bearer ${tokenSession.token}`,
             },
         })
         router.replace(router.asPath)
@@ -122,7 +122,7 @@ const ListCommentIndex: React.FunctionComponent<IPropsListComment> = ({ comments
                     </Col>
                 </Row> : <></>}
 
-            <Button type="text" size='small' onClick={() => handleReply(comment._id)}>Réponde</Button>
+            <Button type='text' size='small' style={{fontSize:'13px', color:'#ccc'}} onClick={() => handleReply(comment._id)}>Répondre à</Button>
         </>
 
     );

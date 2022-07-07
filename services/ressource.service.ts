@@ -45,6 +45,16 @@ export function createRessource(newRessource: IRessource, token: string) {
     })
 }
 
+export function switchRessource(idRessource: number, token) {
+    return axios({
+        url: `http://localhost:3000/api/ressource/${idRessource}/switch`,
+        method: 'patch',
+        headers: {
+            Authorization: `Bearer ${token}`,
+        },
+    })
+    
+}
 // export function reactRessource(idRessource: string) {
 //     return axios({
 //         url: `http://localhost:3000/api/ressource/${idRessource}/reaction`,

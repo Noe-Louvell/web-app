@@ -6,11 +6,12 @@ import router from 'next/router';
 import { FunctionComponent, useContext, useEffect, useState } from 'react';
 import { ContextApp } from '../../../Context/ContextAuth/ContextAuth';
 import axios from 'axios';
+import { deconnexion } from '../../../services/utilisateur.service';
 const { Text } = Typography;
 
 
 const BadgeUserProfile: FunctionComponent = () => {
-    const { userSession, removeUserSession, tokenSession } = useContext(ContextApp);
+    const { userSession, tokenSession, getDisconnect } = useContext(ContextApp);
     const [user, setUser] = useState<any>(null);
 
 
@@ -28,24 +29,19 @@ const BadgeUserProfile: FunctionComponent = () => {
         }
     }, [userSession]);
 
-    const onDeconection = () => {
-        removeUserSession("utilisateur")
-        router.push('/login');
-    }
+    console.log(tokenSession)
+
     const ContentPopover = <>
-        <Button onClick={() => onDeconection()}>Se déconecter</Button>
+        <Button onClick={() => getDisconnect(tokenSession.token)}>Se déconnecter</Button>
     </>;
     return (
         user ?
             <Space size='middle'>
-                <Popover placement="bottomRight" style={{ width: 100, backgroundColor: '#f2f2f2' }} content={ContentPopover} >
-                    <Badge dot>
-                        <Avatar
-                            // size={40}
-                            src={user.image}
-                        />
-                    </Badge>
-
+                <Popover id='popoverProfil' placement="bottomRight" style={{ backgroundColor: '#f2f2f2' }} content={ContentPopover} >
+                    <Avatar
+                        src={user.image}
+                        alt={'image de profil'}
+                    />
                 </Popover>
             </Space>
             :

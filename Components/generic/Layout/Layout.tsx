@@ -18,14 +18,14 @@ const Layout: React.FunctionComponent<IModalFormSite> = ({ children, siderConten
     return (
         <LayoutAntd style={{ minHeight: '100%' }}>
             <HeaderLayout />
-            <LayoutAntd >
-            <MenuSider />
+            <LayoutAntd style={{ minHeight: '86vh' }} >
+                <MenuSider />
 
-                <div style={{width:'100%', display:'flex', justifyContent:'center'}}>
+                <div style={{ marginLeft : '6%',width: '100%', display: 'flex', justifyContent: 'center' }}>
                     {children}
                 </div>
-                
-                {siderContent != false ? <SiderRight/> : <></>}
+
+                {siderContent != false ? <SiderRight /> : <></>}
 
 
             </LayoutAntd>

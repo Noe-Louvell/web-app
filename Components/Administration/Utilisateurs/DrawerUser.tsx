@@ -25,8 +25,8 @@ export const DrawerUser: React.FunctionComponent<IPropsDrawerUser> = ({ idUser, 
     const [user, setUser] = useState<IUser>({} as IUser);
     const [isLoading, setIsLoading] = useState<boolean>(false);
     const [file, setFile] = useState<string | ArrayBuffer>();
-    const [roles, setRoles] = useState();
-
+    const [roles, setRoles] = useState<[]>([]);
+    const { TextArea } = Input;
 
 
 
@@ -78,7 +78,6 @@ export const DrawerUser: React.FunctionComponent<IPropsDrawerUser> = ({ idUser, 
                 prenom: value.prenom,
                 description: value.description,
                 image: file,
-                compte_actif: value.actif,
                 pseudo: value.pseudo,
                 role: value.role
             },
@@ -183,12 +182,8 @@ export const DrawerUser: React.FunctionComponent<IPropsDrawerUser> = ({ idUser, 
                                     value: user.pseudo,
                                 },
                                 {
-                                    name: ["mail"],
-                                    value: user.mail,
-                                },
-                                {
-                                    name: ["actif"],
-                                    value: user.compte_actif,
+                                    name: ["description"],
+                                    value: user.description,
                                 },
                             ]}
                         >
@@ -224,26 +219,6 @@ export const DrawerUser: React.FunctionComponent<IPropsDrawerUser> = ({ idUser, 
                                 </Col>
                                 <Col span={12}>
                                     <Form.Item
-                                        name="mail"
-                                        label="E-mail"
-                                        rules={[{ required: true, message: 'Veuillez entrez un e-mail' }]}
-                                    >
-                                        <Input />
-                                    </Form.Item>
-                                </Col>
-                            </Row>
-                            <Row gutter={16}>
-                                <Col span={12}>
-                                    <Form.Item
-                                        name="actif"
-                                        label="Compte actif"
-                                        rules={[{ required: true, message: "Veuillez entrez l'activité" }]}
-                                    >
-                                        <Switch checkedChildren="Actif" unCheckedChildren="Non actif" />
-                                    </Form.Item>
-                                </Col>
-                                <Col span={12}>
-                                    <Form.Item
                                         name="role"
                                         label="Rôle"
                                         rules={[{ required: true, message: "Veuillez entrez un rôle" }]}
@@ -261,33 +236,18 @@ export const DrawerUser: React.FunctionComponent<IPropsDrawerUser> = ({ idUser, 
                                                     {option.nom}
                                                 </Option>
                                             )) : <></>}
-                                            {/* {roles ? .map((item) => {
-                                                <Option value={item._id}>{item.nom}</Option>
-                                            }) : <></>} */}
                                         </Select>
                                     </Form.Item>
                                 </Col>
                             </Row>
-                            <Row gutter={16}>
+                            <Row gutter={16} align='middle' justify='center'>
                                 <Col span={24}>
                                     <Form.Item
-                                        name="avatar"
-                                        label="Avatar"
-                                        rules={[{ required: true, message: 'Veuillez entrez un avatar' }]}
+                                        name="description"
+                                        label="Description"
+                                        rules={[{ required: true, message: 'Veuillez entrez une description' }]}
                                     >
-                                        <ImgCrop rotate>
-                                            <Upload
-                                                name="avatar"
-                                                listType="picture-card"
-                                                className="avatar-uploader"
-                                                showUploadList={false}
-                                                beforeUpload={beforeUpload}
-                                                onChange={getFile}
-                                            >
-                                                {file ? <Avatar shape='square' size={100} src={file} /> : user.image ? <Avatar shape='square' size={100} src={user.image} /> : <PlusOutlined />}
-                                            </Upload>
-                                        </ImgCrop>
-
+                                        <TextArea />
                                     </Form.Item>
                                 </Col>
                             </Row>

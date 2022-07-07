@@ -15,6 +15,7 @@ import {
     ToolOutlined,
     HomeOutlined,
     BarChartOutlined,
+    MessageOutlined,
 } from '@ant-design/icons';
 const { Sider } = Layout;
 import { MarianneIcon } from '../CustomIcon/CutomIcons';
@@ -22,7 +23,7 @@ import SubMenu from 'antd/lib/menu/SubMenu';
 import { useRouter } from 'next/router'
 import { ContextApp } from '../../../Context/ContextAuth/ContextAuth';
 import axios from 'axios';
-import { isADM, isSAM } from '../../../Utils/getPermission';
+import { isADM, isCYN, isMOD, isSAM } from '../../../Utils/getPermission';
 
 export const MenuSider: FunctionComponent = () => {
     const { userSession, tokenSession } = useContext(ContextApp);
@@ -48,7 +49,9 @@ export const MenuSider: FunctionComponent = () => {
     }
 
     useEffect(() => {
-        getData()
+        if (tokenSession.token) {
+            getData()
+        }
     }, []);
     return (
         <>
@@ -58,12 +61,12 @@ export const MenuSider: FunctionComponent = () => {
                 collapsedWidth={100}
                 style={{
                     height: '100vh',
-                    zIndex: 1,
-                    position: 'sticky',
+                    zIndex: 10,
+                    position: 'fixed',
                     left: 0,
                     top: 0,
                     bottom: 0,
-                    marginTop: '-40px !important'
+                    // marginTop:'-40px !important'
                 }}
             >
                 <MarianneIcon className='logoMarianne' />
@@ -77,27 +80,34 @@ export const MenuSider: FunctionComponent = () => {
                     </Menu.Item>
                     {
                         Object.keys(userSession).length !== 0 ?
-                            <SubMenu key="2" icon={<IdcardOutlined />} title="Mon compte">
-                                <Menu.Item icon={<UserOutlined />} key="1" onClick={() => router.push('/utilisateur')}>Profile</Menu.Item>
-                                <Menu.Item icon={<ReadOutlined />} key="2">Mes publications</Menu.Item>
-                                <Menu.Item icon={<TeamOutlined />} key="3">Mes amis</Menu.Item>
-                            </SubMenu> :
-                            <></>
+                            <>
+                                <Menu.Item key="2" icon={<UserOutlined />} onClick={() => router.push('/utilisateur')}>
+                                    Mon compte
+                                </Menu.Item>
+                                <Menu.Item key="7" icon={<MessageOutlined />} onClick={() => router.push('/messages')}>
+                                    Mes messages
+                                </Menu.Item>
+                            </>
+
+                            : <></>
                     }
                     {
-                        Object.keys(userSession).length !== 0 ?
-                            <SubMenu key="3" icon={<ToolOutlined />} title="Administration">
-                                <Menu.Item icon={<TeamOutlined />} key="5" onClick={() => router.push('/administration/utilisateurs')}>Utilisateurs</Menu.Item>
-                                {isADM(role) ? <>
-                                    <Menu.Item icon={<ReadOutlined />} key="6" onClick={() => router.push('/administration/publications')}>Publications</Menu.Item>
-                                    <Menu.Item icon={<CommentOutlined />} key="7" onClick={() => router.push('/administration/commentaires')}>Commentaires</Menu.Item>
-                                </> : isSAM(role) ? <>
-                                    <Menu.Item icon={<ReadOutlined />} key="6" onClick={() => router.push('/administration/publications')}>Publications</Menu.Item>
-                                    <Menu.Item icon={<CommentOutlined />} key="7" onClick={() => router.push('/administration/commentaires')}>Commentaires</Menu.Item>
+                        Object.keys(userSession).length !== 0 && !isCYN(role) ?
+                            <SubMenu key="3" icon={<ToolOutlined />} title="Administration" >
+                                {isMOD(role) ? <>
+                                    <Menu.Item icon={<ReadOutlined />} key="4" onClick={() => router.push('/administration/publications')}>Publications</Menu.Item>
+                                    <Menu.Item icon={<CommentOutlined />} key="5" onClick={() => router.push('/administration/commentaires')}>Commentaires</Menu.Item>
                                 </> : <></>
                                 }
-
-                                <Menu.Item icon={<BarChartOutlined />} key="8" onClick={() => router.push('/administration/statistiques')}>Statistiques</Menu.Item>
+                                {isADM(role) ? <>
+                                    <Menu.Item icon={<TeamOutlined />} key="3" onClick={() => router.push('/administration/utilisateurs')}>Utilisateurs</Menu.Item>
+                                </> : isSAM(role) ? <>
+                                    <Menu.Item icon={<TeamOutlined />} key="3" onClick={() => router.push('/administration/utilisateurs')}>Utilisateurs</Menu.Item>
+                                    <Menu.Item icon={<ReadOutlined />} key="4" onClick={() => router.push('/administration/publications')}>Publications</Menu.Item>
+                                    <Menu.Item icon={<CommentOutlined />} key="5" onClick={() => router.push('/administration/commentaires')}>Commentaires</Menu.Item>
+                                    <Menu.Item icon={<BarChartOutlined />} key="6" onClick={() => router.push('/administration/statistiques')}>Statistiques</Menu.Item>
+                                </> : <></>
+                                }
                             </SubMenu> :
                             <></>
                     }

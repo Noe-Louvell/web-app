@@ -40,7 +40,9 @@ export const ContactSider: FunctionComponent = () => {
         })
     }
     useEffect(() => {
-        getData()
+        if (tokenSession.token) {
+            getData()
+        }
     }, []);
 
     const arrayAbonne = abonee.map((item) => {

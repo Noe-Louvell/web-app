@@ -1,10 +1,6 @@
 import * as React from 'react';
 import { FunctionComponent } from 'react';
-import { Button, Layout, List, Row, Col, Typography, Avatar, Badge, Dropdown, Menu, Space, Image, Card } from 'antd';
-import {
-    SearchOutlined, UserOutlined,
-} from '@ant-design/icons';
-import { SiderRessourcesListe } from '../../../Ressource/SiderInfoRessources/SiderRessourcesListe';
+import { Layout, Typography, Space, Card } from 'antd';
 import { ContactSider } from '../../ContactSider/ContactSider';
 import { ContextApp } from '../../../../Context/ContextAuth/ContextAuth';
 const { Title, Text } = Typography;
@@ -23,13 +19,11 @@ export const SiderRight: FunctionComponent = () => {
                 <Card title='Actualité régional'>
                     <SiderRessourcesListe />
                 </Card> */}
-                {userSession.utilisateur ?
+                {userSession.utilisateur ? 
                     <Card title='Contacts'>
                         <ContactSider />
-
                     </Card> : <></>
                 }
-
             </Space>
 
         </Sider>

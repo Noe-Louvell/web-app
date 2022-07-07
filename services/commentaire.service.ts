@@ -12,15 +12,29 @@ interface newComment{
 export function getAllComments() {
     return axios({
         url: 'http://localhost:3000/api/commentaire',
-        method: 'get'
+        method: 'get',
     })
 }
 
-export function deleteComment(idRessource: number) {
+export function deleteComment(idRessource: number, token) {
     return axios({
         url: `http://localhost:3000/api/commentaire/${idRessource}`,
-        method: 'delete'
+        method: 'delete',
+        headers: {
+            Authorization: `Bearer ${token}`,
+        },
     })
+    
+}
+export function switchComment(idRessource: number, token) {
+    return axios({
+        url: `http://localhost:3000/api/commentaire/${idRessource}/switch`,
+        method: 'patch',
+        headers: {
+            Authorization: `Bearer ${token}`,
+        },
+    })
+    
 }
 
 export function getCommentById(idComment: number) {

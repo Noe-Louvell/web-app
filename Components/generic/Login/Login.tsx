@@ -1,7 +1,8 @@
 import { Card, Image } from 'antd';
 import Title from 'antd/lib/typography/Title';
 import * as React from 'react';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
+import { ContextApp } from '../../../Context/ContextAuth/ContextAuth';
 import { MarianneIcon } from '../CustomIcon/CutomIcons';
 import LoginConnect from './Formulaires/LoginConnect';
 import LoginCreate from './Formulaires/LoginCreate';
@@ -26,15 +27,19 @@ const contentList = {
 
 const Login: React.FunctionComponent = () => {
     const [activeTabKey1, setActiveTabKey1] = useState('connect');
+    const { removeUserSession, removeTokenSession } = React.useContext(ContextApp);
     const onTab1Change = key => {
         setActiveTabKey1(key);
     };
-
+    useEffect(() => {
+        removeUserSession("utilisateur")
+        removeTokenSession("token")
+    }, []);
     return (
         <div className='center'>
             <Card
                 title={<>
-                   <MarianneIcon className='logoMarianne' />
+                    <MarianneIcon className='logoMarianne' />
                 </>}
                 style={{ width: '550px' }}
                 tabList={tabList}

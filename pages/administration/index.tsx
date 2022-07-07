@@ -8,7 +8,7 @@ const { Title } = Typography;
 export default function Publications() {
     return (
         <Page
-            title='Publications'
+            title='Administration'
             siderContent={false}
         >
             <Row gutter={16} justify='space-around' align='middle' style={{ height: '80%', margin: 0 }} >

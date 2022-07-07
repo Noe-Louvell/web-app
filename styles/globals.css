@@ -189,9 +189,8 @@ h3.ant-typography {
 }
 
 .siderMenu {
-  height: '100vh';
   z-index: 1;
-  position: 'sticky';
+  position: fixed;
   left: 0;
   top: 0;
   bottom: 0;
@@ -211,10 +210,16 @@ h3.ant-typography {
 }
 
 .header-layout{
+  z-index: 5;
+  position: sticky;
+  left: 0;
+  top: 0;
+  bottom: 0;
   height: 46px!important;
   background-color: white!important;
   padding: 0px 20px!important;
 }
+
 
 .header-col{
   height: 100%!important;
@@ -238,6 +243,7 @@ h3.ant-typography {
 
 .container{
   width: 100%;
+  margin-left: 8% !important;
   margin: 20px;
   padding: 5px;
 }
@@ -245,7 +251,7 @@ h3.ant-typography {
 .fixedButton{
   position: fixed !important;
   bottom: 1em;
-  right: 20em;
+  right: 24em;
 }
 
 .ant-comment-actions{

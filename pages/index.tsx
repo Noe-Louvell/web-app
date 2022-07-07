@@ -9,16 +9,20 @@ import { notification } from 'antd';
 import { getAllRessources, getRessourceById, getRessourceByIdUser } from '../services/ressource.service';
 import { IUser } from '../interfaces/IUser';
 import { ContextApp } from '../Context/ContextAuth/ContextAuth';
+import { MenuSider } from '../Components/generic/MenuSider/MenuSider';
 
 export default function Index({ resRessources }) {
     const { userSession } = useContext(ContextApp);
     return (
-        <Page
-            title='Accueil'
-        >
-            <ListRessources ressources={resRessources} />
-            <FormulaireRessource disable={Object.keys(userSession).length !== 0 ? false : false} type='create' />
-        </Page>
+        <>
+            <Page
+                title='Accueil'
+            >
+                <ListRessources ressources={resRessources} />
+                <FormulaireRessource disable={Object.keys(userSession).length !== 0 ? false : false} type='create' />
+            </Page>
+        </>
+
     );
 }
 

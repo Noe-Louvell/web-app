@@ -20,6 +20,8 @@ export interface IContextApp{
 
     tokenSession: any,
     setTokenSession: any,
+    removeTokenSession:any,
 
     getConnect: (value: IValueConnect)=> void
+    getDisconnect: (value: IValueConnect)=> void
 }

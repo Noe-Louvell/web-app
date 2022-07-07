@@ -39,6 +39,7 @@ const CardRessourceIndex: FunctionComponent<IPropsCardRessource> = ({ ressource,
     const router = useRouter();
     const [isShowComment, setIsShowComment] = useState(false);
     const onClick = () => isShowComment ? setIsShowComment(false) : setIsShowComment(true);
+    const [isLike, setIsLike] = useState(false);
     const { tokenSession } = useContext(ContextApp);
     async function reactRessource(idRessource: string) {
         await axios({
@@ -47,6 +48,8 @@ const CardRessourceIndex: FunctionComponent<IPropsCardRessource> = ({ ressource,
             headers: {
                 'Authorization': `Bearer ${tokenSession.token}`
             }
+        }).then((res)=>{
+            isLike ? setIsLike(false) :  setIsLike(true)
         })
         router.replace(router.asPath);
         return
@@ -57,7 +60,7 @@ const CardRessourceIndex: FunctionComponent<IPropsCardRessource> = ({ ressource,
         <Row gutter={16} style={{ marginTop: '10px' }}>
             <Col xs={{ span: 24 }} lg={{ span: 2 }}></Col>
             <Col xs={{ span: 24 }} lg={{ span: 20 }}>
-                <Card bodyStyle={{ paddingBottom: 6 }} style={{ backgroundColor: '#fbfbfb', marginBottom: '5%', width: '750px', paddingBottom: '6px !important' }} >
+                <Card bodyStyle={{ paddingBottom: 6 }} style={{ backgroundColor: '#fbfbfb', marginBottom: '5%', maxWidth: '750px', paddingBottom: '6px !important' }} >
 
                     <Row gutter={16}>
                         <Col xs={{ span: 22 }} lg={{ span: 23 }}>
@@ -125,8 +128,8 @@ const CardRessourceIndex: FunctionComponent<IPropsCardRessource> = ({ ressource,
                         <Divider style={{ minWidth: '97%', margin: 5, marginTop: 15 }} />
 
                         <Col xs={{ span: 12 }} lg={{ span: 5 }}>
-                            <Button className='button-card-ressrource' type='text' onClick={() => reactRessource(ressource._id)} icon={<LikeOutlined style={{ marginRight: '5px', color: 'rgba(0, 0, 0, 0.45)' }} title="J'aime" />}>
-                                <Text type='secondary'> J&apos;aime </Text>
+                            <Button className='button-card-ressrource' type='text' onClick={() => reactRessource(ressource._id)} icon={<LikeOutlined style={  isLike ?  { marginRight: '5px', color: '#000091' } :  { marginRight: '5px', color: 'rgba(0, 0, 0, 0.45)' }} title="J'aime" />}>
+                                <Text type='secondary' style={  isLike ?  { color: '#000091' } :  { color: 'rgba(0, 0, 0, 0.45)' }}> J&apos;aime </Text>
                             </Button>
                         </Col>
                         <Col xs={{ span: 12 }} lg={{ span: 5 }}>

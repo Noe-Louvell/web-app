@@ -1,8 +1,8 @@
 import * as React from 'react';
-import { DeleteOutlined, EditOutlined, SearchOutlined, UserOutlined } from '@ant-design/icons';
-import { Alert, Avatar, Button, Col, List, notification, Row, Space, Table, Tag, Typography } from 'antd';
+import { CheckOutlined, CloseOutlined, DeleteOutlined, EditOutlined, SearchOutlined, UserOutlined } from '@ant-design/icons';
+import { Alert, Avatar, Button, Col, List, notification, Row, Space, Switch, Table, Tag, Typography } from 'antd';
 import { IUser } from '../../../interfaces/IUser';
-import { deleteUtilisateur } from '../../../services/utilisateur.service';
+import { deleteUtilisateur, switchUser } from '../../../services/utilisateur.service';
 import { DrawerUser } from './DrawerUser';
 import { useState } from 'react';
 import { ContextApp } from '../../../Context/ContextAuth/ContextAuth';
@@ -34,6 +34,11 @@ export const TableUser: React.FunctionComponent<IPropsCardUser> = ({ users }) =>
         })
         router.replace(router.asPath);
     }
+
+    const switchUtilisateurs = async (utilisateurId) => {
+        await switchUser(utilisateurId, tokenSession.token);
+        router.replace(router.asPath)
+    };
     const columns = [
         {
             title: 'Nom',
@@ -65,7 +70,14 @@ export const TableUser: React.FunctionComponent<IPropsCardUser> = ({ users }) =>
             title: 'Compte_actif',
             dataIndex: 'compte_actif',
             key: 'compte_actif',
-            render: val => (val ? <div className='left'><Tag color="green">Actif</Tag></div> : <div className='left'><Tag color="red">Non Actif</Tag></div>),
+            render: (val, record) => (<Switch
+                checkedChildren={<CheckOutlined />}
+                unCheckedChildren={<CloseOutlined />}
+                defaultChecked={val}
+                onChange={() => { switchUtilisateurs(record._id) }}
+            />)
+            
+            // render: val => (val ? <div className='left'><Tag color="green">Actif</Tag></div> : <div className='left'><Tag color="red">Non Actif</Tag></div>),
         },
         {
             title: 'Rôle',

@@ -9,7 +9,7 @@ import { ContextApp } from '../../../Context/ContextAuth/ContextAuth';
 import { deleteRessource } from '../../../services/ressource.service';
 import { useRouter } from 'next/router';
 import axios from 'axios';
-import { followUser } from '../../../services/utilisateur.service';
+import { deleteAccount, followUser } from '../../../services/utilisateur.service';
 
 const { TabPane } = Tabs;
 const { Title, Text } = Typography;
@@ -19,7 +19,7 @@ interface IAccountProps {
 }
 
 const AccountUser: React.FunctionComponent<IAccountProps> = ({ user }) => {
-    const { tokenSession, userSession } = useContext(ContextApp);
+    const { tokenSession, userSession, removeUserSession, removeTokenSession } = useContext(ContextApp);
     const [key, setKey] = useState('1');
     const [abonnement, setAbonnement] = useState([]);
     const [loadingAbonnement, setloadingAbonnement] = useState(false);
@@ -65,7 +65,6 @@ const AccountUser: React.FunctionComponent<IAccountProps> = ({ user }) => {
                 }
             }).then((res) => {
                 setAbonnement(res.data)
-
                 setloadingAbonnement(false)
             })
         } else {
@@ -115,6 +114,13 @@ const AccountUser: React.FunctionComponent<IAccountProps> = ({ user }) => {
     const onChange = (key: string) => {
         setKey(key)
     };
+    const handelDelete = (token) => {
+        deleteAccount(token);
+        removeUserSession("utilisateur")
+        removeTokenSession("token")
+        router.push('/');
+
+    }
     return (
         <Space size={'large'} direction='vertical' style={{ margin: 20, padding: 15, backgroundColor: "#fff", height: "auto", display: 'flex', alignItems: 'center' }}>
 
@@ -136,7 +142,7 @@ const AccountUser: React.FunctionComponent<IAccountProps> = ({ user }) => {
 
                             <Col span={1} >
                                 <Tooltip title="Supprimer votre compte">
-                                    <Button type="dashed" shape="circle" icon={<DeleteOutlined />} />
+                                    <Button type="dashed" shape="circle" icon={<DeleteOutlined />} onClick={()=> handelDelete(tokenSession.token)}/>
                                 </Tooltip>
                             </Col>
                         </> :

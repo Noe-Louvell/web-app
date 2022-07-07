@@ -1,13 +1,14 @@
 import * as React from 'react';
-import { DeleteOutlined, EditOutlined, SearchOutlined } from '@ant-design/icons';
-import { Alert, Avatar, Button, Col, List, notification, Row, Space, Table, Tag, Typography } from 'antd';
+import { CheckOutlined, CloseOutlined, DeleteOutlined, EditOutlined, SearchOutlined } from '@ant-design/icons';
+import { Alert, Avatar, Button, Col, List, notification, Row, Space, Switch, Table, Tag, Typography } from 'antd';
 import { IRessource } from '../../../interfaces/IRessource';
 import { deleteUtilisateur, getUtilisateurById } from '../../../services/utilisateur.service';
 import { useState } from 'react';
 import Text from 'antd/lib/typography/Text';
-import { deleteRessource } from '../../../services/ressource.service';
+import { deleteRessource, switchRessource } from '../../../services/ressource.service';
 import { ContextApp } from '../../../Context/ContextAuth/ContextAuth';
 import { useRouter } from 'next/router';
+import moment from 'moment';
 
 interface IPropsCardRessource {
     ressources: IRessource[];
@@ -19,8 +20,9 @@ const { Title } = Typography;
 
 export const TableRessource: React.FunctionComponent<IPropsCardRessource> = ({ ressources }) => {
     const router = useRouter();
-    const [idEditRessource, setIdEditRessource] = useState(null);
     const {tokenSession} = React.useContext(ContextApp)
+    const [isLoading, setIsLoading] = useState(false);
+
     const deleteRessourceById = async (IdRessource: string) => {
         await deleteRessource(IdRessource, tokenSession.token).then((res) => {
             if (res.status == 200) {
@@ -35,11 +37,18 @@ export const TableRessource: React.FunctionComponent<IPropsCardRessource> = ({ r
             }
         })
     }
+    const switchRessources = async (commentaireId) => {
+        setIsLoading(true);
+        await switchRessource(commentaireId, tokenSession.token);
+        setIsLoading(false);
+        router.replace(router.asPath)
+    };
     const columns = [
         {
             title: 'Auteur',
-            dataIndex: 'owner',
-            key: 'owner',
+            dataIndex: 'utilisateur',
+            key: 'utilisateur',
+            render: val => <p>{val.pseudo}</p>
         },
         {
             title: 'Texte',
@@ -53,28 +62,36 @@ export const TableRessource: React.FunctionComponent<IPropsCardRessource> = ({ r
             render: val => (<Avatar shape='square' src={val} />),
         },
         {
-            title: 'date_creation',
+            title: 'Date de creation',
             dataIndex: 'date_creation',
             key: 'date_creation',
+            render :val => <p>{moment(new Date(val)).format("DD/MM/YYYY HH:mm:ss")}</p>,
+        },
+        {
+            title: 'Validation',
+            dataIndex: 'validation',
+            key: 'validation',
+            render: (val, record) => (<Switch
+                checkedChildren={<CheckOutlined />}
+                unCheckedChildren={<CloseOutlined />}
+                defaultChecked={val}
+                onChange={() => { switchRessources(record._id) }}
+            />)
+            // render: val => (val ? <div className='left'><Tag color="green">Actif</Tag></div> : <div className='left'><Tag color="red">Non Actif</Tag></div>),
         },
         {
             title: 'Actions',
             key: 'action',
             render: (record) => (
                 <Space>
-                    <Button icon={<EditOutlined />} onClick={() => { setIdEditRessource(record._id) }} />
                     <Button icon={<DeleteOutlined />} onClick={() => { deleteRessourceById(record._id) }} />
                 </Space>
             ),
         },
     ];
-    const onCloseDrawer = () => {
-        setIdEditRessource(null);
-        return false;
-    }
+
     return (
         <div className='container'>
-            {/* {idEditRessource ? <DrawerRessource idRessource={idEditRessource} visible={idEditRessource ? true : false} onClose={onCloseDrawer} /> : <></>} */}
 
             <Title level={3}> Gestion ressources :</Title>
 

@@ -71,7 +71,15 @@ export function connexion(newConnection: IConnect) {
     data: newConnection,
   });
 }
-
+export function deconnexion(token) {
+  return axios({
+    url: "http://localhost:3000/api/deconnexion",
+    method: "post",
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  });
+}
 export function getUtilisateurAbonnement(token) {
   return axios({
     url: `http://localhost:3000/api/utilisateur/abonnement`,
@@ -89,4 +97,24 @@ export function getUtilisateurAbonne(token) {
       Authorization: `Bearer ${token}`,
     },
   });
+}
+
+export function deleteAccount(token) {
+  return axios({
+    url: `http://localhost:3000/api/utilisateur/delete`,
+    method: "delete",
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  });
+}
+export function switchUser(utilisateurId: number, token) {
+  return axios({
+    url: `http://localhost:3000/api/utilisateur/${utilisateurId}/switch`,
+    method: 'patch',
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  })
+
 }

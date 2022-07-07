@@ -6,9 +6,11 @@ import { deleteUtilisateur, getUtilisateurById } from '../../../services/utilisa
 import { useState } from 'react';
 import Text from 'antd/lib/typography/Text';
 import { ICommentaire } from '../../../interfaces/ICommentaire';
-import { deleteComment, updateComment } from '../../../services/commentaire.service';
-import router from 'next/router';
+import { deleteComment, switchComment, updateComment } from '../../../services/commentaire.service';
+import router, { useRouter } from 'next/router';
 import { DrawerCommentaire } from './DrawerCommentaire';
+import { ContextApp } from '../../../Context/ContextAuth/ContextAuth';
+import moment from 'moment';
 
 interface IPropsCardCommentaire {
     commentaires: ICommentaire[];
@@ -17,15 +19,16 @@ interface IPropsCardCommentaire {
 const { Title } = Typography;
 
 export const TableCommentaire: React.FunctionComponent<IPropsCardCommentaire> = ({ commentaires }) => {
+    const { tokenSession } = React.useContext(ContextApp);
     const [idEditCommentaire, setIdEditCommentaire] = useState(null);
     const [isLoading, setIsLoading] = useState(false);
-
+    const router = useRouter()
     const deleteCommentaire = async (IdCommentaire: number) => {
         setIsLoading(true);
-        await deleteComment(IdCommentaire).then((res) => {
+        await deleteComment(IdCommentaire, tokenSession.token).then((res) => {
             if (res.status == 200) {
                 notification.success({
-                    message: 'Utilisateur suprimmer',
+                    message: 'Commentaire suprimmer',
                 });
             } else {
                 notification.error({
@@ -33,27 +36,23 @@ export const TableCommentaire: React.FunctionComponent<IPropsCardCommentaire> = 
                 });
             }
         });
+        router.replace(router.asPath)
         setIsLoading(false);
     }
 
-    const updateCommentaire = async (commentaireId, validation, auteur, date, description, ressource) => {
+    const switchCommentaire = async (commentaireId) => {
         setIsLoading(true);
-        const updateCommentaire: ICommentaire = {
-            validation: validation,
-            utilisateur: auteur,
-            date_creation: date,
-            description: description,
-            ressource: ressource,
-        }
-        await updateComment(commentaireId, updateCommentaire);
+        await switchComment(commentaireId, tokenSession.token);
         setIsLoading(false);
-        router.reload();
+        router.replace(router.asPath)
     };
+    console.log(commentaires)
     const columns = [
         {
             title: 'Auteur',
-            dataIndex: 'auteur',
-            key: 'auteur',
+            dataIndex: 'utilisateur',
+            key: 'utilisateur',
+            render :val => <p>{val.pseudo}</p>,
         },
         {
             title: 'Contenue',
@@ -64,32 +63,33 @@ export const TableCommentaire: React.FunctionComponent<IPropsCardCommentaire> = 
             title: 'Ressource',
             dataIndex: 'ressource',
             key: 'ressource',
-            render: val => (<p> {val} </p>),
+            render :val => <p>{val.titre}</p>,
         },
 
         {
-            title: 'date_creation',
+            title: 'Date de creation',
             dataIndex: 'date_creation',
             key: 'date_creation',
+            render :val => <p>{moment(new Date(val)).format("DD/MM/YYYY HH:mm:ss")}</p>,
         },
         {
             title: 'Validation',
             dataIndex: 'validation',
             key: 'validation',
-            render: (val) => (<Switch
+            render: (val, record) => (<Switch
                 checkedChildren={<CheckOutlined />}
                 unCheckedChildren={<CloseOutlined />}
-                defaultChecked={val.validation}
-                onChange={() => { updateCommentaire(val.id, !val.validation, val.auteur, val.date, val.description, val.ressource) }}
+                defaultChecked={val}
+                onChange={() => { switchCommentaire(record._id) }}
             />)
+            // render: val => (val ? <div className='left'><Tag color="green">Actif</Tag></div> : <div className='left'><Tag color="red">Non Actif</Tag></div>),
         },
         {
             title: 'Actions',
             key: 'action',
             render: (record) => (
                 <Space>
-                    <Button icon={<DeleteOutlined />} onClick={() => { setIdEditCommentaire(record.id) }} />
-                    <Button icon={<DeleteOutlined />} onClick={() => { deleteCommentaire(record.id) }} />
+                    <Button icon={<DeleteOutlined />} onClick={() => { deleteCommentaire(record._id) }} />
                 </Space>
             ),
         },
