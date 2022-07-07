@@ -7,14 +7,13 @@ import { getAllRessources } from '../services/ressource.service';
 import { ContextApp } from '../Context/ContextAuth/ContextAuth';
 
 export default function Index({ resRessources = [] }) {
-    const { userSession } = useContext(ContextApp);
+    // const { userSession } = useContext(ContextApp);
     return (
         <>
             <Page
                 title='Accueil'
             >
                 <ListRessources ressources={resRessources} />
-                <FormulaireRessource disable={Object.keys(userSession).length !== 0 ? false : false} type='create' />
             </Page>
         </>
 
