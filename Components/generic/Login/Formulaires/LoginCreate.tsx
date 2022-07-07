@@ -74,7 +74,7 @@ const LoginCreate: React.FunctionComponent = () => {
         setIsLoading(true);
         await axios({
             method: 'POST',
-            url: 'http://localhost:3000/api/inscription',
+            url: 'https://projetcubesapi.herokuapp.com/api/inscription',
             data: {
                 nom: values.nom,
                 prenom: values.prenom,

@@ -11,14 +11,14 @@ interface newComment{
 
 export function getAllComments() {
     return axios({
-        url: 'http://localhost:3000/api/commentaire',
+        url: 'https://projetcubesapi.herokuapp.com/api/commentaire',
         method: 'get',
     })
 }
 
 export function deleteComment(idRessource: number, token) {
     return axios({
-        url: `http://localhost:3000/api/commentaire/${idRessource}`,
+        url: `https://projetcubesapi.herokuapp.com/api/commentaire/${idRessource}`,
         method: 'delete',
         headers: {
             Authorization: `Bearer ${token}`,
@@ -28,7 +28,7 @@ export function deleteComment(idRessource: number, token) {
 }
 export function switchComment(idRessource: number, token) {
     return axios({
-        url: `http://localhost:3000/api/commentaire/${idRessource}/switch`,
+        url: `https://projetcubesapi.herokuapp.com/api/commentaire/${idRessource}/switch`,
         method: 'patch',
         headers: {
             Authorization: `Bearer ${token}`,
@@ -39,20 +39,20 @@ export function switchComment(idRessource: number, token) {
 
 export function getCommentById(idComment: number) {
     return axios({
-        url: `http://localhost:3000/api/commentaire/${idComment}`,
+        url: `https://projetcubesapi.herokuapp.com/api/commentaire/${idComment}`,
         method: 'get'
     })
 }
 
 export function getCommentByIdRessource(idRessource: number) {
     return axios({
-        url: `http://localhost:3000/api/commentaire/${idRessource}`,
+        url: `https://projetcubesapi.herokuapp.com/api/commentaire/${idRessource}`,
         method: 'get'
     })
 }
 export function updateComment(idComment: number, newValue: ICommentaire) {
     return axios({
-        url: `http://localhost:3000/api/commentaire/${idComment}`,
+        url: `https://projetcubesapi.herokuapp.com/api/commentaire/${idComment}`,
         method: 'PATCH',
         data:newValue
     })
@@ -60,7 +60,7 @@ export function updateComment(idComment: number, newValue: ICommentaire) {
 
 export function createComment(newComment: newComment, token: string) {
     return axios({
-        url: 'http://localhost:3000/api/commentaire',
+        url: 'https://projetcubesapi.herokuapp.com/api/commentaire',
         method: 'post',
         data:newComment,
         headers: {

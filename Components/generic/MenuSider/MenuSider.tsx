@@ -37,7 +37,7 @@ export const MenuSider: FunctionComponent = () => {
         setIsLoading(true)
         axios({
             method: 'get',
-            url: 'http://localhost:3000/api/utilisateur/role',
+            url: 'https://projetcubesapi.herokuapp.com/api/utilisateur/role',
             headers: {
                 'Authorization': 'Bearer ' + tokenSession.token
             }

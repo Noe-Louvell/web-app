@@ -47,7 +47,7 @@ export const DrawerUser: React.FunctionComponent<IPropsDrawerUser> = ({ idUser, 
     const getAllRoles = async () => {
         setIsLoading(true);
         await axios({
-            url: `http://localhost:3000/api/role`,
+            url: `https://projetcubesapi.herokuapp.com/api/role`,
             method: "GET",
             headers: {
                 Authorization: `Bearer ${tokenSession.token}`,
@@ -71,7 +71,7 @@ export const DrawerUser: React.FunctionComponent<IPropsDrawerUser> = ({ idUser, 
 
     const onSubmit = async (value) => {
         await axios({
-            url: `http://localhost:3000/api/utilisateur/${idUser}`,
+            url: `https://projetcubesapi.herokuapp.com/api/utilisateur/${idUser}`,
             method: "PATCH",
             data: {
                 nom: value.nom,

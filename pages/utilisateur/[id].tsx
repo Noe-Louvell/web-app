@@ -18,7 +18,7 @@ export default function ProfileById({user}) {
 export const getServerSideProps: GetServerSideProps = async context =>  {
     const response = await axios({
         method: 'get',
-        url: `http://localhost:3000/api/${context.resolvedUrl}`,
+        url: `https://projetcubesapi.herokuapp.com/api/${context.resolvedUrl}`,
         headers: {
             'Authorization': `Bearer ${context.req.headers.cookie.split('token=')[1]}`
         }

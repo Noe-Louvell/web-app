@@ -17,7 +17,7 @@ export default function AdminCommentaires({ commentaireData }) {
 export async function getServerSideProps(context) {
     const response = await axios({
         method: 'get',
-        url: 'http://localhost:3000/api/commentaire',
+        url: 'https://projetcubesapi.herokuapp.com/api/commentaire',
         headers: {
             'Authorization': `Bearer ${context.req.headers.cookie.split('token=')[1]}`
         }

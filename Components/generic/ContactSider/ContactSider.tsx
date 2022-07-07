@@ -18,7 +18,7 @@ export const ContactSider: FunctionComponent = () => {
         setloadingAbonnement(true)
         axios({
             method: 'get',
-            url: 'http://localhost:3000/api/utilisateur/abonne',
+            url: 'https://projetcubesapi.herokuapp.com/api/utilisateur/abonne',
             headers: {
                 'Authorization': 'Bearer ' + tokenSession.token
             }
@@ -29,7 +29,7 @@ export const ContactSider: FunctionComponent = () => {
 
         axios({
             method: 'get',
-            url: 'http://localhost:3000/api/utilisateur/abonnementnoe',
+            url: 'https://projetcubesapi.herokuapp.com/api/utilisateur/abonnementnoe',
             headers: {
                 'Authorization': 'Bearer ' + tokenSession.token
             }
