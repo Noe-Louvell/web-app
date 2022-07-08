@@ -60,7 +60,7 @@ const CardRessourceIndex: FunctionComponent<IPropsCardRessource> = ({ ressource,
         <Row gutter={16} style={{ marginTop: '10px' }}>
             <Col xs={{ span: 24 }} lg={{ span: 2 }}></Col>
             <Col xs={{ span: 24 }} lg={{ span: 20 }}>
-                <Card bodyStyle={{ paddingBottom: 6 }} style={{ backgroundColor: '#fbfbfb', marginBottom: '5%', maxWidth: '750px', paddingBottom: '6px !important' }} >
+                <Card bodyStyle={{ paddingBottom: 6 }} style={{ backgroundColor: '#fbfbfb', marginBottom: '5%', width: '750px', paddingBottom: '6px !important' }} >
 
                     <Row gutter={16}>
                         <Col xs={{ span: 22 }} lg={{ span: 23 }}>

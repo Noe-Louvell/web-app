@@ -14,7 +14,7 @@ export default function Index({ resRessources = [] }) {
                 title='Accueil'
             >
                 <ListRessources ressources={resRessources} />
-                <FormulaireRessource disable={Object.keys(userSession).length !== 0 ? false : false} type='create' />
+                <FormulaireRessource disable={ Object.keys(userSession).length !== 0 ? false : true} type='create' />
             </Page>
         </>
 
