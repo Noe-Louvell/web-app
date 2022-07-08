@@ -29,7 +29,7 @@ const ListCommentIndex: React.FunctionComponent<IPropsListComment> = ({ comments
         setIsLoading(true);
 
         await axios({
-            url: `https://projetcubesapi.herokuapp.com/api/ressource/${ressourceId}/commentaire`,
+            url: `http://localhost:3000/api/ressource/${ressourceId}/commentaire`,
             method: 'patch',
             data: {
                 description: newCommentContent,
@@ -46,7 +46,7 @@ const ListCommentIndex: React.FunctionComponent<IPropsListComment> = ({ comments
         setIsLoading(true);
 
         await axios({
-            url: `https://projetcubesapi.herokuapp.com/api/commentaire/reponse/${idComment}`,
+            url: `http://localhost:3000/api/commentaire/reponse/${idComment}`,
             method: 'patch',
             data: {
                 description: rep,

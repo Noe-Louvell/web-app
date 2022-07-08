@@ -48,7 +48,7 @@ const AccountUser: React.FunctionComponent<IAccountProps> = ({ user }) => {
         if (userSession.utilisateur === user._id) {
             axios({
                 method: 'get',
-                url: 'https://projetcubesapi.herokuapp.com/api/utilisateur/abonne',
+                url: 'http://localhost:3000/api/utilisateur/abonne',
                 headers: {
                     'Authorization': 'Bearer ' + tokenSession.token
                 }
@@ -59,7 +59,7 @@ const AccountUser: React.FunctionComponent<IAccountProps> = ({ user }) => {
 
             axios({
                 method: 'get',
-                url: 'https://projetcubesapi.herokuapp.com/api/utilisateur/abonnementnoe',
+                url: 'http://localhost:3000/api/utilisateur/abonnementnoe',
                 headers: {
                     'Authorization': 'Bearer ' + tokenSession.token
                 }
@@ -70,7 +70,7 @@ const AccountUser: React.FunctionComponent<IAccountProps> = ({ user }) => {
         } else {
             axios({
                 method: 'get',
-                url: `https://projetcubesapi.herokuapp.com/api/utilisateur/abonne/${user._id}`,
+                url: `http://localhost:3000/api/utilisateur/abonne/${user._id}`,
                 headers: {
                     'Authorization': 'Bearer ' + tokenSession.token
                 }
@@ -81,7 +81,7 @@ const AccountUser: React.FunctionComponent<IAccountProps> = ({ user }) => {
 
             axios({
                 method: 'get',
-                url: `https://projetcubesapi.herokuapp.com/api/utilisateur/abonnement/${user._id}`,
+                url: `http://localhost:3000/api/utilisateur/abonnement/${user._id}`,
                 headers: {
                     'Authorization': 'Bearer ' + tokenSession.token
                 }

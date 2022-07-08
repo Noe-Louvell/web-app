@@ -43,7 +43,7 @@ const CardRessourceIndex: FunctionComponent<IPropsCardRessource> = ({ ressource,
     const { tokenSession } = useContext(ContextApp);
     async function reactRessource(idRessource: string) {
         await axios({
-            url: `https://projetcubesapi.herokuapp.com/api/ressource/${idRessource}/reaction`,
+            url: `http://localhost:3000/api/ressource/${idRessource}/reaction`,
             method: 'patch',
             headers: {
                 'Authorization': `Bearer ${tokenSession.token}`

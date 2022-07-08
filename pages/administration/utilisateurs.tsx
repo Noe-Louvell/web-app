@@ -25,7 +25,7 @@ export default function AdminUtilisateur({ utilisateurData, errorCode }) {
 export async function getServerSideProps(context) {
     const response = await axios({
         method: 'get',
-        url: 'https://projetcubesapi.herokuapp.com/api/utilisateur',
+        url: 'http://localhost:3000/api/utilisateur',
         headers: {
             'Authorization': `Bearer ${context.req.headers.cookie.split('token=')[1]}`
         }

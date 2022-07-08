@@ -19,7 +19,7 @@ const BadgeUserProfile: FunctionComponent = () => {
         if (Object.keys(userSession).length !== 0) {
             axios({
                 method: 'get',
-                url: 'https://projetcubesapi.herokuapp.com/api/utilisateur/monprofil',
+                url: 'http://localhost:3000/api/utilisateur/monprofil',
                 headers: {
                     'Authorization': 'Bearer ' + tokenSession.token
                 }

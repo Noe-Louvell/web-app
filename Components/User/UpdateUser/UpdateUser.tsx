@@ -73,7 +73,7 @@ const UpdateUser: React.FunctionComponent<IPropsUpdateUser> = ({ user, token }) 
     const onFinish = async () => {
         setIsLoading(true);
         await axios({
-            url: `https://projetcubesapi.herokuapp.com/api/utilisateur/update`,
+            url: `http://localhost:3000/api/utilisateur/update`,
             method: "PATCH",
             data: {
                 pseudo: pseudoValue,

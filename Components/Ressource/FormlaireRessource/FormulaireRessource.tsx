@@ -37,7 +37,7 @@ const FormulaireRessource: React.FunctionComponent<IFormulaireProps> = ({ type, 
         setIsLoading(true);
         await axios({
             method: 'patch',
-            url: 'https://projetcubesapi.herokuapp.com/api/ressource',
+            url: 'http://localhost:3000/api/ressource',
             data: {
                 texte: values.texte,
                 titre: values.titre,

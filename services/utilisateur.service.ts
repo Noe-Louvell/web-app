@@ -14,7 +14,7 @@ export async function getAllUtilisateurs() {
 
 export function deleteUtilisateur(idUtilisateur: string, token: string) {
   return axios({
-    url: `https://projetcubesapi.herokuapp.com/api/utilisateur/${idUtilisateur}`,
+    url: `http://localhost:3000/api/utilisateur/${idUtilisateur}`,
     method: "delete",
     headers: {
       Authorization: `Bearer ${token}`,
@@ -28,7 +28,7 @@ export function updateUtilisateur(
   token
 ) {
   return axios({
-    url: `https://projetcubesapi.herokuapp.com/api/utilisateur/${idUtilisateur}`,
+    url: `http://localhost:3000/api/utilisateur/${idUtilisateur}`,
     method: "PATCH",
     data: newValue,
     headers: {
@@ -39,7 +39,7 @@ export function updateUtilisateur(
 
 export function getUtilisateurById(idUtilisateur: string, token) {
   return axios({
-    url: `https://projetcubesapi.herokuapp.com/api/utilisateur/${idUtilisateur}`,
+    url: `http://localhost:3000/api/utilisateur/${idUtilisateur}`,
     method: "get",
     headers: {
       Authorization: `Bearer ${token}`,
@@ -48,7 +48,7 @@ export function getUtilisateurById(idUtilisateur: string, token) {
 }
 export function followUser(idUtilisateur: string, token: string) {
   return axios({
-    url: `https://projetcubesapi.herokuapp.com/api/utilisateur/follow/${idUtilisateur}`,
+    url: `http://localhost:3000/api/utilisateur/follow/${idUtilisateur}`,
     method: "patch",
     headers: {
       Authorization: `Bearer ${token}`,
@@ -58,7 +58,7 @@ export function followUser(idUtilisateur: string, token: string) {
 
 export function createUtilisateur(newUtilisateur: IUser) {
   return axios({
-    url: "https://projetcubesapi.herokuapp.com/api/inscription",
+    url: "http://localhost:3000/api/inscription",
     method: "patch",
     data: { newUtilisateur },
   });
@@ -66,14 +66,14 @@ export function createUtilisateur(newUtilisateur: IUser) {
 
 export function connexion(newConnection: IConnect) {
   return axios({
-    url: "https://projetcubesapi.herokuapp.com/api/connexion",
+    url: "http://localhost:3000/api/connexion",
     method: "post",
     data: newConnection,
   });
 }
 export function deconnexion(token) {
   return axios({
-    url: "https://projetcubesapi.herokuapp.com/api/deconnexion",
+    url: "http://localhost:3000/api/deconnexion",
     method: "post",
     headers: {
       Authorization: `Bearer ${token}`,
@@ -82,7 +82,7 @@ export function deconnexion(token) {
 }
 export function getUtilisateurAbonnement(token) {
   return axios({
-    url: `https://projetcubesapi.herokuapp.com/api/utilisateur/abonnement`,
+    url: `http://localhost:3000/api/utilisateur/abonnement`,
     method: "get",
     headers: {
       Authorization: `Bearer ${token}`,
@@ -91,7 +91,7 @@ export function getUtilisateurAbonnement(token) {
 }
 export function getUtilisateurAbonne(token) {
   return axios({
-    url: `https://projetcubesapi.herokuapp.com/api/utilisateur/abonne`,
+    url: `http://localhost:3000/api/utilisateur/abonne`,
     method: "get",
     headers: {
       Authorization: `Bearer ${token}`,
@@ -101,7 +101,7 @@ export function getUtilisateurAbonne(token) {
 
 export function deleteAccount(token) {
   return axios({
-    url: `https://projetcubesapi.herokuapp.com/api/utilisateur/delete`,
+    url: `http://localhost:3000/api/utilisateur/delete`,
     method: "delete",
     headers: {
       Authorization: `Bearer ${token}`,
@@ -110,7 +110,7 @@ export function deleteAccount(token) {
 }
 export function switchUser(utilisateurId: number, token) {
   return axios({
-    url: `https://projetcubesapi.herokuapp.com/api/utilisateur/${utilisateurId}/switch`,
+    url: `http://localhost:3000/api/utilisateur/${utilisateurId}/switch`,
     method: 'patch',
     headers: {
       Authorization: `Bearer ${token}`,
